@@ -11,18 +11,25 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
-	
+	public TextView activity_edittext;
+	private ContentValues dateValues;
+	public DatePickerFragment(TextView edittext) {
+		this.activity_edittext = edittext;
+	}
 	/** TODO
 	 * Operacion con los datos recogidos en el picker
 	 */
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		ContentValues values = new ContentValues();
-		values.put("Year", year);
-		values.put("Month", month);
-		values.put("Day", day);
+		dateValues = new ContentValues();
+		dateValues.put("Year", year);
+		dateValues.put("Month", month);
+		dateValues.put("Day", day);
+		activity_edittext.setText(String.valueOf(day)  + "/" + String.valueOf(month + 1 )+ "/" + String.valueOf(year));
 		
 		
 	}
@@ -41,5 +48,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	}
 
 	
-
+	public ContentValues getDateValues(){
+		return this.dateValues;
+	}
 }

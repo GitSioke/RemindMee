@@ -19,11 +19,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class RemindNewActivity extends RemindActivity {
-    /** Called when the activity is first created. */
+    
+	TextView edittext;
+	DialogFragment dateFragment;
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
+        edittext = (TextView) findViewById(R.id.TextView_DateShow);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
         
@@ -72,7 +76,7 @@ public class RemindNewActivity extends RemindActivity {
 	 * @param view
 	 */
 	public void showDatePickerDialog(View view){
-		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getFragmentManager(), "datepicker");
+		dateFragment = new DatePickerFragment(edittext);
+		dateFragment.show(getFragmentManager(), "datepicker");
 	}
 }
