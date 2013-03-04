@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, RemindMeActivity!</string>
+    <string name="app_name">RemindMe</string>
+    
+    <!-- Menu strings -->
+    <string name="menu_header">Menu</string>
+	
+    <string name="all_header">Todas las notas</string>
+    
+    <string name="tags_header">Etiquetas</string>
+    
+    <string name="today_header">Hoy</string>
+    
+    <string name="new_header">Nueva Tarea</string>
+    
+    <string name="edit_header">Edición</string>
+    
+    <string name="new_name">Tarea</string>
+    
+    <string name="new_name_hint">Introduce el nombre de la tarea</string>
+    
+    <string name="new_description">Descripcion</string>
+    
+    <string name="new_date">Fecha</string>
+    
+    <string name="new_date_hint">Selecciona la fecha de aviso</string>
+    
+    <string name="new_repeat">Repetición</string>
+    
+    <string name="new_repeat_hint">Selecciona cada cuanto se repite</string>
+    
+    <string name="new_addButton">Añadir</string>
+    
+    
+    <!-- All View -->
+    <string name="all_taskname">Tarea</string>
+    <string name="all_taskid">ID</string>
+   
+   
+</resources>

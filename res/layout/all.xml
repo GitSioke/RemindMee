@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/RelativeLayout_Header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_background">
+        
+        <!--TODO: Cabecera, añadir el texto y una imagen? -->
+        <TextView 
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+            android:text="@string/all_header"
+            android:textSize="@dimen/text_header"
+            android:textColor="@color/header_text"
+            android:layout_marginLeft="@dimen/text_header_margin"></TextView>
+        
+    </LinearLayout>
+    
+    <!--TODO Texto dinamico. Editar -->
+    <FrameLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="0dip"
+       android:layout_weight="1">
+    	<ListView 
+        	android:id="@+id/All_ListViewTask"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        
+    	</ListView>
+       </FrameLayout>
+</LinearLayout>

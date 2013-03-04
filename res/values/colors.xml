@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="splash_hello">#F00</color>
+    <color name="app_name">#D0123FFF</color>
+    <color name="splash_title">#FF9933</color>
+    <color name="white">#FFFFFF</color>
+	<color name="header_text">#FFFFFF</color>
+	<color name="header_background">#FF4000</color>
+	<color name="background">#FFFFFF</color>
+	<color name="normalText">#FF9933</color>
+	<color name="hintText">#424242</color>
+</resources>

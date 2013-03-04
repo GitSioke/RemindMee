@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="splash_hello">10dp</dimen>
+    <dimen name="app_name">10dp</dimen>
+    <dimen name="dim_60dp">60dp</dimen>
+	<dimen name="app_info">20dp</dimen>
+	<dimen name="app_margin_side">5dp</dimen>
+	
+	<dimen name="text_header">30dp</dimen>
+	<dimen name="text_header_margin">7dp</dimen>
+	
+	<!--New_edit secreen -->
+	<dimen name="new_text">20dp</dimen>
+	
+</resources>

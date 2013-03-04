@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/RelativeLayout_Header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_background">"
+        
+        <!--TODO: Cabecera, añadir el texto y una imagen? -->
+        <TextView 
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+            android:text="@string/menu_header"
+            android:textSize="@dimen/text_header"
+            android:textColor="@color/header_text"
+            android:layout_marginLeft="@dimen/text_header_margin"></TextView>
+    </LinearLayout>
+        
+    <LinearLayout
+        android:id="@+id/Menu_LinearLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <TableLayout
+            android:id="@+id/Menu_TableLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="345dp"
+            android:stretchColumns="*" >
+
+            <TableRow 
+                android:id="@+id/Menu_TableRow01"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+                <ImageView 
+                android:id="@+id/Menu_ImageView_Today"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:src="@drawable/menu_today"
+            	android:clickable="true" />
+                <ImageView
+                android:id="@+id/Menu_ImageView_New"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:src="@drawable/menu_new"
+            	android:clickable="true" />
+            </TableRow>
+            <TableRow 
+                android:id="@+id/Menu_TableRow02"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content">
+                 <ImageView
+            	android:id="@+id/Menu_ImageView_Tags"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:src="@drawable/menu_tags"
+            	android:clickable="true" />
+				<ImageView
+            	android:id="@+id/Menu_ImageView_All"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:src="@drawable/menu_all"
+            	android:clickable="true" />
+            </TableRow>                      
+		</TableLayout>
+	</LinearLayout>
+	<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FF4000"
+        android:orientation="vertical" >
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Datos de abajo"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/app_info"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>
