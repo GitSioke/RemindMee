@@ -17,26 +17,31 @@
     
     <string name="edit_header">Edición</string>
     
+    <!-- New View -->
+    
     <string name="new_name">Tarea</string>
-    
     <string name="new_name_hint">Introduce el nombre de la tarea</string>
-    
     <string name="new_description">Descripcion</string>
-    
     <string name="new_date">Fecha</string>
-    
     <string name="new_date_hint">Selecciona la fecha de aviso</string>
-    
     <string name="new_repeat">Repetición</string>
-    
     <string name="new_repeat_hint">Selecciona cada cuanto se repite</string>
-    
     <string name="new_addButton">Añadir</string>
+    <string name="new_time">Hora de aviso</string>
+    <string name="new_time_hint">Selecciona la hora de aviso</string>
     
+    <string-array name="repeat_array">
+        <item>Única</item>
+        <item>Diaria</item>
+        <item>Semanal</item>
+        <item>Mensual</item>
+        <item>Anual</item>
+    </string-array>
     
     <!-- All View -->
     <string name="all_taskname">Tarea</string>
     <string name="all_taskid">ID</string>
    
+    
    
 </resources>

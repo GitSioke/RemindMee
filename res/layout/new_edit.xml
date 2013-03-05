@@ -84,7 +84,38 @@
                 	android:layout_alignRight="@+id/New_ButtonDate"
                 	/>
             </RelativeLayout>
+             
+            <TextView
+                android:id="@+id/New_TextViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_time"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText" />
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+           		<Button
+                	android:id="@+id/New_ButtonTime"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:onClick="showTimePickerDialog"
+                	android:hint="@string/new_time_hint"
+                	android:textColorHint="@color/hintText" 
+                	android:maxLines="4"
+                
+            	/>
             
+            	<TextView 
+               		android:id="@+id/New_TextViewTimeShow"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_alignRight="@+id/New_ButtonTime"
+                	/>
+            </RelativeLayout>
+           
             <TextView
                 android:id="@+id/TextView_Repeat"
                 android:layout_width="wrap_content"
@@ -93,13 +124,12 @@
                 android:textSize="@dimen/new_text"
                 android:textStyle="bold"
                 android:textColor="@color/normalText"  />
-            <EditText 
-                android:id="@+id/EditText_Repeat"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/New_SpinnerRepeat"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/new_repeat_hint"
-                android:maxLines="4"
-                android:inputType="text|textLongMessage"
+                
                 />
             <TextView
                 android:id="@+id/TextView_Description"

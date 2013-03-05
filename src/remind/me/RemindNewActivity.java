@@ -14,13 +14,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class RemindNewActivity extends RemindActivity {
     
 	TextView edittext;
+	TextView textTime;
 	DialogFragment dateFragment;
 	/** Called when the activity is first created. */
     @Override
@@ -28,6 +31,14 @@ public class RemindNewActivity extends RemindActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
         edittext = (TextView) findViewById(R.id.TextView_DateShow);
+        textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
+        
+        Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
+        		android.R.layout.simple_selectable_list_item); 
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        repeatSpinner.setAdapter(adapter);
+        
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
         
@@ -78,5 +89,10 @@ public class RemindNewActivity extends RemindActivity {
 	public void showDatePickerDialog(View view){
 		dateFragment = new DatePickerFragment(edittext);
 		dateFragment.show(getFragmentManager(), "datepicker");
+	}
+	
+	public void showTimePickerDialog(View view){
+		dateFragment = new TimePickerFragment(textTime);
+		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 }

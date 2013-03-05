@@ -18,6 +18,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	public TextView activity_edittext;
 	private ContentValues dateValues;
+	
 	public DatePickerFragment(TextView edittext) {
 		this.activity_edittext = edittext;
 	}
