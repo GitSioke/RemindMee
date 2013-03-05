@@ -29,6 +29,8 @@
     <string name="new_addButton">Añadir</string>
     <string name="new_time">Hora de aviso</string>
     <string name="new_time_hint">Selecciona la hora de aviso</string>
+    <string name="new_tag">Etiqueta</string>
+    <string name="new_tag_hint"></string>
     
     <string-array name="repeat_array">
         <item>Única</item>

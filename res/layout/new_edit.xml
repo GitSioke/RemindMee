@@ -132,6 +132,22 @@
                 
                 />
             <TextView
+                android:id="@+id/New_TextViewTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_tag"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText"  />
+            <EditText 
+                android:id="@+id/New_EditTextTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_tag"
+                android:maxLines="4"
+                android:inputType="text|textLongMessage"
+                />
+            <TextView
                 android:id="@+id/TextView_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

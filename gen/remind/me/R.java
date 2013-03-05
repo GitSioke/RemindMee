@@ -49,7 +49,7 @@ public final class R {
     }
     public static final class id {
         public static final int All_ListViewTask=0x7f090001;
-        public static final int EditText_Description=0x7f090017;
+        public static final int EditText_Description=0x7f090019;
         public static final int EditText_Name=0x7f09000d;
         public static final int Menu_ImageView_All=0x7f090009;
         public static final int Menu_ImageView_New=0x7f090006;
@@ -63,17 +63,19 @@ public final class R {
         public static final int NewScrollView=0x7f09000a;
         public static final int New_ButtonDate=0x7f09000f;
         public static final int New_ButtonTime=0x7f090012;
-        public static final int New_Button_Add=0x7f090018;
+        public static final int New_Button_Add=0x7f09001a;
+        public static final int New_EditTextTag=0x7f090017;
         public static final int New_SpinnerRepeat=0x7f090015;
+        public static final int New_TextViewTag=0x7f090016;
         public static final int New_TextViewTime=0x7f090011;
         public static final int New_TextViewTimeShow=0x7f090013;
         public static final int RelativeLayout_Header=0x7f090000;
-        public static final int Splash_TextView01=0x7f090019;
-        public static final int Task_cityLinkWiki=0x7f09001b;
-        public static final int Task_cityName=0x7f09001a;
+        public static final int Splash_TextView01=0x7f09001b;
+        public static final int Task_cityLinkWiki=0x7f09001d;
+        public static final int Task_cityName=0x7f09001c;
         public static final int TextView_Date=0x7f09000e;
         public static final int TextView_DateShow=0x7f090010;
-        public static final int TextView_Description=0x7f090016;
+        public static final int TextView_Description=0x7f090018;
         public static final int TextView_Name=0x7f09000c;
         public static final int TextView_Repeat=0x7f090014;
     }
@@ -88,10 +90,10 @@ public final class R {
     }
     public static final class string {
         public static final int all_header=0x7f070003;
-        public static final int all_taskid=0x7f070013;
+        public static final int all_taskid=0x7f070015;
         /**  All View 
          */
-        public static final int all_taskname=0x7f070012;
+        public static final int all_taskname=0x7f070014;
         public static final int app_name=0x7f070001;
         public static final int edit_header=0x7f070007;
         public static final int hello=0x7f070000;
@@ -109,6 +111,8 @@ public final class R {
         public static final int new_name_hint=0x7f070009;
         public static final int new_repeat=0x7f07000d;
         public static final int new_repeat_hint=0x7f07000e;
+        public static final int new_tag=0x7f070012;
+        public static final int new_tag_hint=0x7f070013;
         public static final int new_time=0x7f070010;
         public static final int new_time_hint=0x7f070011;
         public static final int tags_header=0x7f070004;
