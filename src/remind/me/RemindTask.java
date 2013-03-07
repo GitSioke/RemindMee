@@ -4,11 +4,21 @@ public class RemindTask {
 	private String image;
 	private Integer id;
 	private String name;
+	private String tag;
+	private String date;
+	private String time;
+	private String repetition;
 	
-	public RemindTask(Integer id, String name){
+	
+	//TODO Revisar si se puede conseguir con un ContentValues como parametro
+	public RemindTask(String name, String date, String time, String repetition, String tag){
 		super();
-		this.id = id;
+		this.id = hashCode();
 		this.name = name;
+		this.setDate(date);
+		this.setTime(time);
+		this.setRepetition(repetition);
+		this.setTag(tag);
 	}
 
 	public Integer getId() {
@@ -30,5 +40,37 @@ public class RemindTask {
 	public String getImage() {
 		
 		return this.image;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getRepetition() {
+		return repetition;
+	}
+
+	public void setRepetition(String repetition) {
+		this.repetition = repetition;
 	}
 }

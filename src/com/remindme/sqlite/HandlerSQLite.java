@@ -1,5 +1,8 @@
 package com.remindme.sqlite;
 
+
+
+import remind.me.RemindTask;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +16,11 @@ public class HandlerSQLite{
 	
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_NAME = "name";
+	public static final String KEY_DATE="date";
+	public static final String KEY_TIME="time";
+	public static final String KEY_REPETITION="repetition";
+	public static final String KEY_TAG="tag";
+		
 	private static final String TAG = "DBHandler";
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
@@ -41,11 +49,25 @@ public class HandlerSQLite{
 		dbHelper.close();
 	}
 		
-	public long insertNewTask(String taskName){
+	/**
+	 * Inserta en la tabla los parametros que le llegan de la nueva tarea
+	 * @param taskName
+	 * @param date
+	 * @param time
+	 * @param repetition
+	 * @param tag
+	 * @return
+	 */
+	//TODO Revisar si se puede hacer un con ContentValues de parametro o crear una clase de tipo Task
+	public long insertNewTask(RemindTask task){
 		
 		ContentValues taskValues = new ContentValues();
-		taskValues.put(KEY_ROWID, taskName.hashCode());
-		taskValues.put(KEY_NAME, taskName);
+		taskValues.put(KEY_ROWID, task.getId());
+		taskValues.put(KEY_NAME, task.getName());
+		taskValues.put(KEY_DATE, task.getDate());
+		taskValues.put(KEY_TIME, task.getTime());
+		taskValues.put(KEY_REPETITION, task.getRepetition());
+		taskValues.put(KEY_TAG, task.getTag());
 		return db.insert(DATABASE_TABLE, null, taskValues);		
 	}
 

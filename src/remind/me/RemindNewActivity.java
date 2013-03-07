@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 public class RemindNewActivity extends RemindActivity {
     
-	TextView edittext;
+	TextView textDate;
 	TextView textTime;
 	DialogFragment dateFragment;
 	/** Called when the activity is first created. */
@@ -30,7 +30,7 @@ public class RemindNewActivity extends RemindActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
-        edittext = (TextView) findViewById(R.id.TextView_DateShow);
+        textDate = (TextView) findViewById(R.id.TextView_DateShow);
         textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
         
         Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
@@ -41,8 +41,7 @@ public class RemindNewActivity extends RemindActivity {
         
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
-        
-        
+               
         Button addTask = (Button)findViewById(R.id.New_Button_Add);
         addTask.setOnClickListener(new View.OnClickListener() {
 			
@@ -68,9 +67,15 @@ public class RemindNewActivity extends RemindActivity {
     }
 
 	private void initTaskNameEntry() throws IOException, InstantiationException, IllegalAccessException {
-		// TODO Auto-generated method stub
+		// TODO Meter todos los datos en la base de datos, averiguar como se guarda el dato en el spinner para sacarlo
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
+		String time = textTime.getText().toString();
+		String date = textDate.getText().toString();
+		EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
+		String tag = taskTag.getText().toString();
+		Spinner repetition = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+		
 		/*TasksSQLiteHelper tsq = new TasksSQLiteHelper(context, name, factory, version)
 		TasksSQLiteHelper taskdb = new TasksSQLiteHelper(this, "DBTasks", null, 1);
 		SQLiteDatabase db = taskdb.getWritableDatabase();
@@ -87,7 +92,7 @@ public class RemindNewActivity extends RemindActivity {
 	 * @param view
 	 */
 	public void showDatePickerDialog(View view){
-		dateFragment = new DatePickerFragment(edittext);
+		dateFragment = new DatePickerFragment(textDate);
 		dateFragment.show(getFragmentManager(), "datepicker");
 	}
 	

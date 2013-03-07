@@ -81,12 +81,18 @@ public class RemindAllActivity extends RemindActivity {
 		
 	}
 	
+	/**
+	 * Muestra en el TextView de all.xml las tareas almacenadas
+	 */
 	private void displayTaskWithTextView(){
 		ArrayList<RemindTask> tasksList = new ArrayList<RemindTask>();
-		tasksList.add(new RemindTask(10000, "Pero"));
-		tasksList.add(new RemindTask(20000, "esto"));
-		tasksList.add(new RemindTask(30000, "que es"));
+		
+		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "1"));
+		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "2"));
+		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "3"));
 		Log.d("Elemento 1 de tarea",tasksList.get(0).getName());
+		Log.d("Elemento 2 de tarea",tasksList.get(1).getName());
+		Log.d("Elemento 3 de tarea",tasksList.get(2).getName());
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, tasksList));
 		/**
