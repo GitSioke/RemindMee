@@ -1,6 +1,7 @@
 package remind.me;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +16,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	
 	private Context context;
 	
-	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
+	public RemindTaskAdapter(Context context, int textViewResourceId, List<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
 		

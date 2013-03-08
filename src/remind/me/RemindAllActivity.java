@@ -30,7 +30,9 @@ public class RemindAllActivity extends RemindActivity {
         Log.d("ALL", "Set content view");
         setContentView(R.layout.all);
         Log.d("ALL", "Initialize cursor");
-        displayTaskWithTextView();
+       
+        
+        
         //TextView text = (TextView)findViewById(R.id.All_TaskName);
         //Log.d("ALL", "Creating handler");
         //HandlerSQLite db = new HandlerSQLite(this);
@@ -54,19 +56,20 @@ public class RemindAllActivity extends RemindActivity {
         /**
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
-         * db.open();        
-        long id = db.insertNewTask("Matar a tooooodos los humanos");
-        id = db.insertNewTask("Humanos");
+         */
+        HandlerSQLite db = new HandlerSQLite(this);
+        db.open();
+        RemindTask task = new RemindTask("Churri", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
+        RemindTask task2 = new RemindTask("Perry", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
+        RemindTask task3 = new RemindTask("Maison", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
+        long id = db.insertNewTask(task);
+        id = db.insertNewTask(task2);
+        id = db.insertNewTask(task3);
         db.close();
         
         db.open();
-        Cursor c =  db.getAllTasks();
-        if (c.moveToFirst()){
-        	do {
-        		displayTask(c);
-        	}while(c.moveToNext());
-        		
-        }*/
+        List<RemindTask> taskList =  db.getAllTasks();
+        displayTaskWithTextView(taskList);
         
     }
     /**
@@ -84,17 +87,30 @@ public class RemindAllActivity extends RemindActivity {
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
-	private void displayTaskWithTextView(){
-		ArrayList<RemindTask> tasksList = new ArrayList<RemindTask>();
+	private void displayTaskWithTextView(List<RemindTask> taskList){
 		
-		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "1"));
-		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "2"));
-		tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "3"));
+		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
+		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, taskList));
+		/**ArrayList<RemindTask> tasksList = new ArrayList<RemindTask>();
+		cursor.
+		for(int column = cursor.getColumnCount(); column>0 ;column--){
+			taskListcursor.getString(column);
+		}*/
+		
+		
+		/**
+		 * Crea los remind y los muestra 
+		 */
+		/**tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "1"));
+		tasksList.add(new RemindTask("Mapo", "es", "carnaval", "volumen", "2"));
+		tasksList.add(new RemindTask("Chupi", "es", "carnaval", "volumen", "3"));
 		Log.d("Elemento 1 de tarea",tasksList.get(0).getName());
 		Log.d("Elemento 2 de tarea",tasksList.get(1).getName());
 		Log.d("Elemento 3 de tarea",tasksList.get(2).getName());
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, tasksList));
+		*/
+		
 		/**
 		Log.d("ALL", "fin text view id");
 		TextView view = (TextView)findViewById(R.id.All_TaskID);

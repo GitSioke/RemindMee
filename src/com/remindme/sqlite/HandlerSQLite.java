@@ -2,6 +2,9 @@ package com.remindme.sqlite;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import remind.me.RemindTask;
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,10 +28,10 @@ public class HandlerSQLite{
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY," 
-			 +"name VARCHAR not null);";
+			 +"name VARCHAR not null date VARCHAR not null time VARCHAR repetition VARCHAR tag VARCHAR);";
 	
 	private final Context context;
 	
@@ -111,8 +114,25 @@ public class HandlerSQLite{
 	}
 
 
-	public Cursor getAllTasks() {
-		return db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_NAME}, null, null, null, null, null);
+	public List<RemindTask> getAllTasks() {
+		RemindTask task;
+		List<RemindTask> taskList = new ArrayList<RemindTask>();
+		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_NAME, 
+				KEY_DATE, KEY_DATE, KEY_REPETITION, KEY_TAG}, null, null, null, null, null);
+		if (cursor.moveToFirst()){
+        	do {
+        		String name = cursor.getString(0);
+        		String date = cursor.getString(1);
+        		String time =cursor.getString(2);
+        		String repetition = cursor.getString(3);
+        		String tag = cursor.getString(4);
+        		task = new RemindTask(name, date, time, repetition, tag);
+        		taskList.add(task);
+        	}while(cursor.moveToNext());
+        		
+        }
+		
+		return taskList;
 	}
 
 	public String[] getFromColumnsTask() {
