@@ -26,7 +26,7 @@
     <FrameLayout 
        android:layout_width="fill_parent"
        android:layout_height="0dip"
-       android:layout_weight="1">
+       android:layout_weight="3">
     	<ListView 
         	android:id="@+id/All_ListViewTask"
         	android:layout_width="fill_parent"

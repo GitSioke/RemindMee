@@ -37,6 +37,10 @@ public final class R {
          */
         public static final int new_text=0x7f060007;
         public static final int splash_hello=0x7f060000;
+        /**  Task text 
+         */
+        public static final int task_name=0x7f060008;
+        public static final int task_values=0x7f060009;
         public static final int text_header=0x7f060005;
         public static final int text_header_margin=0x7f060006;
     }
@@ -71,8 +75,11 @@ public final class R {
         public static final int New_TextViewTimeShow=0x7f090013;
         public static final int RelativeLayout_Header=0x7f090000;
         public static final int Splash_TextView01=0x7f09001b;
-        public static final int Task_cityLinkWiki=0x7f09001d;
-        public static final int Task_cityName=0x7f09001c;
+        public static final int Task_Date=0x7f09001d;
+        public static final int Task_Name=0x7f09001c;
+        public static final int Task_Repetition=0x7f09001f;
+        public static final int Task_Tag=0x7f090020;
+        public static final int Task_Time=0x7f09001e;
         public static final int TextView_Date=0x7f09000e;
         public static final int TextView_DateShow=0x7f090010;
         public static final int TextView_Description=0x7f090018;

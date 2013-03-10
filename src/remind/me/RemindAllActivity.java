@@ -49,23 +49,23 @@ public class RemindAllActivity extends RemindActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.id., cursor, fromColumns, toViews);
         ListView listView = getListView();
         listView.setAdapter(adapter);*/
-        /*if (cursor.moveToFirst()){
-        	displayTaskWithTextView(cursor);
-        }*/
+        
         
         /**
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
         HandlerSQLite db = new HandlerSQLite(this);
-        db.open();
+        /**
+         * Insercion de elementos
+         * db.open();
         RemindTask task = new RemindTask("Churri", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
         RemindTask task2 = new RemindTask("Perry", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
         RemindTask task3 = new RemindTask("Maison", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
         long id = db.insertNewTask(task);
         id = db.insertNewTask(task2);
         id = db.insertNewTask(task3);
-        db.close();
+        db.close();*/
         
         db.open();
         List<RemindTask> taskList =  db.getAllTasks();

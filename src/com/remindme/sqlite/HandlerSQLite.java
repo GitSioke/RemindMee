@@ -28,13 +28,23 @@ public class HandlerSQLite{
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
-	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY," 
-			 +"name VARCHAR not null date VARCHAR not null time VARCHAR repetition VARCHAR tag VARCHAR);";
+	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
+			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, tag VARCHAR);" ;
+	
+	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
+	 		"name VARCHAR not null)";
+
+	
+	private static final String DATABASE_CREATE3 = "CREATE TABLE IF NOT EXISTS" + DATABASE_TABLE +"("+KEY_ROWID +" INTEGER PRIMARY KEY," 
+			+KEY_NAME+" VARCHAR not null "+KEY_DATE+ " VARCHAR not null " +KEY_TIME+ " VARCHAR " +KEY_REPETITION+ " VARCHAR " +KEY_TAG+ " VARCHAR);";
+	
+	/**private static final String DATABASE_CREATE2 = String.format("create table %s(%s TEXT, %s TEXT,%s TEXT, %s TEXT,%s TEXT, %s TEXT,)", KEY_ROWID, KEY_NAME, 
+			KEY_DATE, KEY_TIME, KEY_REPETITION, KEY_TAG);*/
+	
 	
 	private final Context context;
-	
 	private DatabaseHelper dbHelper;
 	private SQLiteDatabase db;
 	
@@ -118,9 +128,10 @@ public class HandlerSQLite{
 		RemindTask task;
 		List<RemindTask> taskList = new ArrayList<RemindTask>();
 		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_NAME, 
-				KEY_DATE, KEY_DATE, KEY_REPETITION, KEY_TAG}, null, null, null, null, null);
+				KEY_DATE, KEY_TIME, KEY_REPETITION, KEY_TAG}, null, null, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
+        		
         		String name = cursor.getString(0);
         		String date = cursor.getString(1);
         		String time =cursor.getString(2);
