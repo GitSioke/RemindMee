@@ -43,6 +43,7 @@
     <!-- All View -->
     <string name="all_taskname">Tarea</string>
     <string name="all_taskid">ID</string>
+    <string name="task_headertxt">Tarea</string>
    
     
    

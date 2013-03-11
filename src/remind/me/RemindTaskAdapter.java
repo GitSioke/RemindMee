@@ -47,13 +47,13 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             
-        	convertView = mInflater.inflate(R.layout.tasks, null);
+        	convertView = mInflater.inflate(R.layout.list_item_task, null);
             holder = new ViewHolder();
-            holder.txtName = (TextView) convertView.findViewById(R.id.Task_Name);
-            holder.txtDate = (TextView) convertView.findViewById(R.id.Task_Date);
-            holder.txtTime = (TextView) convertView.findViewById(R.id.Task_Time);
-            holder.txtRepeat = (TextView) convertView.findViewById(R.id.Task_Repetition);
-            holder.txtTag = (TextView) convertView.findViewById(R.id.Task_Tag);
+            holder.txtName = (TextView) convertView.findViewById(R.id.ListItemTask_Name);
+            holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
+            holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
+            holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);
+            holder.txtTag = (TextView) convertView.findViewById(R.id.ListItemTask_Tag);
             
             convertView.setTag(holder);
         } else{

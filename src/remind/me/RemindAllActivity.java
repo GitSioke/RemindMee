@@ -93,7 +93,7 @@ public class RemindAllActivity extends RemindActivity {
 	private void displayTaskWithTextView(ArrayList<RemindTask> taskList){
 		
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
-		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, taskList));
+		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
 		
 		/**
 		 * Crea los remind y los muestra 

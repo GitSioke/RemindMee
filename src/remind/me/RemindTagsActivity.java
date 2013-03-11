@@ -34,8 +34,6 @@ public class RemindTagsActivity extends RemindActivity {
          * Apertura database y muestreo de todas las tareas
          */
         db.open();
-        RemindTask task = new RemindTask("Filf", "10/08/1213", "10:20", "ANUAL", "FILFOLF");
-        long id = db.insertNewTask(task);
         ArrayList<String> tagList =  db.getAllTags();
         displayTagWithTextView(tagList);
         //displayTaskWithToast(tagList);
