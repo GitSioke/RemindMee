@@ -1,7 +1,6 @@
 package remind.me;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,13 +15,18 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	
 	private Context context;
 	
-	public RemindTaskAdapter(Context context, int textViewResourceId, List<RemindTask> taskList) {
+	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
 		
 		
 	}
 	
+	/**
+	 * Contenedor de las vistas de la tarea
+	 * @author pick
+	 *
+	 */
 	private class ViewHolder{
 		TextView txtName;
 		TextView txtDate;
@@ -30,6 +34,10 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 		TextView txtRepeat;
 		TextView txtTag;
 	}
+	
+	/**
+	 * Rellena las tareas a medida que aparecen en la pantalla
+	 */
 	@Override
     public View getView ( int position, View convertView, ViewGroup parent ) {
 		ViewHolder holder = null;
@@ -38,7 +46,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            Log.d("Entra en if", "WACK");
+            
         	convertView = mInflater.inflate(R.layout.tasks, null);
             holder = new ViewHolder();
             holder.txtName = (TextView) convertView.findViewById(R.id.Task_Name);
@@ -49,21 +57,16 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             
             convertView.setTag(holder);
         } else{
-        Log.d("Entra en else", "WACK");
+        
            holder = (ViewHolder) convertView.getTag();
         }
         
         
         holder.txtName.setText(task.getName());
-        Log.d("REMINDTASKADAPTER", task.getName());
         holder.txtDate.setText(task.getDate());
-        Log.d("REMINDTASKADAPTER", task.getDate());
         holder.txtTime.setText(task.getTime());
-        Log.d("REMINDTASKADAPTER", task.getTime());
         holder.txtRepeat.setText(task.getRepetition());
-        Log.d("REMINDTASKADAPTER", task.getRepetition());
         holder.txtTag.setText(task.getTag());
-        Log.d("REMINDTASKADAPTER", task.getTag());
         
         return convertView;
 		        

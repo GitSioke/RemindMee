@@ -67,8 +67,11 @@ public class RemindAllActivity extends RemindActivity {
         id = db.insertNewTask(task3);
         db.close();*/
         
+        /**
+         * Apertura database y muestreo de todas las tareas
+         */
         db.open();
-        List<RemindTask> taskList =  db.getAllTasks();
+        ArrayList<RemindTask> taskList =  db.getAllTasks();
         displayTaskWithTextView(taskList);
         
     }
@@ -87,16 +90,10 @@ public class RemindAllActivity extends RemindActivity {
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
-	private void displayTaskWithTextView(List<RemindTask> taskList){
+	private void displayTaskWithTextView(ArrayList<RemindTask> taskList){
 		
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, taskList));
-		/**ArrayList<RemindTask> tasksList = new ArrayList<RemindTask>();
-		cursor.
-		for(int column = cursor.getColumnCount(); column>0 ;column--){
-			taskListcursor.getString(column);
-		}*/
-		
 		
 		/**
 		 * Crea los remind y los muestra 
@@ -111,13 +108,6 @@ public class RemindAllActivity extends RemindActivity {
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, tasksList));
 		*/
 		
-		/**
-		Log.d("ALL", "fin text view id");
-		TextView view = (TextView)findViewById(R.id.All_TaskID);
-		Log.d("ALL", "Set id");
-		view.setText(cursor.getInt(0));
-		TextView view2 = (TextView)findViewById(R.id.All_TaskName);
-		view2.setText(cursor.getString(1));
-		*/
+		
 	}
 }

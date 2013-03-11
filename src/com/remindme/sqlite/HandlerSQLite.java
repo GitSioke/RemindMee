@@ -124,21 +124,22 @@ public class HandlerSQLite{
 	}
 
 
-	public List<RemindTask> getAllTasks() {
+	public ArrayList<RemindTask> getAllTasks() {
 		RemindTask task;
-		List<RemindTask> taskList = new ArrayList<RemindTask>();
+		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
 		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_NAME, 
 				KEY_DATE, KEY_TIME, KEY_REPETITION, KEY_TAG}, null, null, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
         		
-        		String name = cursor.getString(0);
-        		String date = cursor.getString(1);
-        		String time =cursor.getString(2);
-        		String repetition = cursor.getString(3);
-        		String tag = cursor.getString(4);
+        		String name = cursor.getString(1);
+        		String date = cursor.getString(2);
+        		String time =cursor.getString(3);
+        		String repetition = cursor.getString(4);
+        		String tag = cursor.getString(5);
         		task = new RemindTask(name, date, time, repetition, tag);
         		taskList.add(task);
+        		
         	}while(cursor.moveToNext());
         		
         }
@@ -150,5 +151,26 @@ public class HandlerSQLite{
 		String[] fromColumns = {KEY_ROWID, KEY_NAME};
 		return fromColumns;
 	}
+
+	public ArrayList<String> getAllTags() {
+		
+		String tag;
+		ArrayList<String> tagList = new ArrayList<String>();
+		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_TAG}, null, null, null, null, null);
+		if (cursor.moveToFirst()){
+        	do {
+        		Log.d("getAllTags",cursor.getString(0));
+        		tag = cursor.getString(0);
+        		if(!tagList.contains(tag) && tag!=null){
+        			Log.d("getALLTag", "Entra en if");
+        			tagList.add(tag);
+        		}
+        	}while(cursor.moveToNext());
+        		
+        }
+		
+		return tagList;
+	}
+	
 	
 }

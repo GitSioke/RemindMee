@@ -1,7 +1,6 @@
 package remind.me;
 
 public class RemindTask {
-	private String image;
 	private Integer id;
 	private String name;
 	private String tag;
@@ -15,10 +14,10 @@ public class RemindTask {
 		super();
 		this.id = hashCode();
 		this.name = name;
-		this.setDate(date);
-		this.setTime(time);
-		this.setRepetition(repetition);
-		this.setTag(tag);
+		this.date = date;
+		this.time = time;
+		this.repetition = repetition;
+		this.tag =tag;
 	}
 
 	public Integer getId() {
@@ -35,11 +34,6 @@ public class RemindTask {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImage() {
-		
-		return this.image;
 	}
 
 	public String getTag() {

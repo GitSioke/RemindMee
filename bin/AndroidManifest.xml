@@ -12,7 +12,7 @@
         android:debuggable="true"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
-            android:name=".RemindSplashActivity"
+            android:name=".RemindTagsActivity"
             android:noHistory="true"
             android:label="@string/app_name" >
             <intent-filter>
@@ -22,11 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name="RemindActivity"></activity>
-        <activity android:name="RemindMenuActivity"></activity>
+        <!-- <activity android:name="RemindMenuActivity"></activity> -->
         <activity android:name="RemindNewActivity"></activity>
         <activity android:name="RemindAllActivity"></activity>
         <activity android:name="RemindTodayActivity"></activity>
-        <activity android:name="RemindTagsActivity"></activity>
+        <!-- <activity android:name="RemindTagsActivity"></activity> -->
+        <activity android:name="RemindSplashActivity"></activity>
     </application>
 
 </manifest>

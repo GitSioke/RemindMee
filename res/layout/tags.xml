@@ -20,4 +20,16 @@
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
     </LinearLayout>
+    
+      <FrameLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="0dip"
+       android:layout_weight="3">
+    	<ListView 
+        	android:id="@+id/Tags_ListViewTags"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        
+    	</ListView>
+       </FrameLayout>
 </LinearLayout>    
