@@ -9,10 +9,15 @@ import java.util.List;
 import android.provider.Settings.Secure;
 import com.remindme.sqlite.HandlerSQLite;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -90,10 +95,24 @@ public class RemindAllActivity extends RemindActivity {
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
-	private void displayTaskWithTextView(ArrayList<RemindTask> taskList){
+	private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
 		
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+		
+		OnItemClickListener listener = new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				// TODO 
+				Intent intent = new Intent(RemindAllActivity.this, RemindTaskActivity.class);
+				RemindTask task = taskList.get(position);
+				intent.putExtra("task", task);
+				startActivity(intent);
+				
+			}
+		};
+		taskListView.setOnItemClickListener(listener);
 		
 		/**
 		 * Crea los remind y los muestra 

@@ -1,6 +1,9 @@
 package remind.me;
 
-public class RemindTask {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RemindTask implements Parcelable{
 	private Integer id;
 	private String name;
 	private String tag;
@@ -18,8 +21,47 @@ public class RemindTask {
 		this.time = time;
 		this.repetition = repetition;
 		this.tag =tag;
+		
+	}
+	
+	public RemindTask(Parcel parcel){
+		super();
+		readFromParcel(parcel);
+		
+	}
+	
+	public int describeContents() {
+		return 0;
 	}
 
+	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeInt(id);
+		parcel.writeString(name);
+		parcel.writeString(date);
+		parcel.writeString(time);
+		parcel.writeString(repetition);
+		parcel.writeString(tag);
+		
+		
+	}
+	
+	public static final Parcelable.Creator<RemindTask> CREATOR = new Parcelable.Creator<RemindTask>() {
+        public RemindTask createFromParcel(Parcel in) {
+            return new RemindTask(in);
+        }
+ 
+        public RemindTask[] newArray(int size) {
+            return new RemindTask[size];
+        }
+    };
+	private void readFromParcel(Parcel parcel){
+		this.id = parcel.readInt();
+		this.name = parcel.readString();
+		this.date = parcel.readString();
+		this.time = parcel.readString();
+		this.repetition = parcel.readString();
+		this.tag = parcel.readString();
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -67,4 +109,6 @@ public class RemindTask {
 	public void setRepetition(String repetition) {
 		this.repetition = repetition;
 	}
+
+	
 }

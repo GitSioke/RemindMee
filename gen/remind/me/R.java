@@ -83,7 +83,12 @@ public final class R {
         public static final int Tag_ImageViewTag=0x7f090021;
         public static final int Tag_TextTag=0x7f090022;
         public static final int Tags_ListViewTags=0x7f090023;
-        public static final int Task_ListSubTask=0x7f090024;
+        public static final int Task_Date=0x7f090025;
+        public static final int Task_ListSubTask=0x7f090029;
+        public static final int Task_Name=0x7f090024;
+        public static final int Task_Repetition=0x7f090027;
+        public static final int Task_Tag=0x7f090028;
+        public static final int Task_Time=0x7f090026;
         public static final int TextView_Date=0x7f090013;
         public static final int TextView_DateShow=0x7f090015;
         public static final int TextView_Description=0x7f09001d;
