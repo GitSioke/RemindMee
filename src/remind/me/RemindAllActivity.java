@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -52,23 +53,24 @@ public class RemindAllActivity extends RemindActivity {
          */
         HandlerSQLite db = new HandlerSQLite(this);
         /**
-         * Insercion de elementos
-         * db.open();
-        RemindTask task = new RemindTask("Churri", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
-        RemindTask task2 = new RemindTask("Perry", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
-        RemindTask task3 = new RemindTask("Maison", "10/08/1098", "10:20", "DIARIA", "Cuadradohip");
+        RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
+        RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
+        RemindTask task3= new RemindTask("Name3", "13/01/1950", "23:05", "ANUAL", "Tag4", null);
+        db.open();
         long id = db.insertNewTask(task);
         id = db.insertNewTask(task2);
         id = db.insertNewTask(task3);
-        db.close();*/
-        
+        db.close();
+		*/
+       
         /**
          * Apertura database y muestreo de todas las tareas
          */
         db.open();
         
-        ArrayList<RemindTask> taskList =  db.getAllTasks();
+		ArrayList<RemindTask> taskList =  db.getAllTasks();
         displayTaskWithTextView(taskList);
+        db.close();
         
     }
     /**
@@ -87,7 +89,6 @@ public class RemindAllActivity extends RemindActivity {
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
 	private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
-		
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
 		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
 		
@@ -107,17 +108,25 @@ public class RemindAllActivity extends RemindActivity {
 		
 		/**
 		 * Crea los remind y los muestra 
-		 */
-		/**tasksList.add(new RemindTask("Esto", "es", "carnaval", "volumen", "1"));
-		tasksList.add(new RemindTask("Mapo", "es", "carnaval", "volumen", "2"));
-		tasksList.add(new RemindTask("Chupi", "es", "carnaval", "volumen", "3"));
-		Log.d("Elemento 1 de tarea",tasksList.get(0).getName());
-		Log.d("Elemento 2 de tarea",tasksList.get(1).getName());
-		Log.d("Elemento 3 de tarea",tasksList.get(2).getName());
-		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
-		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.tasks, tasksList));
-		*/
+		 */	
 		
 		
+	}
+	
+	public void onCheckBoxClicked(View view){
+		
+	    boolean checked = ((CheckBox) view).isChecked();
+	    
+	    // Check which checkbox was clicked
+	    switch(view.getId()) {
+	        case R.id.ListItemTask_Checkbox:
+	            if (checked)
+	                Log.d("ALL", "Tarea Completada");
+	            else
+	                // Remove the meat
+	            break;
+	        // TODO: Veggie sandwich
+	    }
+
 	}
 }

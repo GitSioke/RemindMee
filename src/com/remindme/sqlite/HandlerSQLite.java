@@ -84,8 +84,9 @@ public class HandlerSQLite{
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
 		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
-		taskValues.put(KEY_COMPLETED, false);
-		return db.insert(DATABASE_TABLE, null, taskValues);		
+		taskValues.put(KEY_COMPLETED, task.isCompleted());
+		return db.insert(DATABASE_TABLE, null, taskValues);
+		
 	}
 
 

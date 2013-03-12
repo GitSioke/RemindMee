@@ -12,7 +12,7 @@
         android:debuggable="true"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
-            android:name=".RemindTagsActivity"
+            android:name=".RemindAllActivity"
             android:noHistory="true"
             android:label="@string/app_name" >
             <intent-filter>

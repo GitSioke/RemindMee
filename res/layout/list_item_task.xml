@@ -46,6 +46,12 @@
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
            android:focusable="false" />
+        
+        <CheckBox 
+            android:id="@+id/ListItemTask_Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckBoxClicked"/>
         </LinearLayout>
     
 
