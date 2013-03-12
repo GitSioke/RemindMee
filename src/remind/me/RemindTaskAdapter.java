@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	
@@ -33,6 +38,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 		TextView txtTime;
 		TextView txtRepeat;
 		TextView txtTag;
+		CheckBox check;
 	}
 	
 	/**
@@ -54,14 +60,25 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
             holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);
             holder.txtTag = (TextView) convertView.findViewById(R.id.ListItemTask_Tag);
+            holder.check= (CheckBox)convertView.findViewById(R.id.ListItemTask_Checkbox);
+            
             
             convertView.setTag(holder);
         } else{
         
            holder = (ViewHolder) convertView.getTag();
         }
-        
-        
+        OnClickListener listener = new OnClickListener() {
+
+			public void onClick(View view) {
+				// TODO 
+				Log.d("ADAPTER", "Hola que ase");
+				
+			}
+		};
+		
+		
+        holder.check.setOnClickListener(listener);
         holder.txtName.setText(task.getName());
         holder.txtDate.setText(task.getDate());
         holder.txtTime.setText(task.getTime());
