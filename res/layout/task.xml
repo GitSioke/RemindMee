@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/RelativeLayout_Header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_background">
+        
+        <!--TODO: Cabecera, añadir el texto y una imagen? -->
+        <TextView 
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+            android:textSize="@dimen/text_header"
+            android:text="@string/task_headertxt"
+            android:textColor="@color/header_text"
+            android:layout_marginLeft="@dimen/text_header_margin"></TextView>
+        
+    </LinearLayout>
+    
+    <!--TODO Tarea con atributos en RelativeLayout, Creacion Subtareas, Display subtareas -->
+    
+    <RelativeLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+       
+      <TextView
+           android:id="@+id/Task_Name"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/task_values"
+           android:textColor="@color/normalText"
+           android:focusable="false"/>
+      <TextView
+           android:id="@+id/Task_Date"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/task_values"
+           android:textColor="@color/normalText"
+           android:focusable="false"/>
+      <TextView
+           android:id="@+id/Task_Time"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/task_values"
+           android:textColor="@color/normalText"
+           android:focusable="false"/>
+      <TextView
+           android:id="@+id/Task_Repetition"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/task_values"
+           android:textColor="@color/normalText"
+           android:focusable="false"/>
+      
+      <TextView
+           android:id="@+id/Task_Tag"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/task_values"
+           android:textColor="@color/normalText"
+           android:focusable="false"/>
+    </RelativeLayout>
+    
+    <FrameLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="0dip"
+       android:layout_weight="3">
+    	<ListView 
+        	android:id="@+id/Task_ListSubTask"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        
+    	</ListView>
+       </FrameLayout>
+</LinearLayout>
