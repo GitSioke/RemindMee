@@ -10,10 +10,13 @@ public class RemindTask implements Parcelable{
 	private String date;
 	private String time;
 	private String repetition;
+	private String superTask;
+	private boolean completed;
+	
 	
 	
 	//TODO Revisar si se puede conseguir con un ContentValues como parametro
-	public RemindTask(String name, String date, String time, String repetition, String tag){
+	public RemindTask(String name, String date, String time, String repetition, String tag, String superTask){
 		super();
 		this.id = hashCode();
 		this.name = name;
@@ -21,6 +24,8 @@ public class RemindTask implements Parcelable{
 		this.time = time;
 		this.repetition = repetition;
 		this.tag =tag;
+		this.superTask=superTask;
+		this.setCompleted(false);
 		
 	}
 	
@@ -35,12 +40,14 @@ public class RemindTask implements Parcelable{
 	}
 
 	public void writeToParcel(Parcel parcel, int flags) {
-		parcel.writeInt(id);
-		parcel.writeString(name);
-		parcel.writeString(date);
-		parcel.writeString(time);
-		parcel.writeString(repetition);
-		parcel.writeString(tag);
+		parcel.writeInt(this.id);
+		parcel.writeString(this.name);
+		parcel.writeString(this.date);
+		parcel.writeString(this.time);
+		parcel.writeString(this.repetition);
+		parcel.writeString(this.tag);
+		parcel.writeString(this.superTask);
+		parcel.writeByte((byte) (this.completed ? 1 : 0));
 		
 		
 	}
@@ -61,6 +68,8 @@ public class RemindTask implements Parcelable{
 		this.time = parcel.readString();
 		this.repetition = parcel.readString();
 		this.tag = parcel.readString();
+		this.superTask = parcel.readString();
+		this.completed = parcel.readByte() ==1;
 	}
 	public Integer getId() {
 		return id;
@@ -108,6 +117,22 @@ public class RemindTask implements Parcelable{
 
 	public void setRepetition(String repetition) {
 		this.repetition = repetition;
+	}
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
+
+	public String getSuperTask() {
+		return superTask;
+	}
+
+	public void setSuperTask(String superTask) {
+		this.superTask = superTask;
 	}
 
 	

@@ -36,16 +36,6 @@ public class RemindAllActivity extends RemindActivity {
         setContentView(R.layout.all);
         Log.d("ALL", "Initialize cursor");
        
-        
-        
-        //TextView text = (TextView)findViewById(R.id.All_TaskName);
-        //Log.d("ALL", "Creating handler");
-        //HandlerSQLite db = new HandlerSQLite(this);
-        /*db.open();
-        long id = db.insertNewTask("Matar a tooooodos los humanos");
-        id = db.insertNewTask("Humanos");
-        db.close();
-        */
         /**db.open();
         Log.d("ALL", "Initialize cursor");
         Cursor cursor =  db.getAllTasks();
@@ -76,6 +66,7 @@ public class RemindAllActivity extends RemindActivity {
          * Apertura database y muestreo de todas las tareas
          */
         db.open();
+        
         ArrayList<RemindTask> taskList =  db.getAllTasks();
         displayTaskWithTextView(taskList);
         

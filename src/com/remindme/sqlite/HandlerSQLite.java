@@ -23,15 +23,17 @@ public class HandlerSQLite{
 	public static final String KEY_TIME="time";
 	public static final String KEY_REPETITION="repetition";
 	public static final String KEY_TAG="tag";
+	public static final String KEY_COMPLETED="completed";
+	public static final String KEY_SUPERTASK="supertask";
 		
 	private static final String TAG = "DBHandler";
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 5;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
-			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, tag VARCHAR);" ;
+			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, tag VARCHAR, supertask VARCHAR, completed BOOL);" ;
 	
 	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
 	 		"name VARCHAR not null)";
@@ -81,6 +83,8 @@ public class HandlerSQLite{
 		taskValues.put(KEY_TIME, task.getTime());
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
+		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
+		taskValues.put(KEY_COMPLETED, false);
 		return db.insert(DATABASE_TABLE, null, taskValues);		
 	}
 
@@ -127,8 +131,7 @@ public class HandlerSQLite{
 	public ArrayList<RemindTask> getAllTasks() {
 		RemindTask task;
 		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
-		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_NAME, 
-				KEY_DATE, KEY_TIME, KEY_REPETITION, KEY_TAG}, null, null, null, null, null);
+		Cursor cursor = db.query(DATABASE_TABLE, null, null, null, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
         		
@@ -137,7 +140,8 @@ public class HandlerSQLite{
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String tag = cursor.getString(5);
-        		task = new RemindTask(name, date, time, repetition, tag);
+        		String superTask = cursor.getString(6);
+        		task = new RemindTask(name, date, time, repetition, tag, superTask);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
@@ -171,6 +175,27 @@ public class HandlerSQLite{
 		
 		return tagList;
 	}
-	
+
+	public ArrayList<RemindTask> getTaskWithTag(String tag) {
+		RemindTask task;
+		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_TAG+"=?", new String[]{tag}, null, null, null);
+		if (cursor.moveToFirst()){
+        	do {
+        		
+        		String name = cursor.getString(1);
+        		String date = cursor.getString(2);
+        		String time =cursor.getString(3);
+        		String repetition = cursor.getString(4);
+        		String superTask = cursor.getString(6);
+        		task = new RemindTask(name, date, time, repetition, tag, superTask);
+        		taskList.add(task);
+        		
+        	}while(cursor.moveToNext());
+        		
+        }
+		return taskList;
+	}
+
 	
 }

@@ -3,10 +3,14 @@ package remind.me;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,7 +40,7 @@ public class RemindTagsActivity extends RemindActivity {
         db.open();
         ArrayList<String> tagList =  db.getAllTags();
         displayTagWithTextView(tagList);
-        //displayTaskWithToast(tagList);
+        
         
     }
    
@@ -44,11 +48,22 @@ public class RemindTagsActivity extends RemindActivity {
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
-	private void displayTagWithTextView(ArrayList<String> tagList){
+	private void displayTagWithTextView(final ArrayList<String> tagList){
 		
 		tagListView = (ListView)findViewById(R.id.Tags_ListViewTags);
 		tagListView.setAdapter(new ArrayAdapter<String>(this, R.layout.tag, R.id.Tag_TextTag, tagList));
+		OnItemClickListener listener = new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				Intent intent = new Intent(RemindTagsActivity.this, RemindTagTaskActivity.class);
+				String tagTask = tagList.get(position);
+				intent.putExtra("tag", tagTask);
+				startActivity(intent);			
+			}
+		};
 		
+		tagListView.setOnItemClickListener(listener);
 		
 	}
 	

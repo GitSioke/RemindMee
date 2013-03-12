@@ -12,7 +12,7 @@
         android:debuggable="true"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
-            android:name=".RemindAllActivity"
+            android:name=".RemindTagsActivity"
             android:noHistory="true"
             android:label="@string/app_name" >
             <intent-filter>
@@ -29,6 +29,7 @@
         <!-- <activity android:name="RemindTagsActivity"></activity> -->
         <activity android:name="RemindSplashActivity"></activity>
         <activity android:name="RemindTaskActivity"></activity>
+        <activity android:name="RemindTagTaskActivity"></activity>
     </application>
 
 </manifest>
