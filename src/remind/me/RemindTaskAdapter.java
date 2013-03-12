@@ -72,7 +72,13 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 
 			public void onClick(View view) {
 				// TODO 
-				Log.d("ADAPTER", "Hola que ase");
+				boolean checked = ((CheckBox) view).isChecked();
+				if(checked){
+					Log.d("ADAPTER", "Hola que ase");
+					
+				}else{
+					Log.d("ADAPTER", "Adios");
+				}
 				
 			}
 		};
