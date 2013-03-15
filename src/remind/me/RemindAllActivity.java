@@ -51,7 +51,7 @@ public class RemindAllActivity extends RemindActivity {
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
-        HandlerSQLite db = new HandlerSQLite(this);
+        RemindTaskDAO db = new HandlerSQLite(this);
         /**
         RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
         RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
@@ -66,11 +66,13 @@ public class RemindAllActivity extends RemindActivity {
         /**
          * Apertura database y muestreo de todas las tareas
          */
-        db.open();
+        //RemindTask task2= new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
+        //task2.setCompleted(true);
+        //db.updateTask(task2);
         
 		ArrayList<RemindTask> taskList =  db.getAllTasks();
         displayTaskWithTextView(taskList);
-        db.close();
+        
         
     }
     /**
@@ -112,7 +114,7 @@ public class RemindAllActivity extends RemindActivity {
 		
 		
 	}
-	
+	/*
 	public void onCheckBoxClicked(View view){
 		
 	    boolean checked = ((CheckBox) view).isChecked();
@@ -128,5 +130,5 @@ public class RemindAllActivity extends RemindActivity {
 	        // TODO: Veggie sandwich
 	    }
 
-	}
+	}*/
 }

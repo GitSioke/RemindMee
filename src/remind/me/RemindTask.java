@@ -1,9 +1,18 @@
 package remind.me;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class RemindTask implements Parcelable{
+	private static final String KEY_ROWID = "id";
+	private static final String KEY_NAME = "name";
+	private static final String KEY_DATE = "date";
+	private static final String KEY_TIME = "time";
+	private static final String KEY_REPETITION = "repetition";
+	private static final String KEY_TAG = "tag";
+	private static final String KEY_SUPERTASK = "supertask";
+	private static final String KEY_COMPLETED = "completed";
 	private Integer id;
 	private String name;
 	private String tag;
@@ -16,19 +25,31 @@ public class RemindTask implements Parcelable{
 	
 	
 	//TODO Revisar si se puede conseguir con un ContentValues como parametro
-	public RemindTask(String name, String date, String time, String repetition, String tag, String superTask){
+	public RemindTask(Integer id,String name, String date, String time, String repetition, String tag, String superTask, Boolean completed){
 		super();
-		this.id = hashCode();
+		if (id==null)
+			this.id = hashCode();
 		this.name = name;
 		this.date = date;
 		this.time = time;
 		this.repetition = repetition;
 		this.tag =tag;
 		this.superTask=superTask;
-		this.setCompleted(false);
+		this.completed=completed;
 		
 	}
 	
+	public RemindTask(ContentValues content){
+		super();
+		this.id =((Integer) content.get(KEY_ROWID));
+		this.name = ((String) content.get(KEY_NAME));
+		this.date=((String) content.get(KEY_DATE));
+		this.time=((String) content.get(KEY_TIME));
+		this.repetition =((String) content.get(KEY_REPETITION));
+		this.tag =((String) content.get(KEY_TAG));
+		this.superTask =((String) content.get(KEY_SUPERTASK));
+		this.completed=((Boolean) content.get(KEY_COMPLETED));
+	}
 	public RemindTask(Parcel parcel){
 		super();
 		readFromParcel(parcel);

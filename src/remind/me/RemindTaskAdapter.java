@@ -2,6 +2,8 @@ package remind.me;
 
 import java.util.ArrayList;
 
+import com.remindme.sqlite.HandlerSQLite;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,11 +21,11 @@ import android.widget.AdapterView.OnItemClickListener;
 public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	
 	private Context context;
+
 	
 	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
-		
 		
 	}
 	
@@ -46,8 +48,9 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	 */
 	@Override
     public View getView ( int position, View convertView, ViewGroup parent ) {
+		
 		ViewHolder holder = null;
-        RemindTask task = getItem(position);
+        final RemindTask task = getItem(position);
  
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -72,12 +75,17 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 
 			public void onClick(View view) {
 				// TODO 
+				
+				Log.d("Adapter", task.getName());
+				Log.d("ADAPTER", task.getId().toString());
+				RemindTaskDAO taskDB= new HandlerSQLite(context);
 				boolean checked = ((CheckBox) view).isChecked();
 				if(checked){
-					Log.d("ADAPTER", "Hola que ase");
 					
+					taskDB.updateTaskCompleted(task);					
 				}else{
-					Log.d("ADAPTER", "Adios");
+					taskDB.updateTaskCompleted(task);
+					
 				}
 				
 			}
@@ -89,7 +97,8 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
         holder.txtDate.setText(task.getDate());
         holder.txtTime.setText(task.getTime());
         holder.txtRepeat.setText(task.getRepetition());
-        holder.txtTag.setText(task.getTag());
+        
+       
         
         return convertView;
 		        

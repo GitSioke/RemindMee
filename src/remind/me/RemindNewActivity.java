@@ -6,14 +6,19 @@ package remind.me;
 
 import java.io.IOException;
 
+import com.remindme.sqlite.HandlerSQLite;
+
 
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,17 +79,26 @@ public class RemindNewActivity extends RemindActivity {
 		String date = textDate.getText().toString();
 		EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 		String tag = taskTag.getText().toString();
-		Spinner repetition = (Spinner)findViewById(R.id.New_SpinnerRepeat);
 		
-		/*TasksSQLiteHelper tsq = new TasksSQLiteHelper(context, name, factory, version)
-		TasksSQLiteHelper taskdb = new TasksSQLiteHelper(this, "DBTasks", null, 1);
-		SQLiteDatabase db = taskdb.getWritableDatabase();
-		if(db!=null){
-			//int _ID = hashCode();
-			String name = taskName.getText().toString();*/
-			
-			
+		final Spinner spinnerRep = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+		spinnerRep.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				parent.getItemAtPosition(position);
+				
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				return;
+				
+			}
+		});
+		String repetition = (String) spinnerRep.getSelectedItem();
+		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, null, false);
+		RemindTaskDAO taskDB = new HandlerSQLite(this);
 		
+		taskDB.insertNewTask(task);		
 		
 	}
 	/**

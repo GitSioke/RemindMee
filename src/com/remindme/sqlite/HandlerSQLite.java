@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import remind.me.RemindTask;
+import remind.me.RemindTaskDAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,9 +14,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-public class HandlerSQLite{
+public class HandlerSQLite implements RemindTaskDAO{
 	
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_NAME = "name";
@@ -75,7 +77,7 @@ public class HandlerSQLite{
 	 */
 	//TODO Revisar si se puede hacer un con ContentValues de parametro o crear una clase de tipo Task
 	public long insertNewTask(RemindTask task){
-		
+		this.open();
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
@@ -85,7 +87,9 @@ public class HandlerSQLite{
 		taskValues.put(KEY_TAG, task.getTag());
 		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
 		taskValues.put(KEY_COMPLETED, task.isCompleted());
-		return db.insert(DATABASE_TABLE, null, taskValues);
+		long changes = db.insert(DATABASE_TABLE, null, taskValues);
+		this.close();
+		return changes;
 		
 	}
 
@@ -128,29 +132,32 @@ public class HandlerSQLite{
 		}
 	}
 
-
 	public ArrayList<RemindTask> getAllTasks() {
+		this.open();
 		RemindTask task;
 		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, null, null, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
-        		
+        		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
         		String date = cursor.getString(2);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String tag = cursor.getString(5);
         		String superTask = cursor.getString(6);
-        		task = new RemindTask(name, date, time, repetition, tag, superTask);
+        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
         		
         }
+		this.close();
 		
 		return taskList;
 	}
+	
 
 	public String[] getFromColumnsTask() {
 		String[] fromColumns = {KEY_ROWID, KEY_NAME};
@@ -158,7 +165,7 @@ public class HandlerSQLite{
 	}
 
 	public ArrayList<String> getAllTags() {
-		
+		this.open();
 		String tag;
 		ArrayList<String> tagList = new ArrayList<String>();
 		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_TAG}, null, null, null, null, null);
@@ -173,29 +180,71 @@ public class HandlerSQLite{
         	}while(cursor.moveToNext());
         		
         }
-		
+		this.close();
 		return tagList;
 	}
 
 	public ArrayList<RemindTask> getTaskWithTag(String tag) {
+		this.open();
 		RemindTask task;
 		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_TAG+"=?", new String[]{tag}, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
-        		
+        		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
         		String date = cursor.getString(2);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String superTask = cursor.getString(6);
-        		task = new RemindTask(name, date, time, repetition, tag, superTask);
+        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
         		
         }
+		this.close();
 		return taskList;
+	}
+
+	public int updateTask(RemindTask task) {
+		this.open();
+		ContentValues taskValues = new ContentValues();
+		taskValues.put(KEY_ROWID, task.getId());
+		taskValues.put(KEY_NAME, task.getName());
+		taskValues.put(KEY_DATE, task.getDate());
+		taskValues.put(KEY_TIME, task.getTime());
+		taskValues.put(KEY_REPETITION, task.getRepetition());
+		taskValues.put(KEY_TAG, task.getTag());
+		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
+		taskValues.put(KEY_COMPLETED, task.isCompleted());
+		int id = db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"="+task.getId(), null);
+		this.close();
+		return id;
+	}
+
+	public void updateTaskCompleted(RemindTask task) {
+		this.open();
+		SQLiteStatement stmt;
+		ContentValues taskValues = new ContentValues();
+		if(task.isCompleted()){
+			task.setCompleted(false);
+			//stmt = db.compileStatement("UPDATE tasks SET completed="+Integer.valueOf(1) +" WHERE id = ?");
+		}else{
+			task.setCompleted(true);
+			//stmt = db.compileStatement("UPDATE tasks SET completed="+Integer.valueOf(0) +" WHERE id = ?");
+		}
+				
+		taskValues.put(KEY_COMPLETED, task.isCompleted());
+		//Integer id = db.update(DATABASE_TABLE, taskValues, KEY_NAME+"=?", new String[]{task.getName()});
+		
+		//stmt.bindLong(1, task.getId());
+		//stmt.execute();
+		Integer acbd = db.update(DATABASE_TABLE, taskValues, "id=?", new String[]{Long.toString(task.getId())});
+		Log.d("UPDATE", acbd.toString());
+		this.close();
+		
 	}
 
 	
