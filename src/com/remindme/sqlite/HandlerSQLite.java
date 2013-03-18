@@ -35,7 +35,8 @@ public class HandlerSQLite implements RemindTaskDAO{
 	private static final int DATABASE_VERSION = 5;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
-			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, tag VARCHAR, supertask VARCHAR, completed BOOL);" ;
+			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, " +
+			"tag VARCHAR, supertask VARCHAR, completed BOOL);" ;
 	
 	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
 	 		"name VARCHAR not null)";
@@ -219,7 +220,7 @@ public class HandlerSQLite implements RemindTaskDAO{
 		taskValues.put(KEY_TAG, task.getTag());
 		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
 		taskValues.put(KEY_COMPLETED, task.isCompleted());
-		int id = db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"="+task.getId(), null);
+		int id = db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"=?", new String[]{task.getId().toString()});
 		this.close();
 		return id;
 	}
@@ -245,6 +246,67 @@ public class HandlerSQLite implements RemindTaskDAO{
 		Log.d("UPDATE", acbd.toString());
 		this.close();
 		
+	}
+	
+	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted){
+		this.open();
+		RemindTask task;
+		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
+		Integer boolValue = isCompleted== true ? 1: 0;
+		Cursor cursor = db.query(DATABASE_TABLE, 
+				null, KEY_COMPLETED+"=?", new String[]{Integer.toString(boolValue)}, null, null, null);
+		if (cursor.moveToFirst()){
+        	do {
+        		Integer id = cursor.getInt(0);
+        		String name = cursor.getString(1);
+        		String date = cursor.getString(2);
+        		String time =cursor.getString(3);
+        		String repetition = cursor.getString(4);
+        		String tag = cursor.getString(5);
+        		String superTask = cursor.getString(6);
+        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		if(completed==true){
+        			Log.d("Handler", "tarea erronea");
+        		}
+        		Log.d("SQLITE", id.toString());
+        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		taskList.add(task);
+        		
+        	}while(cursor.moveToNext());
+        		
+        }
+		this.close();
+		
+		return taskList;
+	}
+	
+	public ArrayList<RemindTask> getCompletedTask(){
+		this.open();
+		RemindTask task;
+		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_COMPLETED+"=?", new String[]{Integer.toString(0)}, null, null, null);
+		if (cursor.moveToFirst()){
+        	do {
+        		Integer id = cursor.getInt(0);
+        		String name = cursor.getString(1);
+        		String date = cursor.getString(2);
+        		String time =cursor.getString(3);
+        		String repetition = cursor.getString(4);
+        		String tag = cursor.getString(5);
+        		String superTask = cursor.getString(6);
+        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		if(completed==true){
+        			Log.d("Handler", "tarea erronea");
+        		}
+        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		taskList.add(task);
+        		
+        	}while(cursor.moveToNext());
+        		
+        }
+		this.close();
+		
+		return taskList;
 	}
 
 	

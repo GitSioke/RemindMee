@@ -26,7 +26,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
-		
+		Log.d("ADAPTER", taskList.get(0).getName().toString());
 	}
 	
 	/**
@@ -51,6 +51,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 		
 		ViewHolder holder = null;
         final RemindTask task = getItem(position);
+        
  
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -91,14 +92,11 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 			}
 		};
 		
-		
-        holder.check.setOnClickListener(listener);
+		holder.check.setOnClickListener(listener);
         holder.txtName.setText(task.getName());
         holder.txtDate.setText(task.getDate());
         holder.txtTime.setText(task.getTime());
         holder.txtRepeat.setText(task.getRepetition());
-        
-       
         
         return convertView;
 		        

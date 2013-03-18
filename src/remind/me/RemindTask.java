@@ -25,10 +25,20 @@ public class RemindTask implements Parcelable{
 	
 	
 	//TODO Revisar si se puede conseguir con un ContentValues como parametro
-	public RemindTask(Integer id,String name, String date, String time, String repetition, String tag, String superTask, Boolean completed){
+	public RemindTask(Integer id,
+					  String name, 
+					  String date, 
+					  String time, 
+					  String repetition, 
+					  String tag, 
+					  String superTask, 
+					  Boolean completed){
 		super();
 		if (id==null)
 			this.id = hashCode();
+		else{
+			this.id = id;
+		}
 		this.name = name;
 		this.date = date;
 		this.time = time;

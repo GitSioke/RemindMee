@@ -9,4 +9,5 @@ public interface RemindTaskDAO {
 	public long insertNewTask(RemindTask task);
 	public int updateTask(RemindTask task);
 	public void updateTaskCompleted(RemindTask task);
+	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted);
 }

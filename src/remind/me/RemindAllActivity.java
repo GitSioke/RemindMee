@@ -70,7 +70,7 @@ public class RemindAllActivity extends RemindActivity {
         //task2.setCompleted(true);
         //db.updateTask(task2);
         
-		ArrayList<RemindTask> taskList =  db.getAllTasks();
+		ArrayList<RemindTask> taskList =  db.getPendingTasks(false);
         displayTaskWithTextView(taskList);
         
         

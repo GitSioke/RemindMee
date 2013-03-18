@@ -45,6 +45,7 @@
     <string name="all_taskid">ID</string>
     <string name="task_headertxt">Tarea</string>
    
-    
+    <!-- Calendar -->
+   <string name="calendar_hint">Toca el primer o el ultimo dia del mes para moverte al mes previo o siguiente</string>
    
 </resources>

@@ -5,6 +5,8 @@ package remind.me;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import com.remindme.sqlite.HandlerSQLite;
 
@@ -24,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RemindNewActivity extends RemindActivity {
     
@@ -35,7 +38,7 @@ public class RemindNewActivity extends RemindActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
-        textDate = (TextView) findViewById(R.id.TextView_DateShow);
+        textDate = (TextView) findViewById(R.id.New_TextViewDateShow);
         textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
         
         Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
@@ -108,10 +111,23 @@ public class RemindNewActivity extends RemindActivity {
 	public void showDatePickerDialog(View view){
 		dateFragment = new DatePickerFragment(textDate);
 		dateFragment.show(getFragmentManager(), "datepicker");
-	}
-	
+	}	
 	public void showTimePickerDialog(View view){
 		dateFragment = new TimePickerFragment(textTime);
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
+
+	public void doPositiveClick() {
+		Log.d("Datepicker", "aceptar");
+		
+	}
+
+	public void doNegativeClick() {
+		Log.d("Datepicker", "cancel");
+		
+	}
+
+	
+	
+
 }
