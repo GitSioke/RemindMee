@@ -309,5 +309,24 @@ public class HandlerSQLite implements RemindTaskDAO{
 		return taskList;
 	}
 
+    public RemindTask getTaskWithID(Integer idTask) {
+        RemindTask task = null;
+        this.open();
+        Cursor cursor =db.query(DATABASE_NAME, null, KEY_ROWID+"=?", new String[]{Long.toString(idTask)}, null, null, null);
+        this.close();
+        if (cursor.moveToFirst()){
+        	Integer id = cursor.getInt(0);
+        	String name = cursor.getString(1);
+        	String date = cursor.getString(2);
+        	String time =cursor.getString(3);
+        	String repetition = cursor.getString(4);
+        	String tag = cursor.getString(5);
+        	String superTask = cursor.getString(6);
+        	Boolean completed = cursor.getInt(7)==1 ? true: false;
+        	task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        }
+        return task;
+}
+
 	
 }
