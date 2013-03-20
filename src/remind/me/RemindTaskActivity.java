@@ -32,8 +32,8 @@
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
            txtRepetition.setText(task.getRepetition());
            
-           
-           
+           Log.d("TASK", "Initialize cursor");
+           Log.d("TASK", "Initialize cursor");
             //TODO Sacar si esta completo o no y modificar el checkbox
             }
                    
