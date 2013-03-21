@@ -76,7 +76,7 @@
     
     <RelativeLayout 
         android:id="@+id/Task_RelativeSubTask"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         >
         <TextView 
@@ -95,7 +95,7 @@
             android:src="@drawable/new_symbol"/>
         
     </RelativeLayout>
-    
+   
     <FrameLayout 
        android:layout_width="fill_parent"
        android:layout_height="0dip"
