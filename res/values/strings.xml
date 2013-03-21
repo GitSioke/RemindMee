@@ -43,7 +43,10 @@
     <!-- All View -->
     <string name="all_taskname">Tarea</string>
     <string name="all_taskid">ID</string>
+    
     <string name="task_headertxt">Tarea</string>
+    <string name="task_subtask">Subtareas</string>
+    <string name="task_subtaskhint">Crear subtarea</string>
    
     <!-- Calendar -->
    <string name="calendar_hint">Toca el primer o el ultimo dia del mes para moverte al mes previo o siguiente</string>

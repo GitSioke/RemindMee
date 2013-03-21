@@ -1,6 +1,11 @@
 package remind.me;
 
+import java.util.List;
+
+import com.remindme.sqlite.HandlerSQLite;
+
 import android.content.ContentValues;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,8 +24,9 @@ public class RemindTask implements Parcelable{
 	private String date;
 	private String time;
 	private String repetition;
-	private String superTask;
+	private Integer superTask;
 	private boolean completed;
+	private List<RemindTask> subTaskList;
 	
 	
 	
@@ -31,7 +37,7 @@ public class RemindTask implements Parcelable{
 					  String time, 
 					  String repetition, 
 					  String tag, 
-					  String superTask, 
+					  Integer superTask, 
 					  Boolean completed){
 		super();
 		if (id==null)
@@ -57,7 +63,7 @@ public class RemindTask implements Parcelable{
 		this.time=((String) content.get(KEY_TIME));
 		this.repetition =((String) content.get(KEY_REPETITION));
 		this.tag =((String) content.get(KEY_TAG));
-		this.superTask =((String) content.get(KEY_SUPERTASK));
+		this.superTask =((Integer) content.get(KEY_SUPERTASK));
 		this.completed=((Boolean) content.get(KEY_COMPLETED));
 	}
 	public RemindTask(Parcel parcel){
@@ -77,7 +83,7 @@ public class RemindTask implements Parcelable{
 		parcel.writeString(this.time);
 		parcel.writeString(this.repetition);
 		parcel.writeString(this.tag);
-		parcel.writeString(this.superTask);
+		parcel.writeInt(this.superTask);
 		parcel.writeByte((byte) (this.completed ? 1 : 0));
 		
 		
@@ -99,7 +105,7 @@ public class RemindTask implements Parcelable{
 		this.time = parcel.readString();
 		this.repetition = parcel.readString();
 		this.tag = parcel.readString();
-		this.superTask = parcel.readString();
+		this.superTask = parcel.readInt();
 		this.completed = parcel.readByte() ==1;
 	}
 	public Integer getId() {
@@ -158,12 +164,20 @@ public class RemindTask implements Parcelable{
 		this.completed = completed;
 	}
 
-	public String getSuperTask() {
+	public Integer getSuperTask() {
 		return superTask;
 	}
 
-	public void setSuperTask(String superTask) {
+	public void setSuperTask(Integer superTask) {
 		this.superTask = superTask;
+	}
+
+	public List<RemindTask> getSubTaskList() {
+		return subTaskList;
+	}
+
+	public void setSubTaskList(List<RemindTask> subTaskList) {
+		this.subTaskList = subTaskList;
 	}
 
 	

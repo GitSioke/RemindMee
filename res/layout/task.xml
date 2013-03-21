@@ -30,7 +30,7 @@
        
       <TextView
            android:id="@+id/Task_Name"
-           android:layout_width="fill_parent"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
@@ -41,21 +41,26 @@
            android:layout_height="wrap_content"
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
-           android:focusable="false"/>
+           android:focusable="false"
+           android:layout_toRightOf="@+id/Task_Name"
+           android:paddingLeft="@dimen/app_padding_left"/>
       <TextView
            android:id="@+id/Task_Time"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
-           android:focusable="false"/>
+           android:focusable="false"
+           android:layout_toRightOf="@+id/Task_Date"
+           android:paddingLeft="@dimen/app_padding_left"/>
       <TextView
            android:id="@+id/Task_Repetition"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
-           android:focusable="false"/>
+           android:focusable="false"
+           android:layout_below="@+id/Task_Name"/>
       
       <TextView
            android:id="@+id/Task_Tag"
@@ -63,7 +68,32 @@
            android:layout_height="wrap_content"
            android:textSize="@dimen/task_values"
            android:textColor="@color/normalText"
-           android:focusable="false"/>
+           android:focusable="false"
+           android:layout_toRightOf="@+id/Task_Repetition"
+           android:layout_below="@+id/Task_Name"
+           android:paddingLeft="@dimen/app_padding_left"/>
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/Task_RelativeSubTask"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        >
+        <TextView 
+            android:id="@+id/Task_TxtSubTask"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_subtask"
+            android:textSize="@dimen/text_header"/>
+
+        <ImageView
+            android:id="@+id/Task_ImgNewSubtask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/new_symbol"/>
+        
     </RelativeLayout>
     
     <FrameLayout 

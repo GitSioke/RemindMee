@@ -6,6 +6,7 @@
     <dimen name="dim_60dp">60dp</dimen>
 	<dimen name="app_info">20dp</dimen>
 	<dimen name="app_margin_side">5dp</dimen>
+	<dimen name="app_padding_left">20dp</dimen>
 	
 	<dimen name="text_header">30dp</dimen>
 	<dimen name="text_header_margin">7dp</dimen>

@@ -32,26 +32,27 @@ public final class R {
         public static final int app_info=0x7f060003;
         public static final int app_margin_side=0x7f060004;
         public static final int app_name=0x7f060001;
-        public static final int cell_heigh=0x7f06000d;
-        public static final int cell_margin_left=0x7f06000f;
-        public static final int cell_margin_top=0x7f06000e;
-        public static final int cell_text_size=0x7f060010;
-        public static final int cell_width=0x7f06000c;
+        public static final int app_padding_left=0x7f060005;
+        public static final int cell_heigh=0x7f06000e;
+        public static final int cell_margin_left=0x7f060010;
+        public static final int cell_margin_top=0x7f06000f;
+        public static final int cell_text_size=0x7f060011;
+        public static final int cell_width=0x7f06000d;
         public static final int dim_60dp=0x7f060002;
         /** New_edit secreen 
          */
-        public static final int new_text=0x7f060007;
+        public static final int new_text=0x7f060008;
         public static final int splash_hello=0x7f060000;
         /**  Task text 
          */
-        public static final int task_name=0x7f060008;
-        public static final int task_values=0x7f060009;
-        public static final int text_header=0x7f060005;
-        public static final int text_header_margin=0x7f060006;
-        public static final int week_left_margin=0x7f06000b;
+        public static final int task_name=0x7f060009;
+        public static final int task_values=0x7f06000a;
+        public static final int text_header=0x7f060006;
+        public static final int text_header_margin=0x7f060007;
+        public static final int week_left_margin=0x7f06000c;
         /**  Calendar 
          */
-        public static final int week_top_margin=0x7f06000a;
+        public static final int week_top_margin=0x7f06000b;
     }
     public static final class drawable {
         public static final int background=0x7f020000;
@@ -61,7 +62,8 @@ public final class R {
         public static final int menu_new=0x7f020004;
         public static final int menu_tags=0x7f020005;
         public static final int menu_today=0x7f020006;
-        public static final int typeb_calendar_today=0x7f020007;
+        public static final int new_symbol=0x7f020007;
+        public static final int typeb_calendar_today=0x7f020008;
     }
     public static final class id {
         public static final int All_ListViewTask=0x7f090001;
@@ -99,11 +101,14 @@ public final class R {
         public static final int Tag_TextTag=0x7f090024;
         public static final int Tags_ListViewTags=0x7f090025;
         public static final int Task_Date=0x7f090027;
-        public static final int Task_ListSubTask=0x7f09002b;
+        public static final int Task_ImgNewSubtask=0x7f09002d;
+        public static final int Task_ListSubTask=0x7f09002e;
         public static final int Task_Name=0x7f090026;
+        public static final int Task_RelativeSubTask=0x7f09002b;
         public static final int Task_Repetition=0x7f090029;
         public static final int Task_Tag=0x7f09002a;
         public static final int Task_Time=0x7f090028;
+        public static final int Task_TxtSubTask=0x7f09002c;
         public static final int TextView_Date=0x7f090015;
         public static final int TextView_Description=0x7f09001f;
         public static final int TextView_Name=0x7f090013;
@@ -130,7 +135,7 @@ public final class R {
         public static final int app_name=0x7f070001;
         /**  Calendar 
          */
-        public static final int calendar_hint=0x7f070017;
+        public static final int calendar_hint=0x7f070019;
         public static final int edit_header=0x7f070007;
         public static final int hello=0x7f070000;
         /**  Menu strings 
@@ -153,6 +158,8 @@ public final class R {
         public static final int new_time_hint=0x7f070011;
         public static final int tags_header=0x7f070004;
         public static final int task_headertxt=0x7f070016;
+        public static final int task_subtask=0x7f070017;
+        public static final int task_subtaskhint=0x7f070018;
         public static final int today_header=0x7f070005;
     }
 }

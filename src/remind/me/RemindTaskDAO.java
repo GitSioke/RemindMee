@@ -1,6 +1,7 @@
 package remind.me;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface RemindTaskDAO {
 	public ArrayList<RemindTask> getTaskWithTag(String tag);
@@ -10,5 +11,6 @@ public interface RemindTaskDAO {
 	public int updateTask(RemindTask task);
 	public void updateTaskCompleted(RemindTask task);
 	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted);
-	public RemindTask getTaskWithID(Integer id);
+	public RemindTask getTaskWithID(Integer idTask);
+	public List<RemindTask> getSubtasks(Integer idTask);
 }
