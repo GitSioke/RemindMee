@@ -9,7 +9,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -36,7 +38,7 @@ import com.remindme.sqlite.HandlerSQLite;
            db.insertNewTask(subTask2);
            db.insertNewTask(subTask3);
            */
-           RemindTask task = taskDB.getTaskWithID(id);
+           final RemindTask task = taskDB.getTaskWithID(id);
            
            
            //RemindTask task = getIntent().getParcelableExtra("task");
@@ -55,6 +57,17 @@ import com.remindme.sqlite.HandlerSQLite;
            ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) taskDAO.getSubtasks(task.getId());
            displayTaskWithTextView(subTasks);         
            
+           ImageView img = (ImageView) findViewById(R.id.Task_ImgNewSubtask);
+           img.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent intent = new Intent(RemindTaskActivity.this, RemindNewActivity.class);
+   				intent.putExtra("superTaskID", task.getId());
+   				startActivity(intent);
+				
+			}
+		});
+
            
            
             //TODO Sacar si esta completo o no y modificar el checkbox

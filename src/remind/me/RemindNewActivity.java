@@ -98,7 +98,10 @@ public class RemindNewActivity extends RemindActivity {
 			}
 		});
 		String repetition = (String) spinnerRep.getSelectedItem();
-		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, null, false);
+		//Revisar el 0
+		Integer superTaskID = getIntent().getIntExtra("taskID", 0);
+		
+		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
 		RemindTaskDAO taskDB = new HandlerSQLite(this);
 		
 		taskDB.insertNewTask(task);		
