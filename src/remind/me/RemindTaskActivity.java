@@ -3,6 +3,7 @@
     import java.util.ArrayList;
 import java.util.List;
      
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -97,6 +98,13 @@ import com.remindme.sqlite.HandlerSQLite;
            		
            		
            	}
-                   
        
+       /**
+        * Edita la tarea al hacer click en la capa Relative correspondiente RelativeTask     
+        */
+       public void editTask(View view){
+    	   Log.d("Entre", "Hola");
+    	   DialogFragment dialog = new RemindAlertDialog();
+    	   dialog.show(getFragmentManager(), "dialog");
+       }
     }

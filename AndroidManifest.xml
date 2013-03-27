@@ -31,6 +31,8 @@
         <activity android:name="RemindSplashActivity"></activity>
         <!--<activity android:name="RemindTaskActivity"></activity>-->
         <activity android:name="RemindTagTaskActivity"></activity>
+        <activity android:name="RemindAlertDialog"
+            android:theme="@android:style/Theme.Holo.Dialog"></activity>
         
         <activity android:name="CalendarActivity">
     

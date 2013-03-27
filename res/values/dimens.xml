@@ -27,4 +27,8 @@
 	<dimen name="cell_margin_left">39px</dimen>
 	<dimen name="cell_text_size">26px</dimen>
 	
+	<!-- Dialog -->
+	<dimen name="dialog_question">25dp</dimen>
+	<dimen name="dialog_answer">20dp</dimen>
+	
 </resources>

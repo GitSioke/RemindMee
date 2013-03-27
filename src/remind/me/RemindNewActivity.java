@@ -48,8 +48,7 @@ public class RemindNewActivity extends RemindActivity {
         repeatSpinner.setAdapter(adapter);
         
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        
-               
+		
         Button addTask = (Button)findViewById(R.id.New_Button_Add);
         addTask.setOnClickListener(new View.OnClickListener() {
 			
@@ -98,9 +97,9 @@ public class RemindNewActivity extends RemindActivity {
 			}
 		});
 		String repetition = (String) spinnerRep.getSelectedItem();
-		//Revisar el 0
-		Integer superTaskID = getIntent().getIntExtra("taskID", 0);
 		
+		Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
+		Log.d("NEW", Integer.toString(superTaskID));
 		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
 		RemindTaskDAO taskDB = new HandlerSQLite(this);
 		

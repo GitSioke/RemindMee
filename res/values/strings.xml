@@ -50,5 +50,8 @@
    
     <!-- Calendar -->
    <string name="calendar_hint">Toca el primer o el ultimo dia del mes para moverte al mes previo o siguiente</string>
+   <string name="dialog_edit">Editar</string>
+   <string name="dialog_cancel">Cancelar</string>
+   <string name="dialog_ask_edit">¿Deseas editar la tarea?</string>
    
 </resources>

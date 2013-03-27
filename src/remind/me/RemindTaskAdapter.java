@@ -63,7 +63,8 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
             holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
             holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);
-            holder.txtTag = (TextView) convertView.findViewById(R.id.ListItemTask_Tag);
+            //Eliminado tag en principio
+            //holder.txtTag = (TextView) convertView.findViewById(R.id.ListItemTask_Tag);
             holder.check= (CheckBox)convertView.findViewById(R.id.ListItemTask_Checkbox);
             
             
