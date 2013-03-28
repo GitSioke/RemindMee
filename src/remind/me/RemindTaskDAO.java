@@ -13,4 +13,6 @@ public interface RemindTaskDAO {
 	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted);
 	public RemindTask getTaskWithID(Integer idTask);
 	public List<RemindTask> getSubtasks(Integer idTask);
+	public int deleteTask(Integer idTask);
+	public int deleteSubtask(Integer idTask);
 }

@@ -25,55 +25,69 @@
     <!--TODO Tarea con atributos en RelativeLayout, Creacion Subtareas, Display subtareas -->
     
     <RelativeLayout 
+        android:id="@+id/Task_RelativeTaskAll"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:id="@+id/Task_RelativeTask"
-        android:onClick="editTask">
+        android:layout_width="fill_parent">
+        
+        <RelativeLayout 
+            android:id="@+id/Task_RelativeTaskText"
+        	android:layout_height="wrap_content"
+        	android:layout_width="fill_parent"
+        	android:onClick="editTask">
        
-      <TextView
-           android:id="@+id/Task_Name"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/task_values"
-           android:textColor="@color/normalText"
-           android:focusable="false"/>
-      <TextView
-           android:id="@+id/Task_Date"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/task_values"
-           android:textColor="@color/normalText"
-           android:focusable="false"
-           android:layout_toRightOf="@+id/Task_Name"
-           android:paddingLeft="@dimen/app_padding_left"/>
-      <TextView
-           android:id="@+id/Task_Time"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/task_values"
-           android:textColor="@color/normalText"
-           android:focusable="false"
-           android:layout_toRightOf="@+id/Task_Date"
-           android:paddingLeft="@dimen/app_padding_left"/>
-      <TextView
-           android:id="@+id/Task_Repetition"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/task_values"
-           android:textColor="@color/normalText"
-           android:focusable="false"
-           android:layout_below="@+id/Task_Name"/>
+	      <TextView
+	           android:id="@+id/Task_Name"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"/>
+	      <TextView
+	           android:id="@+id/Task_Date"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_toRightOf="@+id/Task_Name"
+	           android:paddingLeft="@dimen/app_padding_left"/>
+	      <TextView
+	           android:id="@+id/Task_Time"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_toRightOf="@+id/Task_Date"
+	           android:paddingLeft="@dimen/app_padding_left"/>
+	      <TextView
+	           android:id="@+id/Task_Repetition"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_below="@+id/Task_Name"/>
+	      
+	      <TextView
+	           android:id="@+id/Task_Tag"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_toRightOf="@+id/Task_Repetition"
+	           android:layout_below="@+id/Task_Name"
+	           android:paddingLeft="@dimen/app_padding_left"/>
+	      </RelativeLayout>
+      <ImageButton 
+          android:id="@+id/Task_ImageButtonDelete"
+          android:layout_height="wrap_content"
+          android:layout_width="wrap_content"
+          android:src="@drawable/ic_delete"
+          android:layout_alignParentRight="true"
+          android:onClick="deleteTask"/>
       
-      <TextView
-           android:id="@+id/Task_Tag"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/task_values"
-           android:textColor="@color/normalText"
-           android:focusable="false"
-           android:layout_toRightOf="@+id/Task_Repetition"
-           android:layout_below="@+id/Task_Name"
-           android:paddingLeft="@dimen/app_padding_left"/>
     </RelativeLayout>
     
     <RelativeLayout 

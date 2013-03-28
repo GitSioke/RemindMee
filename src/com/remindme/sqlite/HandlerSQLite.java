@@ -354,5 +354,19 @@ public class HandlerSQLite implements RemindTaskDAO{
 		return subTasks;
 	}
 
+	public int deleteTask(Integer idTask) {
+		this.open();
+		int changes = db.delete(DATABASE_TABLE, KEY_ROWID+"=?", new String[]{idTask.toString()});
+		this.close();
+		return changes;
+	}
+
+	public int deleteSubtask(Integer idTask) {
+		this.open();
+		int changes = db.delete(DATABASE_TABLE, KEY_SUPERTASK+"=?", new String[]{idTask.toString()});
+		this.close();
+		return changes;
+	}
+
 	
 }

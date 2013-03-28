@@ -53,5 +53,11 @@
    <string name="dialog_edit">Editar</string>
    <string name="dialog_cancel">Cancelar</string>
    <string name="dialog_ask_edit">¿Deseas editar la tarea?</string>
+   <string name="dialog_delete">Eliminar todo</string>
+   <string name="dialog_deleteTask">Elimar tarea</string><string name="dialog_ask_delete">¿Desea eliminar la tarea y sus subtareas?</string>
+   
+   <string name="menu_toast_delete">La tarea ha sido eliminada</string>
+   <string name="menu_toast_deleteAll">Se ha eliminado la tarea y sus subtareas</string>
+   
    
 </resources>

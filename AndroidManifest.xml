@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="RemindActivity"></activity>
-        <!-- <activity android:name="RemindMenuActivity"></activity> -->
+        <activity android:name="RemindMenuActivity"></activity>
         <activity android:name="RemindNewActivity"></activity>
         <activity android:name="RemindAllActivity"></activity>
         <activity android:name="RemindTodayActivity"></activity>

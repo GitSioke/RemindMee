@@ -3,11 +3,14 @@ package remind.me;
 
 
 
+import com.remindme.sqlite.HandlerSQLite;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class RemindMenuActivity extends RemindActivity {
     /** Called when the activity is first created. */
@@ -16,6 +19,21 @@ public class RemindMenuActivity extends RemindActivity {
         Log.d("MENU", "Entrando en onCreate");
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+        
+        //Elimina las tareas
+        if (removedPendingTasks()){
+        	RemindTaskDAO taskDB = new HandlerSQLite(this);        	
+        	RemindTask task = getIntent().getParcelableExtra("Task");
+        	taskDB.deleteTask(task.getId());
+        	Toast toast = Toast.makeText(this, R.string.menu_toast_delete, Toast.LENGTH_SHORT);
+        	
+        	if (getIntent().getBooleanExtra("DeleteAll", false)){
+        		taskDB.deleteSubtask(task.getId());
+        		toast.setText(R.string.menu_toast_deleteAll);
+        	}
+        	toast.show();
+        }
+        //
         
         ImageView imageAll = (ImageView) findViewById(R.id.Menu_ImageView_All);
         ImageView imageTags = (ImageView) findViewById(R.id.Menu_ImageView_Tags);
@@ -54,4 +72,15 @@ public class RemindMenuActivity extends RemindActivity {
         	}
         });
     }
+    
+    
+    /**
+     * Elimina las tareas que tenga que eliminar si ha recibido orden desde RemindTaskActivity
+     */
+	private Boolean removedPendingTasks() {
+		// TODO 
+		return getIntent().getBooleanExtra("DeleteAll", false) || getIntent().getBooleanExtra("DeleteTask", false);
+		
+	}
+	
 }

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
      
 import com.remindme.sqlite.HandlerSQLite;
      
@@ -30,6 +31,7 @@ import com.remindme.sqlite.HandlerSQLite;
            
            RemindTaskDAO taskDB = new  HandlerSQLite(this);
            Integer id = 1088402616;
+           task = taskDB.getTaskWithID(id);
            /**
            RemindTask subTask1 =new RemindTask(null, "SubTask1", "10/05/2013", "10:00", "Diaria", "Tag2",id, false);
            RemindTask subTask2 =new RemindTask(null, "SubTask2", "10/05/2013", "10:00", "Diaria", "Tag2",id, false);
@@ -39,7 +41,9 @@ import com.remindme.sqlite.HandlerSQLite;
            db.insertNewTask(subTask2);
            db.insertNewTask(subTask3);
            */
-           task = taskDB.getTaskWithID(id);
+           RemindTask taskDeleted = new RemindTask(null, "Tarea Para Eliminar","10/05/2013", "10:00", "Diaria", "Tag2",id, false );
+           taskDB.insertNewTask(taskDeleted);
+           task = taskDB.getTaskWithID(taskDeleted.getId());
            
            
            //RemindTask task = getIntent().getParcelableExtra("task");
@@ -56,8 +60,9 @@ import com.remindme.sqlite.HandlerSQLite;
            
            RemindTaskDAO taskDAO = new HandlerSQLite(this);
            ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) taskDAO.getSubtasks(task.getId());
-           displayTaskWithTextView(subTasks);         
-           
+           if (!subTasks.isEmpty()){
+        		   displayTaskWithTextView(subTasks);         
+           }
            ImageView img = (ImageView) findViewById(R.id.Task_ImgNewSubtask);
            img.setOnClickListener(new OnClickListener() {
 			
@@ -110,4 +115,15 @@ import com.remindme.sqlite.HandlerSQLite;
     	   dialog.setArguments(bundle);
     	   dialog.show(getFragmentManager(), "dialog");
        }
+       
+       public void deleteTask(View view){
+    	   Log.d("Delete", "Hola");
+    	   
+    	   DialogFragment dialog = new RemindDeleteDialog();
+	       Bundle bundle = new Bundle();
+	       bundle.putParcelable("Task", task);
+	       dialog.setArguments(bundle);
+	       dialog.show(getFragmentManager(), "dialog");
+	      }
+    	
     }
