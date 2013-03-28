@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/RelativeLayout_Header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_background">
+        
+        <!--TODO: Cabecera, añadir el texto y una imagen? -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_header_margin"
+            android:text="@string/edit_header"
+            android:textColor="@color/header_text"
+            android:textSize="@dimen/text_header" >
+</TextView>
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/Edit_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"> 
+        <LinearLayout 
+            android:id="@+id/Edit_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Edit_TextView_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_name"
+                android:textColor="@color/normalText"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold" />
+            <EditText 
+                android:id="@+id/Edit_EditText_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="textPersonName"
+                />
+            
+            <TextView
+                android:id="@+id/TextView_Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_date"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText" />
+
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+           		<Button
+                	android:id="@+id/Edit_ButtonDate"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:onClick="showDatePickerDialog"
+                	android:maxLines="4"
+                
+            	/>
+            
+            	<TextView 
+               		android:id="@+id/Edit_TextViewDateShow"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_alignRight="@+id/Edit_ButtonDate"
+                	/>
+            </RelativeLayout>
+             
+            <TextView
+                android:id="@+id/Edit_TextViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_time"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText" />
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+           		<Button
+                	android:id="@+id/Edit_ButtonTime"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:onClick="showTimePickerDialog"
+                	android:maxLines="4"
+                
+            	/>
+            
+            	<TextView 
+               		android:id="@+id/Edit_TextViewTimeShow"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_alignRight="@+id/Edit_ButtonTime"
+                	/>
+            </RelativeLayout>
+           
+            <TextView
+                android:id="@+id/TextView_Repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_repeat"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText"  />
+            <Spinner
+                android:id="@+id/Edit_SpinnerRepeat"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Edit_TextViewTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_tag"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText"  />
+            <EditText 
+                android:id="@+id/Edit_EditTextTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:inputType="text|textLongMessage"
+                />
+            <TextView
+                android:id="@+id/Edit_TextViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_description"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText"  />
+            <EditText 
+                android:id="@+id/Edit_EditTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:inputType="text|textLongMessage"
+                />
+               
+            <Button 
+                android:id="@+id/Edit_Button_Add"
+               	android:onClick="addTask"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/new_addButton"
+                />
+            
+
+        </LinearLayout>
+        
+        
+        </ScrollView>
+    
+   		
+</LinearLayout>    

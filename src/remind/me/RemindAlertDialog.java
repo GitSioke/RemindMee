@@ -6,13 +6,19 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 
 public class RemindAlertDialog extends DialogFragment {
-
+	
+	private RemindTask task;
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstance){
+		
+		this.task = getArguments().getParcelable("Task");
+		Log.d("Task", task.getId().toString());
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		
@@ -20,8 +26,10 @@ public class RemindAlertDialog extends DialogFragment {
 		.setPositiveButton(R.string.dialog_edit, new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				startActivity(new Intent(null, RemindNewActivity.class));
+				
+				Intent intent = new Intent(getActivity(), RemindEditActivity.class);
+				intent.putExtra("Task", task);
+				startActivity(intent);
 			}
 		})
 			.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {

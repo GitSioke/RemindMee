@@ -20,8 +20,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.remindme.sqlite.HandlerSQLite;
      
     public class RemindTaskActivity extends RemindActivity{
-     
-            @Override
+    	private RemindTask task;
+        @Override
         public void onCreate(Bundle savedInstanceState) {
            super.onCreate(savedInstanceState);
            Log.d("TASK", "Set content view");
@@ -39,7 +39,7 @@ import com.remindme.sqlite.HandlerSQLite;
            db.insertNewTask(subTask2);
            db.insertNewTask(subTask3);
            */
-           final RemindTask task = taskDB.getTaskWithID(id);
+           task = taskDB.getTaskWithID(id);
            
            
            //RemindTask task = getIntent().getParcelableExtra("task");
@@ -105,6 +105,9 @@ import com.remindme.sqlite.HandlerSQLite;
        public void editTask(View view){
     	   Log.d("Entre", "Hola");
     	   DialogFragment dialog = new RemindAlertDialog();
+    	   Bundle bundle = new Bundle();
+    	   bundle.putParcelable("Task", task);
+    	   dialog.setArguments(bundle);
     	   dialog.show(getFragmentManager(), "dialog");
        }
     }

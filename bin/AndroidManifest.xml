@@ -24,15 +24,16 @@
         </activity>
         <activity android:name="RemindActivity"></activity>
         <!-- <activity android:name="RemindMenuActivity"></activity> -->
-        <!--<activity android:name="RemindNewActivity"></activity>-->
+        <activity android:name="RemindNewActivity"></activity>
         <activity android:name="RemindAllActivity"></activity>
         <activity android:name="RemindTodayActivity"></activity>
         <!-- <activity android:name="RemindTagsActivity"></activity> -->
         <activity android:name="RemindSplashActivity"></activity>
         <!--<activity android:name="RemindTaskActivity"></activity>-->
         <activity android:name="RemindTagTaskActivity"></activity>
-        <activity android:name="RemindAlertDialog"
-            android:theme="@android:style/Theme.Holo.Dialog"></activity>
+       <!-- <activity android:name="RemindAlertDialog"
+            android:theme="@android:style/Theme.Holo.Dialog"></activity>-->
+        <activity android:name="RemindEditActivity"></activity>
         
         <activity android:name="CalendarActivity">
     
