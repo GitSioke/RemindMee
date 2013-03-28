@@ -67,7 +67,7 @@ public class RemindNewActivity extends RemindActivity {
         			// TODO Auto-generated catch block
         			e.printStackTrace();
         		}
-				startActivity(new Intent(RemindNewActivity.this, RemindAllActivity.class));				
+				startActivity(new Intent(RemindNewActivity.this, RemindPendingTaskActivity.class));				
 			}
 		});
         

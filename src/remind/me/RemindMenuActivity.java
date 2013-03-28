@@ -45,7 +45,7 @@ public class RemindMenuActivity extends RemindActivity {
 			
         	public void onClick(View v) {
         		Log.d("MENU", "Entrando en onStartActivity");
-        		startActivity(new Intent(RemindMenuActivity.this, RemindAllActivity.class));					
+        		startActivity(new Intent(RemindMenuActivity.this, RemindPendingTaskActivity.class));					
 				
 				
 			}
@@ -66,9 +66,9 @@ public class RemindMenuActivity extends RemindActivity {
 		});
 
         imageToday.setOnClickListener(new View.OnClickListener() {
-	
+        	//TODO Cambio provisional de Today por CompletedTask
         	public void onClick(View v) {
-        		startActivity(new Intent(RemindMenuActivity.this, RemindTodayActivity.class));
+        		startActivity(new Intent(RemindMenuActivity.this, RemindCompletedTaskActivity.class));
         	}
         });
     }

@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import static android.provider.BaseColumns._ID;
 
-public class RemindAllActivity extends RemindActivity {
+public class RemindPendingTaskActivity extends RemindActivity {
     
 	private ListView taskListView;
 	/** Called when the activity is first created. */
@@ -99,7 +99,7 @@ public class RemindAllActivity extends RemindActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				// TODO 
-				Intent intent = new Intent(RemindAllActivity.this, RemindTaskActivity.class);
+				Intent intent = new Intent(RemindPendingTaskActivity.this, RemindTaskActivity.class);
 				RemindTask task = taskList.get(position);
 				intent.putExtra("task", task);
 				startActivity(intent);
@@ -131,4 +131,8 @@ public class RemindAllActivity extends RemindActivity {
 	    }
 
 	}*/
+	
+	public void onCheckTaskItem(View view){
+		
+	}
 }
