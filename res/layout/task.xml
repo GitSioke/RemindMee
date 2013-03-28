@@ -49,7 +49,7 @@
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
-	           android:layout_toRightOf="@+id/Task_Name"
+	           android:layout_below="@+id/Task_Name"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      <TextView
 	           android:id="@+id/Task_Time"
@@ -58,6 +58,7 @@
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
+	           android:layout_below="@+id/Task_Name"
 	           android:layout_toRightOf="@+id/Task_Date"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      <TextView
@@ -67,7 +68,7 @@
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
-	           android:layout_below="@+id/Task_Name"/>
+	           android:layout_below="@+id/Task_Date"/>
 	      
 	      <TextView
 	           android:id="@+id/Task_Tag"
@@ -77,10 +78,17 @@
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
 	           android:layout_toRightOf="@+id/Task_Repetition"
-	           android:layout_below="@+id/Task_Name"
+	           android:layout_below="@+id/Task_Date"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      </RelativeLayout>
-      <ImageButton 
+      <CheckBox 
+          android:id="@+id/Task_Checkbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toLeftOf="@+id/Task_ImageButtonDelete"
+          android:onClick="onCheckBoxClicked"/>
+      
+      <ImageView 
           android:id="@+id/Task_ImageButtonDelete"
           android:layout_height="wrap_content"
           android:layout_width="wrap_content"
@@ -88,7 +96,7 @@
           android:layout_alignParentRight="true"
           android:onClick="deleteTask"/>
       
-    </RelativeLayout>
+    	</RelativeLayout>
     
     <RelativeLayout 
         android:id="@+id/Task_RelativeSubTask"

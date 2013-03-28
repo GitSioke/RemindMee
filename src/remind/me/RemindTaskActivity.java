@@ -41,9 +41,10 @@ import com.remindme.sqlite.HandlerSQLite;
            db.insertNewTask(subTask2);
            db.insertNewTask(subTask3);
            */
-           RemindTask taskDeleted = new RemindTask(null, "Tarea Para Eliminar","10/05/2013", "10:00", "Diaria", "Tag2",id, false );
-           taskDB.insertNewTask(taskDeleted);
-           task = taskDB.getTaskWithID(taskDeleted.getId());
+           //Inserta tarea manualmente
+           //RemindTask taskDeleted = new RemindTask(null, "Tarea Para Eliminar","10/05/2013", "10:00", "Diaria", "Tag2",id, false );
+           //taskDB.insertNewTask(taskDeleted);
+           //task = taskDB.getTaskWithID(taskDeleted.getId());
            
            
            //RemindTask task = getIntent().getParcelableExtra("task");
@@ -108,22 +109,30 @@ import com.remindme.sqlite.HandlerSQLite;
         * Edita la tarea al hacer click en la capa Relative correspondiente RelativeTask     
         */
        public void editTask(View view){
-    	   Log.d("Entre", "Hola");
     	   DialogFragment dialog = new RemindAlertDialog();
     	   Bundle bundle = new Bundle();
     	   bundle.putParcelable("Task", task);
     	   dialog.setArguments(bundle);
     	   dialog.show(getFragmentManager(), "dialog");
        }
-       
-       public void deleteTask(View view){
-    	   Log.d("Delete", "Hola");
-    	   
+       /**
+        * Elimina la tarea al hacer click en el icono delete de task.xml
+        * @param view
+        */
+       public void deleteTask(View view){   	   
     	   DialogFragment dialog = new RemindDeleteDialog();
 	       Bundle bundle = new Bundle();
 	       bundle.putParcelable("Task", task);
 	       dialog.setArguments(bundle);
 	       dialog.show(getFragmentManager(), "dialog");
 	      }
-    	
+       
+       /**
+        * Al hacer checkbox la tarea se completa o se deshace dependiendo de su estado anterior
+        * @param view
+        */
+    	public void onCheckBoxClicked(View view){
+    		RemindTaskDAO taskDB = new HandlerSQLite(this);
+    		taskDB.updateTask(task);
+    	}
     }
