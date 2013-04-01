@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.provider.Settings.Secure;
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +28,7 @@ import static android.provider.BaseColumns._ID;
 public class RemindPendingTaskActivity extends RemindActivity {
     
 	private ListView taskListView;
+	private ListView checkListView;
 	/** Called when the activity is first created. */
    
 	@Override
@@ -51,7 +52,7 @@ public class RemindPendingTaskActivity extends RemindActivity {
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
-        RemindTaskDAO db = new HandlerSQLite(this);
+        RemindTaskDAO db = new RemindTaskSQLite(this);
         /**
         RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
         RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
@@ -70,23 +71,17 @@ public class RemindPendingTaskActivity extends RemindActivity {
         //task2.setCompleted(true);
         //db.updateTask(task2);
         
-		ArrayList<RemindTask> taskList =  db.getPendingTasks(false);
-        displayTaskWithTextView(taskList);
+		ArrayList<RemindTask> taskList =  db.getPendingTasks(false);		
+        if (taskList.isEmpty()){
+        	Toast.makeText(this, R.string.pending_toastEmpty, Toast.LENGTH_LONG).show();
+        }else{
+        	displayTaskWithTextView(taskList);
+        	//displayCheckBoxes(taskList);
+        }
         
         
     }
-    /**
-     * Show 
-     * @param c
-     */
-	private void displayTaskWithToast(Cursor cursor) {
-		String android_id = Secure.getString(getBaseContext().getContentResolver(),
-                Secure.ANDROID_ID); 
-		Toast.makeText(this, "id:"+ cursor.getInt(0) + "\n" +
-	"Tarea: " + cursor.getString(1), Toast.LENGTH_LONG).show();
-		
-	}
-	
+    	
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
@@ -101,6 +96,7 @@ public class RemindPendingTaskActivity extends RemindActivity {
 				// TODO 
 				Intent intent = new Intent(RemindPendingTaskActivity.this, RemindTaskActivity.class);
 				RemindTask task = taskList.get(position);
+				Log.d("Pending", "Tarea seleccionada:"+task.getName());
 				intent.putExtra("task", task);
 				startActivity(intent);
 				
@@ -114,25 +110,10 @@ public class RemindPendingTaskActivity extends RemindActivity {
 		
 		
 	}
-	/*
-	public void onCheckBoxClicked(View view){
-		
-	    boolean checked = ((CheckBox) view).isChecked();
-	    
-	    // Check which checkbox was clicked
-	    switch(view.getId()) {
-	        case R.id.ListItemTask_Checkbox:
-	            if (checked)
-	                Log.d("ALL", "Tarea Completada");
-	            else
-	                // Remove the meat
-	            break;
-	        // TODO: Veggie sandwich
-	    }
-
-	}*/
 	
-	public void onCheckTaskItem(View view){
+	private void displayCheckBoxes(final ArrayList<RemindTask> taskList){
+		checkListView = (ListView)findViewById(R.id.All_ListViewTask);
+		checkListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_check, taskList));
 		
 	}
 }

@@ -5,17 +5,17 @@
     <string name="app_name">RemindMe</string>
     
     <!-- Menu strings -->
-    <string name="menu_header">Menu</string>
+    
 	
-    <string name="all_header">Todas las notas</string>
+    
     
     <string name="tags_header">Etiquetas</string>
     
     <string name="today_header">Hoy</string>
     
-    <string name="new_header">Nueva Tarea</string>
     
-    <string name="edit_header">Editar Tarea</string>
+    
+    <string name="new_header">Nueva Tarea</string>
     
     <!-- New View -->
     
@@ -32,17 +32,17 @@
     <string name="new_tag">Etiqueta</string>
     <string name="new_tag_hint"></string>
     
-    <string-array name="repeat_array">
+    <string name="edit_header">Editar Tarea</string><string-array name="repeat_array">
         <item>Única</item>
         <item>Diaria</item>
         <item>Semanal</item>
         <item>Mensual</item>
         <item>Anual</item>
-    </string-array>
+    </string-array><string name="pending_header">Tareas pendientes</string>
     
     <!-- All View -->
-    <string name="all_taskname">Tarea</string>
-    <string name="all_taskid">ID</string>
+    
+    <string name="pending_taskname">Tarea</string><string name="pending_taskid">ID</string>
     
     <string name="task_headertxt">Tarea</string>
     <string name="task_subtask">Subtareas</string>
@@ -54,10 +54,13 @@
    <string name="dialog_cancel">Cancelar</string>
    <string name="dialog_ask_edit">¿Deseas editar la tarea?</string>
    <string name="dialog_delete">Eliminar todo</string>
-   <string name="dialog_deleteTask">Elimar tarea</string><string name="dialog_ask_delete">¿Desea eliminar la tarea y sus subtareas?</string>
+   <string name="dialog_deleteTask">Elimar tarea</string><string name="dialog_ask_delete">¿Desea eliminar la tarea y sus subtareas?</string><string name="menu_header">Menu</string>
    
-   <string name="menu_toast_delete">La tarea ha sido eliminada</string>
-   <string name="menu_toast_deleteAll">Se ha eliminado la tarea y sus subtareas</string>
+   
+   <string name="menu_toast_deleteAll">Se ha eliminado la tarea y sus subtareas</string><string name="menu_toast_delete">La tarea ha sido eliminada</string>
+   <string name="pending_toastEmpty">¡Relájate miarma! No tienes ninguna tarea pendiente</string>
+   <string name="completed_toastEmpty">No hay tareas completas, lo cual puede ser un problema...</string>
+   <string name="task_toast_hasSubtask">Hay subtareas pendientes. Completalas antes</string>
    
    
 </resources>

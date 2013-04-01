@@ -1,7 +1,9 @@
 package remind.me;
 
 import java.io.IOException;
-import com.remindme.sqlite.HandlerSQLite;
+import java.util.Date;
+
+import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -74,7 +76,8 @@ public class RemindEditActivity extends RemindActivity {
 			EditText txtName = (EditText) findViewById(R.id.Edit_EditText_Name);
 			txtName.setText(task.getName());
 			TextView txtDate = (TextView) findViewById(R.id.Edit_TextViewDateShow);
-			txtDate.setText(task.getDate());
+			//TODO Revisar date
+			txtDate.setText(task.getDate().toString());
 			TextView txtTime = (TextView) findViewById(R.id.Edit_TextViewTimeShow);
 			txtTime.setText(task.getTime());
 			EditText txtTag = (EditText)findViewById(R.id.Edit_EditTextTag);
@@ -98,7 +101,9 @@ public class RemindEditActivity extends RemindActivity {
 		EditText taskName = (EditText)findViewById(R.id.Edit_EditText_Name);
 		String name = taskName.getText().toString();
 		String time = textTime.getText().toString();
-		String date = textDate.getText().toString();
+		Long dateAsLong = Long.getLong(textDate.getText().toString());
+		
+		Date date = new Date(dateAsLong);
 		EditText taskTag = (EditText)findViewById(R.id.Edit_EditTextTag);
 		String tag = taskTag.getText().toString();
 		
@@ -119,7 +124,7 @@ public class RemindEditActivity extends RemindActivity {
 		Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 		Log.d("NEW", Integer.toString(superTaskID));
 		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
-		RemindTaskDAO taskDB = new HandlerSQLite(this);
+		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 		
 		taskDB.insertNewTask(task);		
 		

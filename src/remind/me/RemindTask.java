@@ -1,13 +1,17 @@
 package remind.me;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.content.ContentValues;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.format.Time;
 
 public class RemindTask implements Parcelable{
 	private static final String KEY_ROWID = "id";
@@ -21,7 +25,7 @@ public class RemindTask implements Parcelable{
 	private Integer id;
 	private String name;
 	private String tag;
-	private String date;
+	private Date date;
 	private String time;
 	private String repetition;
 	private Integer superTask;
@@ -33,7 +37,7 @@ public class RemindTask implements Parcelable{
 	//TODO Revisar si se puede conseguir con un ContentValues como parametro
 	public RemindTask(Integer id,
 					  String name, 
-					  String date, 
+					  Date date, 
 					  String time, 
 					  String repetition, 
 					  String tag, 
@@ -59,7 +63,8 @@ public class RemindTask implements Parcelable{
 		super();
 		this.id =((Integer) content.get(KEY_ROWID));
 		this.name = ((String) content.get(KEY_NAME));
-		this.date=((String) content.get(KEY_DATE));
+		Long dateAsLong = (Long) content.getAsLong(KEY_DATE);
+		this.date= new Date(dateAsLong);
 		this.time=((String) content.get(KEY_TIME));
 		this.repetition =((String) content.get(KEY_REPETITION));
 		this.tag =((String) content.get(KEY_TAG));
@@ -79,7 +84,7 @@ public class RemindTask implements Parcelable{
 	public void writeToParcel(Parcel parcel, int flags) {
 		parcel.writeInt(this.id);
 		parcel.writeString(this.name);
-		parcel.writeString(this.date);
+		parcel.writeLong(this.date.getTime());
 		parcel.writeString(this.time);
 		parcel.writeString(this.repetition);
 		parcel.writeString(this.tag);
@@ -101,7 +106,8 @@ public class RemindTask implements Parcelable{
 	private void readFromParcel(Parcel parcel){
 		this.id = parcel.readInt();
 		this.name = parcel.readString();
-		this.date = parcel.readString();
+		Long dateAsLong = parcel.readLong();
+		this.date = new Date(dateAsLong);
 		this.time = parcel.readString();
 		this.repetition = parcel.readString();
 		this.tag = parcel.readString();
@@ -132,11 +138,11 @@ public class RemindTask implements Parcelable{
 		this.tag = tag;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

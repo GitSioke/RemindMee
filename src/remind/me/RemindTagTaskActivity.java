@@ -2,7 +2,7 @@ package remind.me;
 
 import java.util.ArrayList;
 
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ public class RemindTagTaskActivity extends RemindActivity{
 		setContentView(R.layout.all);
 			
 		String tag = getIntent().getStringExtra("tag");
-		HandlerSQLite db = new HandlerSQLite(this);
+		RemindTaskSQLite db = new RemindTaskSQLite(this);
 		db.open();
 		ArrayList<RemindTask> taskList = db.getTaskWithTag(tag);
 		displayTaskWithTextView(taskList);

@@ -3,7 +3,7 @@ package remind.me;
 
 
 
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ public class RemindMenuActivity extends RemindActivity {
         
         //Elimina las tareas
         if (removedPendingTasks()){
-        	RemindTaskDAO taskDB = new HandlerSQLite(this);        	
+        	RemindTaskDAO taskDB = new RemindTaskSQLite(this);        	
         	RemindTask task = getIntent().getParcelableExtra("Task");
         	taskDB.deleteTask(task.getId());
         	Toast toast = Toast.makeText(this, R.string.menu_toast_delete, Toast.LENGTH_SHORT);

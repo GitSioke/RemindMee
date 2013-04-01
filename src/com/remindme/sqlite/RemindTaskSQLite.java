@@ -3,6 +3,7 @@ package com.remindme.sqlite;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import remind.me.RemindTask;
@@ -17,7 +18,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-public class HandlerSQLite implements RemindTaskDAO{
+public class RemindTaskSQLite implements RemindTaskDAO{
 	
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_NAME = "name";
@@ -32,10 +33,10 @@ public class HandlerSQLite implements RemindTaskDAO{
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
-			+"name VARCHAR not null, date VARCHAR not null, time VARCHAR, repetition VARCHAR, " +
+			+"name VARCHAR not null, date LONG not null, time VARCHAR, repetition VARCHAR, " +
 			"tag VARCHAR, supertask INTEGER, completed BOOL);" ;
 	
 	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
@@ -53,12 +54,12 @@ public class HandlerSQLite implements RemindTaskDAO{
 	private DatabaseHelper dbHelper;
 	private SQLiteDatabase db;
 	
-	public HandlerSQLite(Context ctx){
+	public RemindTaskSQLite(Context ctx){
 		this.context = ctx;
 		dbHelper = new DatabaseHelper(context);
 	}
 	
-	public HandlerSQLite open() throws SQLException{
+	public RemindTaskSQLite open() throws SQLException{
 		db= dbHelper.getReadableDatabase();
 		return this;		
 	}
@@ -82,7 +83,7 @@ public class HandlerSQLite implements RemindTaskDAO{
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
-		taskValues.put(KEY_DATE, task.getDate());
+		taskValues.put(KEY_DATE, task.getDate().getTime());
 		taskValues.put(KEY_TIME, task.getTime());
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
@@ -142,7 +143,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         	do {
         		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
-        		String date = cursor.getString(2);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String tag = cursor.getString(5);
@@ -194,7 +196,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         	do {
         		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
-        		String date = cursor.getString(2);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		Integer superTask = cursor.getInt(6);
@@ -214,7 +217,7 @@ public class HandlerSQLite implements RemindTaskDAO{
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
-		taskValues.put(KEY_DATE, task.getDate());
+		taskValues.put(KEY_DATE, task.getDate().getTime());
 		taskValues.put(KEY_TIME, task.getTime());
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
@@ -259,7 +262,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         	do {
         		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
-        		String date = cursor.getString(2);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String tag = cursor.getString(5);
@@ -289,7 +293,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         	do {
         		Integer id = cursor.getInt(0);
         		String name = cursor.getString(1);
-        		String date = cursor.getString(2);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
         		String time =cursor.getString(3);
         		String repetition = cursor.getString(4);
         		String tag = cursor.getString(5);
@@ -317,7 +322,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         if (cursor.moveToFirst()){
         	Integer id = cursor.getInt(0);
         	String name = cursor.getString(1);
-        	String date = cursor.getString(2);
+        	Long dateAsLong = cursor.getLong(2);
+    		Date date = new Date(dateAsLong);
         	String time =cursor.getString(3);
         	String repetition = cursor.getString(4);
         	String tag = cursor.getString(5);
@@ -339,7 +345,8 @@ public class HandlerSQLite implements RemindTaskDAO{
         	do{
         		Integer id = cursor.getInt(0);
             	String name = cursor.getString(1);
-            	String date = cursor.getString(2);
+            	Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
             	String time =cursor.getString(3);
             	String repetition = cursor.getString(4);
             	String tag = cursor.getString(5);
@@ -366,6 +373,17 @@ public class HandlerSQLite implements RemindTaskDAO{
 		int changes = db.delete(DATABASE_TABLE, KEY_SUPERTASK+"=?", new String[]{idTask.toString()});
 		this.close();
 		return changes;
+	}
+
+	public boolean hasSubtask(Integer idTask) {
+		this.open();
+		Boolean hasSubtask=false;
+		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_SUPERTASK}, KEY_SUPERTASK+"=?", new String[]{Long.toString(idTask)}, null, null, null);
+		if (cursor.getCount()>0){
+			hasSubtask=true;
+		}
+		this.close();
+		return hasSubtask;
 	}
 
 	

@@ -6,27 +6,24 @@ import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
-public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
+public class RemindCheckAdapter extends ArrayAdapter<RemindTask>{
 	
 	private Context context;
 
 	
-	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
+	public RemindCheckAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
-		Log.d("ADAPTER", taskList.get(0).getName().toString());
+		Log.d("ADAPTER_Check", taskList.get(0).getName().toString());
 	}
 	
 	/**
@@ -35,11 +32,6 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	 *
 	 */
 	private class ViewHolder{
-		TextView txtName;
-		TextView txtDate;
-		TextView txtTime;
-		TextView txtRepeat;
-		TextView txtTag;
 		CheckBox check;
 	}
 	
@@ -57,25 +49,36 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             
-        	convertView = mInflater.inflate(R.layout.list_item_task, null);
+        	convertView = mInflater.inflate(R.layout.list_item_check, null);
             holder = new ViewHolder();
-            holder.txtName = (TextView) convertView.findViewById(R.id.ListItemTask_Name);
-            holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
-            holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
-            holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);           
+            holder.check= (CheckBox)convertView.findViewById(R.id.ListItemCheck_Checkbox);
             
             convertView.setTag(holder);
-        } else{
         
+        }else{
            holder = (ViewHolder) convertView.getTag();
         }
-        holder.txtName.setText(task.getName());
-        //Revisar Date
-        Long dateAsLong = task.getDate().getTime();
-        holder.txtDate.setText(dateAsLong.toString());
-        holder.txtTime.setText(task.getTime());
-        holder.txtRepeat.setText(task.getRepetition());
-        
+        OnClickListener listener = new OnClickListener() {
+
+			public void onClick(View view) {
+				// TODO 
+				
+				Log.d("Adapter", task.getName());
+				Log.d("ADAPTER", task.getId().toString());
+				RemindTaskDAO taskDB= new RemindTaskSQLite(context);
+				boolean checked = ((CheckBox) view).isChecked();
+				if(checked){
+					taskDB.updateTaskCompleted(task);					
+				}else{
+					taskDB.updateTaskCompleted(task);
+					
+				}
+				
+			}
+		};
+		
+		holder.check.setOnClickListener(listener);
+                
         return convertView;
 		        
      }

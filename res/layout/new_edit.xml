@@ -63,7 +63,7 @@
                 android:textColor="@color/normalText" />
 
            <RelativeLayout
-               android:layout_width="wrap_content"
+               android:layout_width="fill_parent"
                android:layout_height="wrap_content" >
 
            		<Button
@@ -73,16 +73,14 @@
                 	android:onClick="showDatePickerDialog"
                 	android:hint="@string/new_date_hint"
                 	android:textColorHint="@color/hintText" 
-                	android:maxLines="4"
-                
-            	/>
+                	android:maxLines="4"/>
             
             	<TextView 
                		android:id="@+id/New_TextViewDateShow"
                 	android:layout_width="wrap_content"
                 	android:layout_height="wrap_content"
                 	android:layout_alignRight="@+id/New_ButtonDate"
-                	/>
+                	android:layout_alignParentRight="true"/>
             </RelativeLayout>
              
             <TextView

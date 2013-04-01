@@ -15,7 +15,7 @@
         <TextView 
             android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-            android:text="@string/all_header"
+            android:text="@string/pending_header"
             android:textSize="@dimen/text_header"
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
@@ -23,15 +23,25 @@
     </LinearLayout>
     
     <!--TODO Texto dinamico. Editar -->
-    <FrameLayout 
-       android:layout_width="fill_parent"
-       android:layout_height="0dip"
-       android:layout_weight="3">
-    	<ListView 
-        	android:id="@+id/All_ListViewTask"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent">
-        
-    	</ListView>
-       </FrameLayout>
+   
+	    <FrameLayout 
+	       android:id="@+id/All_FrameOfListTask"
+	       android:layout_width="fill_parent"
+	       android:layout_height="0dip"
+	       android:layout_weight="3">
+	    	<ListView 
+	        	android:id="@+id/All_ListViewTask"
+	        	android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent">
+	        
+	    	</ListView>
+	    
+	       	<ListView 
+	    	    android:id="@+id/All_ListViewCheckBox"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content">
+	    	   </ListView>
+	       </FrameLayout>
+       
+       
 </LinearLayout>

@@ -2,9 +2,11 @@ package remind.me;
 
 
 
-import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,12 +30,18 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	public TextView dateTextView;
 	public CalendarView calendarView;
 	private ContentValues dateValues;
-	
+	private Long dateAsLong;
+	private RemindNewActivity activity;
 	
 	public DatePickerFragment(TextView text) {
 		this.dateTextView = text;
 		
 	}
+	
+	public DatePickerFragment(RemindNewActivity activity) {
+		this.activity = activity;
+	}
+
 	/** TODO
 	 * Operacion con los datos recogidos en el picker
 	 */
@@ -43,8 +51,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		dateValues.put("Month", month);
 		dateValues.put("Day", day);
 		
-		dateTextView.setText(String.valueOf(day)  + "/" + String.valueOf(month + 1 )+ "/" + String.valueOf(year));
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(year, month, day);
+		Date date = cal.getTime();
+		this.dateAsLong = date.getTime();
 		
+		activity.dateAsLong = dateAsLong;
+		
+		this.activity.textDate.setText(date.toString());
 		
 	}
 	/** 
@@ -52,30 +66,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	 */
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstance){
-		/*LayoutInflater inflater = LayoutInflater.from(getActivity());
-		final View v = inflater.inflate(R.layout.date_picker_fragment, null);
 		
-		return new AlertDialog.Builder(getActivity())
-        .setIcon(R.drawable.ic_launcher)
-        .setView(v)
-        .setPositiveButton(R.string.new_date,
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    ((RemindNewActivity)getActivity()).doPositiveClick();
-                }
-            }
-        )
-        .setNegativeButton(R.string.new_date_hint,
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    ((RemindNewActivity)getActivity()).doNegativeClick();
-                }
-            }
-        )
-        .create();
-		*/
-			
-			
 		
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		final View view = inflater.inflate(R.layout.date_picker_fragment, null);
@@ -91,5 +82,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	public ContentValues getDateValues(){
 		return this.dateValues;
+	}
+	
+	public Long getDateAsLong(){
+		return this.dateAsLong;
 	}
 }

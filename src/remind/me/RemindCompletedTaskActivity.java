@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
 
 public class RemindCompletedTaskActivity extends RemindActivity {
     
@@ -40,7 +40,7 @@ public class RemindCompletedTaskActivity extends RemindActivity {
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
-        RemindTaskDAO db = new HandlerSQLite(this);
+        RemindTaskDAO db = new RemindTaskSQLite(this);
         /**
         RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
         RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
@@ -60,8 +60,11 @@ public class RemindCompletedTaskActivity extends RemindActivity {
         //db.updateTask(task2);
         
 		ArrayList<RemindTask> taskList =  db.getPendingTasks(true);
-        displayTaskWithTextView(taskList);
-        
+        if (taskList.isEmpty()){
+        	Toast.makeText(this, R.string.completed_toastEmpty, Toast.LENGTH_LONG).show();
+        }else{
+        	displayTaskWithTextView(taskList);
+        }
         
     }
     /**

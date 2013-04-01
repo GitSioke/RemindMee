@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
      
-import com.remindme.sqlite.HandlerSQLite;
+import com.remindme.sqlite.RemindTaskSQLite;
      
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;
@@ -29,9 +29,9 @@ import com.remindme.sqlite.HandlerSQLite;
            setContentView(R.layout.task);
            Log.d("TASK", "Initialize cursor");
            
-           RemindTaskDAO taskDB = new  HandlerSQLite(this);
-           Integer id = 1088402616;
-           task = taskDB.getTaskWithID(id);
+           //RemindTaskDAO taskDB = new  RemindTaskSQLite(this);
+           //Integer id = 1088402616;
+           //task = taskDB.getTaskWithID(id);
            /**
            RemindTask subTask1 =new RemindTask(null, "SubTask1", "10/05/2013", "10:00", "Diaria", "Tag2",id, false);
            RemindTask subTask2 =new RemindTask(null, "SubTask2", "10/05/2013", "10:00", "Diaria", "Tag2",id, false);
@@ -47,11 +47,13 @@ import com.remindme.sqlite.HandlerSQLite;
            //task = taskDB.getTaskWithID(taskDeleted.getId());
            
            
-           //RemindTask task = getIntent().getParcelableExtra("task");
+           task = getIntent().getParcelableExtra("task");
+           Log.d("TASK", task.getName());
            TextView txtName = (TextView)findViewById(R.id.Task_Name);
            txtName.setText(task.getName());
            TextView txtDate = (TextView)findViewById(R.id.Task_Date);
-           txtDate.setText(task.getDate());
+           //TODO Revisar Date
+           txtDate.setText(task.getDate().toString());
            TextView txtTime = (TextView)findViewById(R.id.Task_Time);
            txtTime.setText(task.getTime());
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
@@ -59,7 +61,7 @@ import com.remindme.sqlite.HandlerSQLite;
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);
            txtTag.setText(task.getTag());
            
-           RemindTaskDAO taskDAO = new HandlerSQLite(this);
+           RemindTaskDAO taskDAO = new RemindTaskSQLite(this);
            ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) taskDAO.getSubtasks(task.getId());
            if (!subTasks.isEmpty()){
         		   displayTaskWithTextView(subTasks);         
@@ -127,12 +129,19 @@ import com.remindme.sqlite.HandlerSQLite;
 	       dialog.show(getFragmentManager(), "dialog");
 	      }
        
-       /**
+       /**TODO En vez de un toast comprobar que lo haga un Dialog para completar todas las subtareas 
+        * 
         * Al hacer checkbox la tarea se completa o se deshace dependiendo de su estado anterior
         * @param view
-        */
+        */ 
     	public void onCheckBoxClicked(View view){
-    		RemindTaskDAO taskDB = new HandlerSQLite(this);
-    		taskDB.updateTask(task);
+    		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
+    		if (taskDB.hasSubtask(task.getId())){
+    			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+    		}else{
+    			taskDB.updateTask(task);
+    			//TODO Tachar los textview
+    			//crossOutTaskElements();
+    		}
     	}
     }
