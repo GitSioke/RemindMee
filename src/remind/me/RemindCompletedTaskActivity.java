@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.remindme.sqlite.RemindTaskSQLite;
@@ -22,42 +23,15 @@ public class RemindCompletedTaskActivity extends RemindActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ALL", "Set content view");
+        Log.d("Completed", "Set content view");
         setContentView(R.layout.all);
-        Log.d("ALL", "Initialize cursor");
-       
-        /**db.open();
-        Log.d("ALL", "Initialize cursor");
-        Cursor cursor =  db.getAllTasks();
-        String [] fromColumns = db.getFromColumnsTask();
-        int[] toViews = {R.id.All_TaskID_Content, R.id.All_TaskName_Content};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.id., cursor, fromColumns, toViews);
-        ListView listView = getListView();
-        listView.setAdapter(adapter);*/
+        Log.d("Completed", "Initialize cursor");
         
+        TextView txtHeader =(TextView)findViewById(R.id.All_HeaderTxtView);
+        txtHeader.setText(R.string.completed_header);
+         
         
-        /**
-         * Se insertan correctamente los datos en la base de datos. 
-         * Y se muestran correctamente
-         */
         RemindTaskDAO db = new RemindTaskSQLite(this);
-        /**
-        RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
-        RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
-        RemindTask task3= new RemindTask("Name3", "13/01/1950", "23:05", "ANUAL", "Tag4", null);
-        db.open();
-        long id = db.insertNewTask(task);
-        id = db.insertNewTask(task2);
-        id = db.insertNewTask(task3);
-        db.close();
-		*/
-       
-        /**
-         * Apertura database y muestreo de todas las tareas
-         */
-        //RemindTask task2= new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);
-        //task2.setCompleted(true);
-        //db.updateTask(task2);
         
 		ArrayList<RemindTask> taskList =  db.getPendingTasks(true);
         if (taskList.isEmpty()){
@@ -67,7 +41,7 @@ public class RemindCompletedTaskActivity extends RemindActivity {
         }
         
     }
-    /**
+   /**
      * Show 
      * @param c
      */
@@ -106,23 +80,6 @@ public class RemindCompletedTaskActivity extends RemindActivity {
 		
 		
 	}
-	/*
-	public void onCheckBoxClicked(View view){
-		
-	    boolean checked = ((CheckBox) view).isChecked();
-	    
-	    // Check which checkbox was clicked
-	    switch(view.getId()) {
-	        case R.id.ListItemTask_Checkbox:
-	            if (checked)
-	                Log.d("ALL", "Tarea Completada");
-	            else
-	                // Remove the meat
-	            break;
-	        // TODO: Veggie sandwich
-	    }
-
-	}*/
 	
 	public void onCheckTaskItem(View view){
 		

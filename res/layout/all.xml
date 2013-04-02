@@ -13,6 +13,7 @@
         
         <!--TODO: Cabecera, añadir el texto y una imagen? -->
         <TextView 
+            android:id="@+id/All_HeaderTxtView"
             android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
             android:text="@string/pending_header"
@@ -34,13 +35,13 @@
 	        	android:layout_width="fill_parent"
 	        	android:layout_height="fill_parent">
 	        
-	    	</ListView>
+	    	</ListView> 
 	    
-	       	<ListView 
+	       	<!-- <ListView 
 	    	    android:id="@+id/All_ListViewCheckBox"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content">
-	    	   </ListView>
+	    	   </ListView> -->
 	       </FrameLayout>
        
        

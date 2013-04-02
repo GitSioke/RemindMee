@@ -62,13 +62,38 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             holder.txtName = (TextView) convertView.findViewById(R.id.ListItemTask_Name);
             holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
             holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
-            holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);           
+            holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);
+            holder.check = (CheckBox) convertView.findViewById(R.id.ListItemCheck_Checkbox);
             
             convertView.setTag(holder);
         } else{
         
            holder = (ViewHolder) convertView.getTag();
         }
+        OnClickListener listener = new OnClickListener() {
+
+        	public void onClick(View view) {
+        	// TODO
+
+        		Log.d("Adapter", task.getName());
+        		Log.d("ADAPTER", task.getId().toString());
+        		RemindTaskDAO taskDB= new RemindTaskSQLite(context);
+        		boolean checked = ((CheckBox) view).isChecked();
+        		if(checked){
+        			
+        			taskDB.updateTaskCompleted(task);
+        			RemindTask auxTask = taskDB.getTaskWithID(task.getId());
+        			if(auxTask.isCompleted())
+        			Log.d("ADAPTER", "Completada");
+        		}else{
+        			taskDB.updateTaskCompleted(task);
+
+        		}
+
+        	}
+       	};
+
+       	holder.check.setOnClickListener(listener);
         holder.txtName.setText(task.getName());
         //Revisar Date
         Long dateAsLong = task.getDate().getTime();

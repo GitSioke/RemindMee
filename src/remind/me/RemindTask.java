@@ -1,19 +1,15 @@
 package remind.me;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import com.remindme.sqlite.RemindTaskSQLite;
-
 import android.content.ContentValues;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.format.Time;
 
-public class RemindTask implements Parcelable{
+public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private static final String KEY_ROWID = "id";
 	private static final String KEY_NAME = "name";
 	private static final String KEY_DATE = "date";
@@ -184,6 +180,18 @@ public class RemindTask implements Parcelable{
 
 	public void setSubTaskList(List<RemindTask> subTaskList) {
 		this.subTaskList = subTaskList;
+	}
+
+	public class TaskDateComparator implements Comparator<RemindTask>{
+
+		public int compare(RemindTask lhs, RemindTask rhs) {
+			return lhs.getDate().compareTo(rhs.getDate());
+		}
+		
+	}
+
+	public int compareTo(RemindTask another) {
+		return this.getDate().compareTo(another.getDate());
 	}
 
 	

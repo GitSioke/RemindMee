@@ -39,6 +39,15 @@
 	           android:textColor="@color/normalText"
 	           android:focusable="false" />
 	        </RelativeLayout>
+	        
+		 <CheckBox 
+            android:id="@+id/ListItemCheck_Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:focusable="false"/>
+		 
 
        
     

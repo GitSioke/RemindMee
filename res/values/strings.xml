@@ -61,6 +61,7 @@
    <string name="pending_toastEmpty">¡Relájate miarma! No tienes ninguna tarea pendiente</string>
    <string name="completed_toastEmpty">No hay tareas completas, lo cual puede ser un problema...</string>
    <string name="task_toast_hasSubtask">Hay subtareas pendientes. Completalas antes</string>
+   <string name="completed_header">Tareas Completadas</string>
    
    
 </resources>

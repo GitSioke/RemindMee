@@ -4,6 +4,7 @@ package remind.me;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.provider.Settings.Secure;
@@ -75,6 +76,7 @@ public class RemindPendingTaskActivity extends RemindActivity {
         if (taskList.isEmpty()){
         	Toast.makeText(this, R.string.pending_toastEmpty, Toast.LENGTH_LONG).show();
         }else{
+        	Collections.sort(taskList);
         	displayTaskWithTextView(taskList);
         	//displayCheckBoxes(taskList);
         }
@@ -110,10 +112,10 @@ public class RemindPendingTaskActivity extends RemindActivity {
 		
 		
 	}
-	
+	/**
 	private void displayCheckBoxes(final ArrayList<RemindTask> taskList){
-		checkListView = (ListView)findViewById(R.id.All_ListViewTask);
+		checkListView = (ListView)findViewById(R.id.All_ListViewCheckBox);
 		checkListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_check, taskList));
 		
-	}
+	}*/
 }

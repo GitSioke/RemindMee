@@ -3,7 +3,7 @@ package remind.me;
 
 
 
-import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -11,27 +11,30 @@ import java.util.GregorianCalendar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.CalendarView;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+public class DatePickerFragment extends DialogFragment implements OnDateSetListener{
 
 	public TextView dateTextView;
 	public CalendarView calendarView;
 	private ContentValues dateValues;
-	private Long dateAsLong;
+	private Long dateLong;
 	private RemindNewActivity activity;
+	private View viewPicker;
 	
 	public DatePickerFragment(TextView text) {
 		this.dateTextView = text;
@@ -50,13 +53,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		dateValues.put("Year", year);
 		dateValues.put("Month", month);
 		dateValues.put("Day", day);
-		
+	
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(year, month, day);
-		Date date = cal.getTime();
-		this.dateAsLong = date.getTime();
+		CalendarView calendarView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
+        dateLong = calendarView.getDate();
 		
-		activity.dateAsLong = dateAsLong;
+		Date date = new Date(dateLong);
 		
 		this.activity.textDate.setText(date.toString());
 		
@@ -69,13 +72,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		
 		
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
-		final View view = inflater.inflate(R.layout.date_picker_fragment, null);
+		this.viewPicker = inflater.inflate(R.layout.date_picker_fragment, null);
 		final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
-        dialog.setView(view);
+        dialog.setView(this.viewPicker);
+        
         return dialog;
 	}
 	
@@ -85,6 +89,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	}
 	
 	public Long getDateAsLong(){
-		return this.dateAsLong;
+		return this.dateLong;
 	}
 }

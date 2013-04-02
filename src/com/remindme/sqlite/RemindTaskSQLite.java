@@ -234,17 +234,12 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		ContentValues taskValues = new ContentValues();
 		if(task.isCompleted()){
 			task.setCompleted(false);
-			//stmt = db.compileStatement("UPDATE tasks SET completed="+Integer.valueOf(1) +" WHERE id = ?");
 		}else{
 			task.setCompleted(true);
-			//stmt = db.compileStatement("UPDATE tasks SET completed="+Integer.valueOf(0) +" WHERE id = ?");
 		}
 				
 		taskValues.put(KEY_COMPLETED, task.isCompleted());
-		//Integer id = db.update(DATABASE_TABLE, taskValues, KEY_NAME+"=?", new String[]{task.getName()});
-		
-		//stmt.bindLong(1, task.getId());
-		//stmt.execute();
+	
 		Integer acbd = db.update(DATABASE_TABLE, taskValues, "id=?", new String[]{Long.toString(task.getId())});
 		Log.d("UPDATE", acbd.toString());
 		this.close();
