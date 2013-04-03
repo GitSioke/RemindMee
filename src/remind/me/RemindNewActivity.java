@@ -11,7 +11,9 @@ import com.remindme.sqlite.RemindTaskSQLite;
 
 
 import android.app.DialogFragment;
+
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +25,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RemindNewActivity extends RemindActivity {
     
 	TextView textDate;
-	Long dateAsLong;
+	Long dateLong;
 	TextView textTime;
 	DialogFragment dateFragment;
+	private Boolean missingData;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,10 +54,12 @@ public class RemindNewActivity extends RemindActivity {
         addTask.setOnClickListener(new View.OnClickListener() {
 			
 		
-        	public void onClick(View v) {
+        	
+
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
         		try {
-        			initTaskNameEntry();
+        			initTaskNameEntry();        			
         		} catch (IOException e) {
         			// TODO Auto-generated catch block
         			e.printStackTrace();
@@ -64,46 +70,54 @@ public class RemindNewActivity extends RemindActivity {
         			// TODO Auto-generated catch block
         			e.printStackTrace();
         		}
-				startActivity(new Intent(RemindNewActivity.this, RemindPendingTaskActivity.class));				
+        		if (!missingData){
+        			startActivity(new Intent(RemindNewActivity.this, RemindPendingTaskActivity.class));		
+        		}
 			}
 		});
         
     }
 
-	private void initTaskNameEntry() throws IOException, InstantiationException, IllegalAccessException {
+	private Boolean initTaskNameEntry() throws IOException, InstantiationException, IllegalAccessException {
 		// TODO Meter todos los datos en la base de datos, averiguar como se guarda el dato en el spinner para sacarlo
+		missingData = false;
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
 		String time = textTime.getText().toString();
 		//Revisar Date
-		
-		Date date= new Date(dateAsLong);
-		
-		EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
-		String tag = taskTag.getText().toString();
-		
-		final Spinner spinnerRep = (Spinner)findViewById(R.id.New_SpinnerRepeat);
-		spinnerRep.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				parent.getItemAtPosition(position);
-				
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				return;
-				
-			}
-		});
-		String repetition = (String) spinnerRep.getSelectedItem();
-		
-		Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
-		Log.d("NEW", Integer.toString(superTaskID));
-		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
-		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
-		taskDB.insertNewTask(task);		
-		
+		if (!name.contentEquals("") && textDate.getText().length()>2){
+			Date date= new Date(dateLong);
+			
+			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
+			String tag = taskTag.getText().toString();
+			
+			final Spinner spinnerRep = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+			spinnerRep.setOnItemSelectedListener(new OnItemSelectedListener() {
+	
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					parent.getItemAtPosition(position);
+					
+				}
+	
+				public void onNothingSelected(AdapterView<?> parent) {
+					return;
+					
+				}
+			});
+			String repetition = (String) spinnerRep.getSelectedItem();
+			
+			Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
+			Log.d("NEW", Integer.toString(superTaskID));
+			RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
+			RemindTaskDAO taskDB = new RemindTaskSQLite(this);
+			
+			taskDB.insertNewTask(task);	
+		}else{
+			Toast.makeText(this, R.string.new_toast_missingData, Toast.LENGTH_SHORT).show();
+			missingData = true;
+		}
+		return missingData;
 	}
 	/**TODO Pendiente de revision. Intentar pasar por Bundle la actividad o los datos necesarios
 	 * Se encarga de mostrar el fragmento datepicker

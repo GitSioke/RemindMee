@@ -4,6 +4,7 @@ package remind.me;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,6 +19,7 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import android.view.LayoutInflater;
@@ -61,7 +63,10 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		
 		Date date = new Date(dateLong);
 		
-		this.activity.textDate.setText(date.toString());
+		activity.dateLong =this.dateLong;
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String dateString = format.format(date);
+		this.activity.textDate.setText(dateString);
 		
 	}
 	/** 

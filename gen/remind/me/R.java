@@ -190,6 +190,7 @@ public final class R {
         public static final int new_tag_hint=0x7f070010;
         public static final int new_time=0x7f07000d;
         public static final int new_time_hint=0x7f07000e;
+        public static final int new_toast_missingData=0x7f070026;
         public static final int pending_header=0x7f070012;
         public static final int pending_taskid=0x7f070014;
         /**  All View 

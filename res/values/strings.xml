@@ -62,6 +62,7 @@
    <string name="completed_toastEmpty">No hay tareas completas, lo cual puede ser un problema...</string>
    <string name="task_toast_hasSubtask">Hay subtareas pendientes. Completalas antes</string>
    <string name="completed_header">Tareas Completadas</string>
+   <string name="new_toast_missingData">Seleciona al menos un nombre y una fecha para añadir la tarea</string>
    
    
 </resources>

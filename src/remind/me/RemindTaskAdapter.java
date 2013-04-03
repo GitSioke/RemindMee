@@ -1,5 +1,6 @@
 package remind.me;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.remindme.sqlite.RemindTaskSQLite;
@@ -96,8 +97,9 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
        	holder.check.setOnClickListener(listener);
         holder.txtName.setText(task.getName());
         //Revisar Date
-        Long dateAsLong = task.getDate().getTime();
-        holder.txtDate.setText(dateAsLong.toString());
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String dateString = format.format(task.getDate());
+		holder.txtDate.setText(dateString);
         holder.txtTime.setText(task.getTime());
         holder.txtRepeat.setText(task.getRepetition());
         
