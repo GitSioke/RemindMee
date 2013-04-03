@@ -23,6 +23,7 @@ import android.widget.TextView;
 public class RemindEditActivity extends RemindActivity {
     
 	TextView textDate;
+	TextView txtDateNotice;
 	TextView textTime;
 	DialogFragment dateFragment;
 	/** Called when the activity is first created. */
@@ -78,6 +79,8 @@ public class RemindEditActivity extends RemindActivity {
 			TextView txtDate = (TextView) findViewById(R.id.Edit_TextViewDateShow);
 			//TODO Revisar date
 			txtDate.setText(task.getDate().toString());
+			TextView txtDateNotice = (TextView) findViewById(R.id.Edit_TextViewDateNoticeShow);
+			txtDateNotice.setText(task.getDateNotice().toString());
 			TextView txtTime = (TextView) findViewById(R.id.Edit_TextViewTimeShow);
 			txtTime.setText(task.getTime());
 			EditText txtTag = (EditText)findViewById(R.id.Edit_EditTextTag);
@@ -102,8 +105,10 @@ public class RemindEditActivity extends RemindActivity {
 		String name = taskName.getText().toString();
 		String time = textTime.getText().toString();
 		Long dateAsLong = Long.getLong(textDate.getText().toString());
-		
 		Date date = new Date(dateAsLong);
+		
+		dateAsLong = Long.getLong(textDate.getText().toString());
+		Date dateNotice = new Date(dateAsLong);
 		EditText taskTag = (EditText)findViewById(R.id.Edit_EditTextTag);
 		String tag = taskTag.getText().toString();
 		
@@ -123,7 +128,7 @@ public class RemindEditActivity extends RemindActivity {
 		
 		Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 		Log.d("NEW", Integer.toString(superTaskID));
-		RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
+		RemindTask task = new RemindTask(null, name, date,dateNotice, time, repetition, tag, superTaskID, false);
 		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 		
 		taskDB.insertNewTask(task);		
@@ -138,6 +143,11 @@ public class RemindEditActivity extends RemindActivity {
 		dateFragment = new DatePickerFragment(textDate);
 		dateFragment.show(getFragmentManager(), "datepicker");
 	}	
+	
+	public void showDateNoticePickerDialog(View view){
+		dateFragment = new DatePickerFragment(txtDateNotice);
+		dateFragment.show(getFragmentManager(), "dateNoticePicker");
+	}
 	public void showTimePickerDialog(View view){
 		dateFragment = new TimePickerFragment(textTime);
 		dateFragment.show(getFragmentManager(), "timepicker");

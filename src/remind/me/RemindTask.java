@@ -13,6 +13,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private static final String KEY_ROWID = "id";
 	private static final String KEY_NAME = "name";
 	private static final String KEY_DATE = "date";
+	private static final String KEY_NOTICEDATE = "dateNotice";
 	private static final String KEY_TIME = "time";
 	private static final String KEY_REPETITION = "repetition";
 	private static final String KEY_TAG = "tag";
@@ -22,6 +23,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private String name;
 	private String tag;
 	private Date date;
+	private Date dateNotice;
 	private String time;
 	private String repetition;
 	private Integer superTask;
@@ -33,7 +35,8 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	//TODO Revisar si se puede conseguir con un ContentValues como parametro
 	public RemindTask(Integer id,
 					  String name, 
-					  Date date, 
+					  Date date,
+					  Date dateNotice,
 					  String time, 
 					  String repetition, 
 					  String tag, 
@@ -45,8 +48,10 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		else{
 			this.id = id;
 		}
+		
 		this.name = name;
 		this.date = date;
+		this.dateNotice = dateNotice;
 		this.time = time;
 		this.repetition = repetition;
 		this.tag =tag;
@@ -61,6 +66,8 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		this.name = ((String) content.get(KEY_NAME));
 		Long dateAsLong = (Long) content.getAsLong(KEY_DATE);
 		this.date= new Date(dateAsLong);
+		dateAsLong = (Long) content.getAsLong(KEY_NOTICEDATE);
+		this.dateNotice = new Date(dateAsLong);
 		this.time=((String) content.get(KEY_TIME));
 		this.repetition =((String) content.get(KEY_REPETITION));
 		this.tag =((String) content.get(KEY_TAG));
@@ -192,6 +199,14 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 
 	public int compareTo(RemindTask another) {
 		return this.getDate().compareTo(another.getDate());
+	}
+
+	public Date getDateNotice() {
+		return dateNotice;
+	}
+
+	public void setDateNotice(Date dateNotice) {
+		this.dateNotice = dateNotice;
 	}
 
 	

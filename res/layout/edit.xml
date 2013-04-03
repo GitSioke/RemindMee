@@ -52,14 +52,14 @@
                 />
             
             <TextView
-                android:id="@+id/TextView_Date"
+                android:id="@+id/Edit_TextView_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_date"
                 android:textSize="@dimen/new_text"
                 android:textStyle="bold"
                 android:textColor="@color/normalText" />
-
+	
            <RelativeLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" >
@@ -69,15 +69,43 @@
                 	android:layout_width="wrap_content"
                 	android:layout_height="wrap_content"
                 	android:onClick="showDatePickerDialog"
-                	android:maxLines="4"
-                
-            	/>
-            
-            	<TextView 
+                	android:maxLines="4"/>
+                <TextView 
                		android:id="@+id/Edit_TextViewDateShow"
                 	android:layout_width="wrap_content"
                 	android:layout_height="wrap_content"
                 	android:layout_alignRight="@+id/Edit_ButtonDate"
+                	/>
+            
+           	</RelativeLayout>	
+           	<TextView
+                android:id="@+id/TextView_DateNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_dateNotice"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText" />
+			
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+           		<Button
+                	android:id="@+id/Edit_ButtonDateNotice"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:onClick="showDatePickerDialog"
+                	android:maxLines="4"
+                
+            	/>
+            
+            
+            	<TextView 
+               		android:id="@+id/Edit_TextViewDateNoticeShow"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_alignRight="@+id/Edit_ButtonDateNotice"
                 	/>
             </RelativeLayout>
              

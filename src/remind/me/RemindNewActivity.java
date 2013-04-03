@@ -30,7 +30,9 @@ import android.widget.Toast;
 public class RemindNewActivity extends RemindActivity {
     
 	TextView textDate;
+	TextView txtDateNotice;
 	Long dateLong;
+	Long dateNoticeLong;
 	TextView textTime;
 	DialogFragment dateFragment;
 	private Boolean missingData;
@@ -40,6 +42,7 @@ public class RemindNewActivity extends RemindActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
         textDate = (TextView) findViewById(R.id.New_TextViewDateShow);
+        txtDateNotice = (TextView)findViewById(R.id.New_TextViewDateNoticeShow);
         textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
         
         Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
@@ -85,9 +88,9 @@ public class RemindNewActivity extends RemindActivity {
 		String name = taskName.getText().toString();
 		String time = textTime.getText().toString();
 		//Revisar Date
-		if (!name.contentEquals("") && textDate.getText().length()>2){
+		if (!name.contentEquals("") && textDate.getText().length()>2 && txtDateNotice.getText().length()>2){
 			Date date= new Date(dateLong);
-			
+			Date dateNotice = new Date(dateNoticeLong);
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 			String tag = taskTag.getText().toString();
 			
@@ -109,7 +112,7 @@ public class RemindNewActivity extends RemindActivity {
 			
 			Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 			Log.d("NEW", Integer.toString(superTaskID));
-			RemindTask task = new RemindTask(null, name, date, time, repetition, tag, superTaskID, false);
+			RemindTask task = new RemindTask(null, name, date, dateNotice, time, repetition, tag, superTaskID, false);
 			RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 			
 			taskDB.insertNewTask(task);	

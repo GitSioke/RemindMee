@@ -68,6 +68,7 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		String dateString = format.format(date);
 		this.activity.textDate.setText(dateString);
 		
+		
 	}
 	/** 
 	 * Muestra el Dialog 

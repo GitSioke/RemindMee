@@ -23,6 +23,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DATE="date";
+	public static final String KEY_DATENOTICE="dateNotice";
 	public static final String KEY_TIME="time";
 	public static final String KEY_REPETITION="repetition";
 	public static final String KEY_TAG="tag";
@@ -36,7 +37,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 	private static final int DATABASE_VERSION = 7;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
-			+"name VARCHAR not null, date LONG not null, time VARCHAR, repetition VARCHAR, " +
+			+"name VARCHAR not null, date LONG not null, dateNotice LONG, time VARCHAR, repetition VARCHAR, " +
 			"tag VARCHAR, supertask INTEGER, completed BOOL);" ;
 	
 	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
@@ -84,6 +85,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
 		taskValues.put(KEY_DATE, task.getDate().getTime());
+		taskValues.put(KEY_DATENOTICE, task.getDateNotice().getTime());
 		taskValues.put(KEY_TIME, task.getTime());
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
@@ -145,12 +147,14 @@ public class RemindTaskSQLite implements RemindTaskDAO{
         		String name = cursor.getString(1);
         		Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-        		String time =cursor.getString(3);
-        		String repetition = cursor.getString(4);
-        		String tag = cursor.getString(5);
-        		Integer superTask = cursor.getInt(6);
-        		Boolean completed = cursor.getInt(7)==1 ? true: false;
-        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+        		String time =cursor.getString(4);
+        		String repetition = cursor.getString(5);
+        		String tag = cursor.getString(6);
+        		Integer superTask = cursor.getInt(7);
+        		Boolean completed = cursor.getInt(8)==1 ? true: false;
+        		task = new RemindTask(id, name, date, dateNotice, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
@@ -198,11 +202,13 @@ public class RemindTaskSQLite implements RemindTaskDAO{
         		String name = cursor.getString(1);
         		Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-        		String time =cursor.getString(3);
-        		String repetition = cursor.getString(4);
-        		Integer superTask = cursor.getInt(6);
-        		Boolean completed = cursor.getInt(7)==1 ? true: false;
-        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+        		String time =cursor.getString(4);
+        		String repetition = cursor.getString(5);
+        		Integer superTask = cursor.getInt(7);
+        		Boolean completed = cursor.getInt(8)==1 ? true: false;
+        		task = new RemindTask(id, name, date,dateNotice, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
@@ -218,6 +224,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
 		taskValues.put(KEY_DATE, task.getDate().getTime());
+		taskValues.put(KEY_DATENOTICE, task.getDateNotice().getTime());
 		taskValues.put(KEY_TIME, task.getTime());
 		taskValues.put(KEY_REPETITION, task.getRepetition());
 		taskValues.put(KEY_TAG, task.getTag());
@@ -259,16 +266,18 @@ public class RemindTaskSQLite implements RemindTaskDAO{
         		String name = cursor.getString(1);
         		Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-        		String time =cursor.getString(3);
-        		String repetition = cursor.getString(4);
-        		String tag = cursor.getString(5);
-        		Integer superTask = cursor.getInt(6);
-        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+        		String time =cursor.getString(4);
+        		String repetition = cursor.getString(5);
+        		String tag = cursor.getString(6);
+        		Integer superTask = cursor.getInt(7);
+        		Boolean completed = cursor.getInt(8)==1 ? true: false;
         		if(completed==true){
         			Log.d("Handler", "tarea erronea");
         		}
         		Log.d("SQLITE", id.toString());
-        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		task = new RemindTask(id, name, date,dateNotice, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
@@ -290,15 +299,17 @@ public class RemindTaskSQLite implements RemindTaskDAO{
         		String name = cursor.getString(1);
         		Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-        		String time =cursor.getString(3);
-        		String repetition = cursor.getString(4);
-        		String tag = cursor.getString(5);
-        		Integer superTask = cursor.getInt(6);
-        		Boolean completed = cursor.getInt(7)==1 ? true: false;
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+        		String time =cursor.getString(4);
+        		String repetition = cursor.getString(5);
+        		String tag = cursor.getString(6);
+        		Integer superTask = cursor.getInt(7);
+        		Boolean completed = cursor.getInt(8)==1 ? true: false;
         		if(completed==true){
         			Log.d("Handler", "tarea erronea");
         		}
-        		task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		task = new RemindTask(id, name, date, dateNotice, time, repetition, tag, superTask, completed);
         		taskList.add(task);
         		
         	}while(cursor.moveToNext());
@@ -319,12 +330,14 @@ public class RemindTaskSQLite implements RemindTaskDAO{
         	String name = cursor.getString(1);
         	Long dateAsLong = cursor.getLong(2);
     		Date date = new Date(dateAsLong);
-        	String time =cursor.getString(3);
-        	String repetition = cursor.getString(4);
-        	String tag = cursor.getString(5);
-        	Integer superTask = cursor.getInt(6);
-        	Boolean completed = cursor.getInt(7)==1 ? true: false;
-        	task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+    		dateAsLong = cursor.getLong(3);
+    		Date dateNotice = new Date(dateAsLong);
+        	String time =cursor.getString(4);
+        	String repetition = cursor.getString(5);
+        	String tag = cursor.getString(6);
+        	Integer superTask = cursor.getInt(7);
+        	Boolean completed = cursor.getInt(8)==1 ? true: false;
+        	task = new RemindTask(id, name, date,dateNotice, time, repetition, tag, superTask, completed);
         }
         this.close();
         return task;
@@ -342,12 +355,14 @@ public class RemindTaskSQLite implements RemindTaskDAO{
             	String name = cursor.getString(1);
             	Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-            	String time =cursor.getString(3);
-            	String repetition = cursor.getString(4);
-            	String tag = cursor.getString(5);
-            	Integer superTask = cursor.getInt(6);
-            	Boolean completed = cursor.getInt(7)==1 ? true: false;
-            	task = new RemindTask(id, name, date, time, repetition, tag, superTask, completed);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+            	String time =cursor.getString(4);
+            	String repetition = cursor.getString(5);
+            	String tag = cursor.getString(6);
+            	Integer superTask = cursor.getInt(7);
+            	Boolean completed = cursor.getInt(8)==1 ? true: false;
+            	task = new RemindTask(id, name, date,dateNotice, time, repetition, tag, superTask, completed);
             	subTasks.add(task);
         	}while(cursor.moveToNext());
         

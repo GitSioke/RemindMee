@@ -82,7 +82,36 @@
                 	android:layout_alignRight="@+id/New_ButtonDate"
                 	android:layout_alignParentRight="true"/>
             </RelativeLayout>
-             
+             <TextView
+                android:id="@+id/New_TextViewDateNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_dateNotice"
+                android:textSize="@dimen/new_text"
+                android:textStyle="bold"
+                android:textColor="@color/normalText" />
+			
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" >
+
+           		<Button
+                	android:id="@+id/New_ButtonDateNotice"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:onClick="showDateNoticePickerDialog"
+                	android:maxLines="4"
+                
+            	/>
+            
+            
+            	<TextView 
+               		android:id="@+id/New_TextViewDateNoticeShow"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_alignRight="@+id/New_ButtonDateNotice"
+                	/>
+            </RelativeLayout>
             <TextView
                 android:id="@+id/New_TextViewTime"
                 android:layout_width="wrap_content"
@@ -91,6 +120,8 @@
                 android:textSize="@dimen/new_text"
                 android:textStyle="bold"
                 android:textColor="@color/normalText" />
+            
+            
            <RelativeLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" >
