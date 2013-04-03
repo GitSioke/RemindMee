@@ -1,6 +1,7 @@
 package remind.me;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public interface RemindTaskDAO {
@@ -16,4 +17,5 @@ public interface RemindTaskDAO {
 	public int deleteTask(Integer idTask);
 	public int deleteSubtask(Integer idTask);
 	public boolean hasSubtask(Integer idTask);
+	public ArrayList<RemindTask> getTaskWithDate(Date date);
 }

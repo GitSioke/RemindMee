@@ -63,11 +63,16 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		
 		Date date = new Date(dateLong);
 		
-		activity.dateLong =this.dateLong;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(date);
-		this.activity.textDate.setText(dateString);
-		
+		if (getArguments().getBoolean("islimitdate")){
+			activity.dateLong = this.dateLong;
+			this.activity.textDate.setText(dateString);
+		}else{
+			activity.dateNoticeLong = this.dateLong;
+			activity.txtDateNotice.setText(dateString);
+		}
+
 		
 	}
 	/** 

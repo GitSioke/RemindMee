@@ -64,6 +64,7 @@
    <string name="completed_header">Tareas Completadas</string>
    <string name="new_toast_missingData">Los campos nombre, fecha limite y fecha de aviso son obligatorios</string>
    <string name="new_dateNotice">Fecha de aviso</string>
+   <string name="new_toast_dateNoSense">La fecha de aviso no puede ser superior a la fecha limite</string>
    
    
 </resources>

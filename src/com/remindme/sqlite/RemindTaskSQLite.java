@@ -34,7 +34,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
 			+"name VARCHAR not null, date LONG not null, dateNotice LONG, time VARCHAR, repetition VARCHAR, " +
@@ -394,6 +394,33 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		}
 		this.close();
 		return hasSubtask;
+	}
+
+	public ArrayList<RemindTask> getTaskWithDate(Date date) {
+		//TODO Revisar que lo haga sin mirar los minutos y segundos
+		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
+		this.open();
+        Cursor cursor =db.query(DATABASE_TABLE, null, KEY_DATE+"=?", new String[]{Long.toString(date.getTime())}, null, null, null);
+        
+        if (cursor.moveToFirst()){
+        	do{
+        		Integer id = cursor.getInt(0);
+            	String name = cursor.getString(1);
+            	Long dateAsLong = cursor.getLong(2);
+        		Date dateNotice = new Date(dateAsLong);
+            	String time =cursor.getString(4);
+            	String repetition = cursor.getString(5);
+            	String tag = cursor.getString(6);
+            	Integer superTask = cursor.getInt(7);
+            	Boolean completed = cursor.getInt(8)==1 ? true: false;
+            	RemindTask task = new RemindTask(id, name, date,dateNotice, time, repetition, tag, superTask, completed);
+            	taskList.add(task);
+        	}while(cursor.moveToNext());
+        
+        }
+        this.close();
+        
+		return taskList;
 	}
 
 	

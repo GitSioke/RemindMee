@@ -27,7 +27,7 @@
         <!-- <activity android:name="RemindNewActivity"></activity>-->
         <activity android:name="RemindPendingTaskActivity"></activity>
         <activity android:name="RemindCompletedTaskActivity"></activity>
-        <activity android:name="RemindTodayActivity"></activity>
+        <activity android:name="remind.me.RemindDayActivity"></activity>
         <activity android:name="RemindTagsActivity"></activity>
         <!-- <activity android:name="RemindSplashActivity"></activity>-->
         <activity android:name="RemindTaskActivity"></activity>
