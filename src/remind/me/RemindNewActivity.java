@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.Notice;
 
 
 import android.app.DialogFragment;
@@ -45,33 +46,32 @@ public class RemindNewActivity extends RemindActivity {
         textDate = (TextView) findViewById(R.id.New_TextViewDateShow);
         txtDateNotice = (TextView)findViewById(R.id.New_TextViewDateNoticeShow);
         textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
-        
+        //Spinner 1
         Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         repeatSpinner.setAdapter(adapter);
+        //Spinner 2
+        Spinner noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
+        ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_spinnerNotice, 
+        		android.R.layout.simple_selectable_list_item); 
+        adapterNotice.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        noticeSpinner.setAdapter(adapterNotice);
         
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
         Button addTask = (Button)findViewById(R.id.New_Button_Add);
         addTask.setOnClickListener(new View.OnClickListener() {
-			
-		
-        	
-
 			public void onClick(View v) {
 				Boolean correctData=false;
         		try {
         			correctData = initTaskNameEntry();        			
         		} catch (IOException e) {
-        			// TODO Auto-generated catch block
         			e.printStackTrace();
         		} catch (InstantiationException e) {
-        			// TODO Auto-generated catch block
         			e.printStackTrace();
         		} catch (IllegalAccessException e) {
-        			// TODO Auto-generated catch block
         			e.printStackTrace();
         		}
         		if (correctData){
@@ -113,9 +113,28 @@ public class RemindNewActivity extends RemindActivity {
 				});
 				String repetition = (String) spinnerRep.getSelectedItem();
 				
+				final Spinner spinnerNotice = (Spinner) findViewById(R.id.New_SpinnerNotice);
+				spinnerNotice.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					public void onItemSelected(AdapterView<?> parent, View view,
+							int position, long id) {
+						parent.getItemAtPosition(position);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
+				String noticeAsString = (String) spinnerNotice.getSelectedItem();
+				Notice notice =Notice.getNotice(noticeAsString);
+				Long longNotice = Notice.getAsLong(notice);
+				Date noticeDate = new Date(dateLong -longNotice);
+				
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 				Log.d("NEW", Integer.toString(superTaskID));
-				RemindTask task = new RemindTask(null, name, date, dateNotice, time, repetition, tag, superTaskID, false);
+				RemindTask task = new RemindTask(null, name, date, noticeDate, time, repetition, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
 				taskDB.insertNewTask(task);	

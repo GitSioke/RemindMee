@@ -32,13 +32,17 @@
     <string name="new_tag">Etiqueta</string>
     <string name="new_tag_hint"></string>
     
-    <string name="edit_header">Editar Tarea</string><string-array name="repeat_array">
+    <string name="edit_header">Editar Tarea</string>
+    
+    <string-array name="repeat_array">
         <item>Única</item>
         <item>Diaria</item>
         <item>Semanal</item>
         <item>Mensual</item>
         <item>Anual</item>
-    </string-array><string name="pending_header">Tareas pendientes</string>
+    </string-array>
+    
+    <string name="pending_header">Tareas pendientes</string>
     
     <!-- All View -->
     
@@ -65,6 +69,15 @@
    <string name="new_toast_missingData">Los campos nombre, fecha limite y fecha de aviso son obligatorios</string>
    <string name="new_dateNotice">Fecha de aviso</string>
    <string name="new_toast_dateNoSense">La fecha de aviso no puede ser superior a la fecha limite</string>
+   <string-array name="new_spinnerNotice">
+       <item >1 hora</item>
+       <item >2 horas</item>
+       <item >4 horas</item>
+       <item >8 horas</item>
+       <item >12 horas</item>
+       <item >1 dia</item>
+       <item >2 días</item>
+    </string-array>
    
    
 </resources>

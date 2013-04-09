@@ -13,6 +13,7 @@ public final class R {
         public static final int splash_fade2=0x7f040001;
     }
     public static final class array {
+        public static final int new_spinnerNotice=0x7f080001;
         public static final int repeat_array=0x7f080000;
     }
     public static final class attr {
@@ -117,17 +118,17 @@ public final class R {
         public static final int NewLinearLayout=0x7f09002d;
         public static final int NewScrollView=0x7f09002c;
         public static final int New_ButtonDate=0x7f090031;
-        public static final int New_ButtonDateNotice=0x7f090034;
-        public static final int New_ButtonTime=0x7f090037;
+        public static final int New_ButtonTime=0x7f090034;
         public static final int New_Button_Add=0x7f09003e;
         public static final int New_EditTextTag=0x7f09003b;
+        public static final int New_SpinnerNotice=0x7f090037;
         public static final int New_SpinnerRepeat=0x7f090039;
-        public static final int New_TextViewDateNotice=0x7f090033;
-        public static final int New_TextViewDateNoticeShow=0x7f090035;
+        public static final int New_TextViewDateNotice=0x7f090036;
+        public static final int New_TextViewDateNoticeShow=0x7f090038;
         public static final int New_TextViewDateShow=0x7f090032;
         public static final int New_TextViewTag=0x7f09003a;
-        public static final int New_TextViewTime=0x7f090036;
-        public static final int New_TextViewTimeShow=0x7f090038;
+        public static final int New_TextViewTime=0x7f090033;
+        public static final int New_TextViewTimeShow=0x7f090035;
         public static final int RelativeLayout_Header=0x7f09000a;
         public static final int Splash_TextView01=0x7f09003f;
         public static final int Tag_ImageViewTag=0x7f090040;

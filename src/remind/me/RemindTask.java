@@ -19,6 +19,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private static final String KEY_TAG = "tag";
 	private static final String KEY_SUPERTASK = "supertask";
 	private static final String KEY_COMPLETED = "completed";
+	
 	private Integer id;
 	private String name;
 	private String tag;
