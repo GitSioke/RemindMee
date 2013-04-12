@@ -76,8 +76,16 @@
        <item >8 horas</item>
        <item >12 horas</item>
        <item >1 dia</item>
-       <item >2 días</item>
+       <item >2 dias</item>
     </string-array>
+    
+   <string name="new_spinnerNotice_onehour">1 hora</string>
+   <string name="new_spinnerNotice_twohours">2 horas</string>
+   <string name="new_spinnerNotice_fourhours">4 horas</string>
+   <string name="new_spinnerNotice_eighthour">8 horas</string>
+   <string name="new_spinnerNotice_twelvehour">12 horas</string>
+   <string name="new_spinnerNotice_oneday">1 dia</string>
+   <string name="new_spinnerNotice_twodays">2 dias</string>
    
    
 </resources>

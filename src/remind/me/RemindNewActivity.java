@@ -34,9 +34,11 @@ public class RemindNewActivity extends RemindActivity {
 	TextView txtDateNotice;
 	Long dateLong;
 	Long dateNoticeLong;
+	Long time;
 	TextView textTime;
 	DialogFragment dateFragment;
-	
+	private Spinner repeatSpinner;
+	private Spinner noticeSpinner;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -47,13 +49,13 @@ public class RemindNewActivity extends RemindActivity {
         txtDateNotice = (TextView)findViewById(R.id.New_TextViewDateNoticeShow);
         textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
         //Spinner 1
-        Spinner repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+        repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         repeatSpinner.setAdapter(adapter);
         //Spinner 2
-        Spinner noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
+        noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
         ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_spinnerNotice, 
         		android.R.layout.simple_selectable_list_item); 
         adapterNotice.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -61,6 +63,37 @@ public class RemindNewActivity extends RemindActivity {
         
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
+        
+		repeatSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				parent.getItemAtPosition(position);
+				
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				return;
+				
+			}
+		});
+		
+		
+		noticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				parent.getItemAtPosition(position);
+				
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+        
         Button addTask = (Button)findViewById(R.id.New_Button_Add);
         addTask.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -87,59 +120,38 @@ public class RemindNewActivity extends RemindActivity {
 		Boolean correctData = false;
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
-		String time = textTime.getText().toString();
+		String timeAsString = textTime.getText().toString();
 		//Revisar Date
-		if (!name.contentEquals("") && textDate.getText().length()>2 && txtDateNotice.getText().length()>2){
-			Date date= new Date(dateLong);
-			Date dateNotice = new Date(dateNoticeLong);
-			if (checkDateHasSense(date, dateNotice)){
+		if (!name.contentEquals("") && textDate.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
+			Date date= new Date(this.dateLong+this.time);
+			
+			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
+			String tag = taskTag.getText().toString();
+			
+			String repetition = (String) repeatSpinner.getSelectedItem();
+				
+			String noticeAsString = (String) noticeSpinner.getSelectedItem();
+			String[] array = getResources().getStringArray(R.array.new_spinnerNotice);
+			for(String string: array){
+				if (noticeAsString.contentEquals(string));
+					
+			}
+			Notice notice =Notice.getNotice(noticeAsString, getApplicationContext());
+			
+			Long longNotice = Notice.getAsLong(notice);
+			Date noticeDate = new Date(dateLong - longNotice);
+			Log.d("NEW", Long.toString(dateLong));
+			Log.d("NEW", Long.toString(time));
+			Log.d("NEW", Long.toString(longNotice));
+			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
-				EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
-				String tag = taskTag.getText().toString();
-				
-				final Spinner spinnerRep = (Spinner)findViewById(R.id.New_SpinnerRepeat);
-				spinnerRep.setOnItemSelectedListener(new OnItemSelectedListener() {
-		
-					public void onItemSelected(AdapterView<?> parent, View view,
-							int position, long id) {
-						parent.getItemAtPosition(position);
-						
-					}
-		
-					public void onNothingSelected(AdapterView<?> parent) {
-						return;
-						
-					}
-				});
-				String repetition = (String) spinnerRep.getSelectedItem();
-				
-				final Spinner spinnerNotice = (Spinner) findViewById(R.id.New_SpinnerNotice);
-				spinnerNotice.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-					public void onItemSelected(AdapterView<?> parent, View view,
-							int position, long id) {
-						parent.getItemAtPosition(position);
-					}
-
-					public void onNothingSelected(AdapterView<?> parent) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				
-				String noticeAsString = (String) spinnerNotice.getSelectedItem();
-				Notice notice =Notice.getNotice(noticeAsString);
-				Long longNotice = Notice.getAsLong(notice);
-				Date noticeDate = new Date(dateLong -longNotice);
-				
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 				Log.d("NEW", Integer.toString(superTaskID));
-				RemindTask task = new RemindTask(null, name, date, noticeDate, time, repetition, tag, superTaskID, false);
+				RemindTask task = new RemindTask(null, name, date, noticeDate, timeAsString, repetition, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
 				taskDB.insertNewTask(task);	
-				}
-			else{
+			}else{
 				Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 			}
 		}else{

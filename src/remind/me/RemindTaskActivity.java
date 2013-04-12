@@ -54,8 +54,8 @@ import com.remindme.sqlite.RemindTaskSQLite;
            TextView txtDate = (TextView)findViewById(R.id.Task_Date);
            //TODO Revisar Date
            txtDate.setText(task.getDate().toString());
-           TextView txtTime = (TextView)findViewById(R.id.Task_Time);
-           txtTime.setText(task.getTime());
+           TextView txtTime = (TextView)findViewById(R.id.Task_DateNotice);
+           txtTime.setText(task.getDateNotice().toString());
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
            txtRepetition.setText(task.getRepetition());
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);

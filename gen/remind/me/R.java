@@ -72,13 +72,13 @@ public final class R {
         public static final int typeb_calendar_today=0x7f020009;
     }
     public static final class id {
-        public static final int All_FrameOfListTask=0x7f090006;
-        public static final int All_HeaderTxtView=0x7f090005;
-        public static final int All_ListViewTask=0x7f090007;
+        public static final int All_FrameOfListTask=0x7f090002;
+        public static final int All_HeaderTxtView=0x7f090001;
+        public static final int All_ListViewTask=0x7f090003;
         public static final int DatePicker_Calendar=0x7f090004;
-        public static final int Day_FrameOfListTask=0x7f090002;
-        public static final int Day_HeaderTxtView=0x7f090001;
-        public static final int Day_ListViewTask=0x7f090003;
+        public static final int Day_FrameOfListTask=0x7f090006;
+        public static final int Day_HeaderTxtView=0x7f090005;
+        public static final int Day_ListViewTask=0x7f090007;
         public static final int Day_RelativeLayout_Header=0x7f090000;
         public static final int DialogDelete_Text=0x7f090008;
         public static final int DialogEdit_Text=0x7f090009;
@@ -121,10 +121,10 @@ public final class R {
         public static final int New_ButtonTime=0x7f090034;
         public static final int New_Button_Add=0x7f09003e;
         public static final int New_EditTextTag=0x7f09003b;
-        public static final int New_SpinnerNotice=0x7f090037;
+        public static final int New_SpinnerNotice=0x7f090038;
         public static final int New_SpinnerRepeat=0x7f090039;
         public static final int New_TextViewDateNotice=0x7f090036;
-        public static final int New_TextViewDateNoticeShow=0x7f090038;
+        public static final int New_TextViewDateNoticeShow=0x7f090037;
         public static final int New_TextViewDateShow=0x7f090032;
         public static final int New_TextViewTag=0x7f09003a;
         public static final int New_TextViewTime=0x7f090033;
@@ -136,6 +136,7 @@ public final class R {
         public static final int Tags_ListViewTags=0x7f090042;
         public static final int Task_Checkbox=0x7f09004a;
         public static final int Task_Date=0x7f090046;
+        public static final int Task_DateNotice=0x7f090047;
         public static final int Task_ImageButtonDelete=0x7f09004b;
         public static final int Task_ImgNewSubtask=0x7f09004e;
         public static final int Task_ListSubTask=0x7f09004f;
@@ -145,7 +146,6 @@ public final class R {
         public static final int Task_RelativeTaskText=0x7f090044;
         public static final int Task_Repetition=0x7f090048;
         public static final int Task_Tag=0x7f090049;
-        public static final int Task_Time=0x7f090047;
         public static final int Task_TxtSubTask=0x7f09004d;
         public static final int TextView_Date=0x7f090030;
         public static final int TextView_DateNotice=0x7f090012;
@@ -199,6 +199,13 @@ public final class R {
         public static final int new_name_hint=0x7f070006;
         public static final int new_repeat=0x7f07000a;
         public static final int new_repeat_hint=0x7f07000b;
+        public static final int new_spinnerNotice_eighthour=0x7f07002c;
+        public static final int new_spinnerNotice_fourhours=0x7f07002b;
+        public static final int new_spinnerNotice_oneday=0x7f07002e;
+        public static final int new_spinnerNotice_onehour=0x7f070029;
+        public static final int new_spinnerNotice_twelvehour=0x7f07002d;
+        public static final int new_spinnerNotice_twodays=0x7f07002f;
+        public static final int new_spinnerNotice_twohours=0x7f07002a;
         public static final int new_tag=0x7f07000f;
         public static final int new_tag_hint=0x7f070010;
         public static final int new_time=0x7f07000d;

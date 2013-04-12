@@ -1,12 +1,17 @@
 package remind.me;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.app.TimePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -22,11 +27,36 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	}
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		timeValues = new ContentValues();
+		/*timeValues = new ContentValues();
 		timeValues.put("Hour", hourOfDay);
 		timeValues.put("Minute", minute);
 		
-		timeText.setText(String.valueOf(hourOfDay)  + ":" + String.valueOf(minute));
+		timeText.setText(String.valueOf(hourOfDay)  + ":" + String.valueOf(minute));*/
+		
+		
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(Calendar.YEAR, 1970);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+		cal.set(Calendar.MINUTE, minute);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		
+		
+		
+        Date date = cal.getTime();
+		Log.d("TIMEPICKER", Long.toString(date.getTime()));
+		
+		Log.d("TIMEPICKER", date.toString());
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+		String dateString = format.format(date);
+		
+		RemindNewActivity activity  = (RemindNewActivity)getActivity();
+		//TODO controlar que no se metan varias veces un tiempo o fecha
+		activity.time = date.getTime();
+		
+		activity.textTime.setText(dateString);
 		
 	}
 	

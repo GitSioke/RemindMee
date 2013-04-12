@@ -58,6 +58,11 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(year, month, day);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		cal.setFirstDayOfWeek(0);
 		CalendarView calendarView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
         dateLong = calendarView.getDate();
 		

@@ -1,5 +1,10 @@
 package com.utils;
 
+import remind.me.R;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+
 /**
  * Clase enumerada representa los valores elegibles para la repetición que se da en una tarea.
  * 
@@ -16,6 +21,8 @@ public enum Notice {
 	
 	EIGHTHOURS,
 	
+	TWELVEHOURS,
+	
 	DAY,
 	
 	TWODAYS;
@@ -24,6 +31,7 @@ public enum Notice {
 	private static final Long LONG_TWOHOURS		 = Long.valueOf(7200000);
 	private static final Long LONG_FOURHOURS = Long.valueOf(14400000);
 	private static final Long LONG_EIGTHHOURS = Long.valueOf(28800000);
+	private static final Long LONG_TWELVEHOURS = Long.valueOf(43200000);
 	private static final Long LONG_DAY = Long.valueOf(86400000);
 	private static final Long LONG_TWODAYS = Long.valueOf(172800000);
 	
@@ -43,7 +51,9 @@ public enum Notice {
 		case EIGHTHOURS:
 			result =LONG_EIGTHHOURS;
 			break;
-			
+		case TWELVEHOURS:
+			result = LONG_TWELVEHOURS;
+			break;
 		case DAY:
 			result =LONG_DAY;
 			break;	
@@ -55,22 +65,21 @@ public enum Notice {
 		return result;
 	}
 	//Cambiar y hacer con R.array.etc
-	public static Notice getNotice(String noticeAsString){
-		Notice notice = null;
-		if (noticeAsString.contentEquals("1 hour")){
-			notice = Notice.HOUR;		
-		}else if (noticeAsString.contentEquals("2 hours")){
-			notice = Notice.TWOHOURS;
-		}else if (noticeAsString.contentEquals("4 hours")){
-			notice = Notice.FOURHOURS;
-		}else if (noticeAsString.contentEquals("8 hours")){
-			notice = Notice.EIGHTHOURS;
-		}else if (noticeAsString.contentEquals("1 day")){
-			notice = Notice.DAY;
-		}else if (noticeAsString.contentEquals("2 days")) {
-			notice = Notice.TWODAYS;
+	public static Notice getNotice(String noticeAsString, Context ctx){
+		
+		String[] array  = ctx.getResources().getStringArray(R.array.new_spinnerNotice);
+		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
+		int position = 0;
+		
+		for(String string: array){
+			if (noticeAsString.contentEquals(string))
+				
+				break;
+			else
+				position++;
 		}
-		return notice;
+		return Notice.values()[position];
+		
 		
 	}
 	

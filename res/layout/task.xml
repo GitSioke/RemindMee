@@ -52,15 +52,15 @@
 	           android:layout_below="@+id/Task_Name"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      <TextView
-	           android:id="@+id/Task_Time"
+	           android:id="@+id/Task_DateNotice"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
-	           android:layout_below="@+id/Task_Name"
-	           android:layout_toRightOf="@+id/Task_Date"
+	           android:layout_below="@+id/Task_Date"
 	           android:paddingLeft="@dimen/app_padding_left"/>
+	      
 	      <TextView
 	           android:id="@+id/Task_Repetition"
 	           android:layout_width="wrap_content"

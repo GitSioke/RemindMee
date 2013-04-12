@@ -13,10 +13,9 @@
         
         <!--TODO: Cabecera, añadir el texto y una imagen? -->
         <TextView 
-            android:id="@+id/All_HeaderTxtView"
+            android:id="@+id/Day_HeaderTxtView"
             android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-            android:text="@string/pending_header"
             android:textSize="@dimen/text_header"
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
@@ -26,19 +25,19 @@
     <!--TODO Texto dinamico. Editar -->
    
 	    <FrameLayout 
-	       android:id="@+id/All_FrameOfListTask"
+	       android:id="@+id/Day_FrameOfListTask"
 	       android:layout_width="fill_parent"
 	       android:layout_height="0dip"
 	       android:layout_weight="3">
 	    	<ListView 
-	        	android:id="@+id/All_ListViewTask"
+	        	android:id="@+id/Day_ListViewTask"
 	        	android:layout_width="fill_parent"
 	        	android:layout_height="fill_parent">
 	        
 	    	</ListView> 
 	    
 	       	<!-- <ListView 
-	    	    android:id="@+id/All_ListViewCheckBox"
+	    	    android:id="@+id/Day_ListViewCheckBox"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content">
 	    	   </ListView> -->

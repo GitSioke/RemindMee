@@ -89,6 +89,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		parcel.writeInt(this.id);
 		parcel.writeString(this.name);
 		parcel.writeLong(this.date.getTime());
+		parcel.writeLong(this.dateNotice.getTime());
 		parcel.writeString(this.time);
 		parcel.writeString(this.repetition);
 		parcel.writeString(this.tag);
@@ -112,6 +113,8 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		this.name = parcel.readString();
 		Long dateAsLong = parcel.readLong();
 		this.date = new Date(dateAsLong);
+		Long dateNoticeAsLong = parcel.readLong();
+		this.dateNotice = new Date(dateNoticeAsLong);
 		this.time = parcel.readString();
 		this.repetition = parcel.readString();
 		this.tag = parcel.readString();
