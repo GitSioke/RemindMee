@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.remindme.sqlite.RemindTaskSQLite;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,13 +20,16 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class RemindDayActivity extends RemindActivity {
     /** Called when the activity is first created. */
+	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day);
         RemindTaskDAO db = new RemindTaskSQLite(this);
-       
-        Date date = (Date)getIntent().getParcelableExtra("date");
+        
+       	Long dateLong = (Long)getIntent().getLongExtra("date", 0);
+        Date date = new Date(dateLong);
 		ArrayList<RemindTask> taskList =  db.getTaskWithDate(date);
 		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
 		txtHeader.setText(date.toString());
@@ -74,4 +78,5 @@ public class RemindDayActivity extends RemindActivity {
 		checkListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_check, taskList));
 		
 	}*/
+
 }

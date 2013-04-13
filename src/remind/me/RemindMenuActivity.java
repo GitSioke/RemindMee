@@ -3,17 +3,26 @@ package remind.me;
 
 
 
+import java.util.Date;
+
 import com.remindme.sqlite.RemindTaskSQLite;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RemindMenuActivity extends RemindActivity {
     /** Called when the activity is first created. */
+	
+	public TextView text;
+	private DialogFragment dateFragment;
+	private Long dateLong;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d("MENU", "Entrando en onCreate");
@@ -39,7 +48,7 @@ public class RemindMenuActivity extends RemindActivity {
         ImageView imageTags = (ImageView) findViewById(R.id.Menu_ImageView_Tags);
         ImageView imageToday = (ImageView) findViewById(R.id.Menu_ImageView_Today);
         ImageView imageNew = (ImageView) findViewById(R.id.Menu_ImageView_New);
-        
+        ImageView imageClock = (ImageView) findViewById(R.id.Menu_ImageView_Clock);
         
         imageAll.setOnClickListener(new View.OnClickListener() {
 			
@@ -71,6 +80,18 @@ public class RemindMenuActivity extends RemindActivity {
         		startActivity(new Intent(RemindMenuActivity.this, RemindCompletedTaskActivity.class));
         	}
         });
+        
+        imageClock.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				dateFragment = new DatePickerFragment();
+				Bundle bundle = new Bundle();
+				bundle.putBoolean("pickDay", true);
+				dateFragment.setArguments(bundle);
+				dateFragment.show(getFragmentManager(), "dateNoticePicker");		
+				
+			}
+		});
     }
     
     
@@ -83,4 +104,7 @@ public class RemindMenuActivity extends RemindActivity {
 		
 	}
 	
+	public void setDateLong(Long date){
+		this.dateLong = date;
+	}
 }

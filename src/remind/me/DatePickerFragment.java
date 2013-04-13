@@ -18,6 +18,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -41,6 +42,9 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	public DatePickerFragment(TextView text) {
 		this.dateTextView = text;
 		
+	}
+	public DatePickerFragment() {
+		super();
 	}
 	
 	public DatePickerFragment(RemindNewActivity activity) {
@@ -70,9 +74,17 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(date);
+		
 		if (getArguments().getBoolean("islimitdate")){
 			activity.dateLong = this.dateLong;
 			this.activity.textDate.setText(dateString);
+		}else if(getArguments().getBoolean("pickDay")){
+			Log.d("PASA", "POR AQUI");
+			RemindMenuActivity activity = (RemindMenuActivity)getActivity();
+			Intent intent = new Intent(activity, RemindDayActivity.class);
+    		intent.putExtra("date", dateLong);
+    		startActivity(intent);
+	
 		}else{
 			activity.dateNoticeLong = this.dateLong;
 			activity.txtDateNotice.setText(dateString);

@@ -27,6 +27,12 @@
         android:layout_height="wrap_content"
         android:background="@color/background">
 
+        <ImageView
+            	android:id="@+id/Menu_ImageView_Clock"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:src="@drawable/menu_tags"
+            	android:clickable="true" />
         <TableLayout
             android:id="@+id/Menu_TableLayout"
             android:layout_width="fill_parent"
