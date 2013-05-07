@@ -88,5 +88,10 @@
             android:textSize="@dimen/app_info"
             android:gravity="center"/>
     </LinearLayout>
+    
+	<EditText 
+	    android:id="@+id/Menu_EditTextNotification"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
 
 </LinearLayout>
