@@ -5,6 +5,7 @@ package remind.me;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.app.DialogFragment;

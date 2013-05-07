@@ -13,14 +13,13 @@ import android.util.Log;
 
 
 import remind.me.RemindNotification;
-import remind.me.RemindNotificationDAO;
 
 public class RemindNotificationSQLite implements RemindNotificationDAO {
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_IDTASK = "idTask";
 	public static final String KEY_DATE="date";
 	public static final String KEY_DELAY="delay";
-	public static final String KEY_CHECKED="cheked";
+	public static final String KEY_CHECKED="checked";
 
 		
 	private static final String TAG = "DBHandler";
@@ -74,6 +73,15 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 		return changes;
 		
 	}
+	
+	public long insertAll(ArrayList<RemindNotification> notificationList){
+		long changes = 0;
+		for(RemindNotification notification: notificationList){
+			changes = insertNotification(notification);
+		}
+		return changes;
+		
+	}
 
 
 	private static class DatabaseHelper extends SQLiteOpenHelper{
@@ -114,7 +122,7 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
         		Date date = new Date(dateAsLong);
         		dateAsLong = cursor.getLong(3);
         		Date delay= new Date(dateAsLong);
-        		Boolean checked =  cursor.getInt(8)==1 ? true: false;
+        		Boolean checked =  cursor.getInt(4)==1 ? true: false;
         		notification = new RemindNotification(id, idTask, date, delay, checked);
         		notifyList.add(notification);
         		

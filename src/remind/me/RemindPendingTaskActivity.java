@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import android.provider.Settings.Secure;
+
+import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.content.Intent;

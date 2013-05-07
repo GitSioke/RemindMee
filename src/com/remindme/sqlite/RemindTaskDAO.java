@@ -1,8 +1,10 @@
-package remind.me;
+package com.remindme.sqlite;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import remind.me.RemindTask;
 
 public interface RemindTaskDAO {
 	public ArrayList<RemindTask> getTaskWithTag(String tag);

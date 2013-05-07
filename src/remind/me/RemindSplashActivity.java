@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 
 import android.app.NotificationManager;
@@ -53,11 +54,7 @@ public class RemindSplashActivity extends RemindActivity {
 	                		dbNoti.insertNotification(not);
 	                		ArrayList<RemindNotification> notificationList= dbNoti.getAllNotifications();
 	                		NotificationManager notificationManager =(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-	                		if(notificationList ==null || notificationList.isEmpty()){
-	                			notificationList.add(new RemindNotification(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), false));
-	                			longas = Calendar.getInstance().getTime().getTime() + 5000;
-	                			notificationList.add(new RemindNotification(12346, 6789,  new Date(longas), new Date(longas), false));
-	                		}
+	                		
 	                		for(RemindNotification notification: notificationList){
 	                			NotificationCompat.Builder mBuilder =
 	                	    	        new NotificationCompat.Builder(ctx)

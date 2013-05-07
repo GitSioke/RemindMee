@@ -7,6 +7,7 @@ package remind.me;
 import java.io.IOException;
 import java.util.Date;
 
+import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.Notice;
 

@@ -3,6 +3,7 @@ package remind.me;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 
 import android.app.Activity;

@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import remind.me.RemindTask;
-import remind.me.RemindTaskDAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
