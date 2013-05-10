@@ -20,6 +20,7 @@ import android.widget.Toast;
      
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
      
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;

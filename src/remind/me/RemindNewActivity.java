@@ -10,6 +10,7 @@ import java.util.Date;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.Notice;
+import com.utils.RemindTask;
 
 
 import android.app.DialogFragment;
@@ -151,7 +152,7 @@ public class RemindNewActivity extends RemindActivity {
 				RemindTask task = new RemindTask(null, name, date, noticeDate, timeAsString, repetition, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
-				taskDB.insertNewTask(task);	
+				taskDB.insertTask(task);	
 			}else{
 				Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 			}

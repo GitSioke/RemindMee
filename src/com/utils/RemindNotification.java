@@ -1,4 +1,4 @@
-package remind.me;
+package com.utils;
 
 import java.util.Date;
 
@@ -9,11 +9,12 @@ public class RemindNotification {
 	private Integer idTask;
 	private Date date;
 	private Date delay;
-	private Boolean checked;
-	
+	private Boolean ready;
+	private Boolean done;
+
 	
 
-	public RemindNotification(Integer id, Integer idTask, Date date, Date delay, Boolean checked){
+	public RemindNotification(Integer id, Integer idTask, Date date, Date delay, Boolean ready, Boolean done){
 		if (id==null)
 			this.id = hashCode();
 		else{
@@ -23,7 +24,8 @@ public class RemindNotification {
 		this.idTask= idTask;
 		this.date = date;
 		this.delay = delay;
-		this.checked = checked;
+		this.ready= ready;
+		this.done = done;
 	}
 	
 	public Integer getId() {
@@ -50,11 +52,22 @@ public class RemindNotification {
 	public void setDelay(Date delay) {
 		this.delay = delay;
 	}
-	public Boolean getChecked() {
-		return checked;
+	public void setReady(Boolean ready){
+		this.ready = ready;
 	}
-	public void setChecked(Boolean checked) {
-		this.checked = checked;
+	
+	public Boolean isReady() {
+		return this.ready;
 	}
+	
+	public Boolean isDone() {
+		return done;
+	}
+
+	public void setDone(Boolean done) {
+		this.done = done;
+	}
+
+
 	
 }

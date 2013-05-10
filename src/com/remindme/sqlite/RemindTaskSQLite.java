@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import remind.me.RemindTask;
+import com.utils.RemindTask;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -77,7 +78,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 	 * @return
 	 */
 	//TODO Revisar si se puede hacer un con ContentValues de parametro o crear una clase de tipo Task
-	public long insertNewTask(RemindTask task){
+	public long insertTask(RemindTask task){
 		this.open();
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, task.getId());

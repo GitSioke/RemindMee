@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
 
 public class RemindCompletedTaskActivity extends RemindActivity {
     

@@ -11,6 +11,7 @@ import android.provider.Settings.Secure;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
 
 import android.content.Intent;
 import android.database.Cursor;

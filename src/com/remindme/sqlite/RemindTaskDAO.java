@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import remind.me.RemindTask;
+import com.utils.RemindTask;
+
 
 public interface RemindTaskDAO {
 	public ArrayList<RemindTask> getTaskWithTag(String tag);
 	public ArrayList<String> getAllTags();
 	public ArrayList<RemindTask> getAllTasks();
-	public long insertNewTask(RemindTask task);
+	public long insertTask(RemindTask task);
 	public int updateTask(RemindTask task);
 	public void updateTaskCompleted(RemindTask task);
 	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted);

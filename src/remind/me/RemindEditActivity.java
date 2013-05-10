@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -132,7 +133,7 @@ public class RemindEditActivity extends RemindActivity {
 		RemindTask task = new RemindTask(null, name, date,dateNotice, time, repetition, tag, superTaskID, false);
 		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 		
-		taskDB.insertNewTask(task);		
+		taskDB.insertTask(task);		
 		
 	}
 	/**

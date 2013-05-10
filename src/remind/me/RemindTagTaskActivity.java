@@ -3,6 +3,7 @@ package remind.me;
 import java.util.ArrayList;
 
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
 
 import android.content.Intent;
 import android.os.Bundle;

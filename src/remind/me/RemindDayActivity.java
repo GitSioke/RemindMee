@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.RemindTask;
 
 import android.app.DialogFragment;
 import android.content.Intent;

@@ -9,6 +9,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import remind.me.R;
+import remind.me.R.id;
+import remind.me.R.layout;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -30,6 +35,7 @@ import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+@SuppressLint("ValidFragment")
 public class DatePickerFragment extends DialogFragment implements OnDateSetListener{
 
 	public TextView dateTextView;
