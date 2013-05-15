@@ -395,17 +395,20 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		return hasSubtask;
 	}
 
-	public ArrayList<RemindTask> getTaskWithDate(Date date) {
+	public ArrayList<RemindTask> getTaskBetweenDates(Date startDate, Date endDate) {
 		//TODO Revisar que lo haga sin mirar los minutos y segundos
 		ArrayList<RemindTask> taskList = new ArrayList<RemindTask>();
 		this.open();
-        Cursor cursor =db.query(DATABASE_TABLE, null, KEY_DATE+"=?", new String[]{Long.toString(date.getTime())}, null, null, null);
+        Cursor cursor =db.query(DATABASE_TABLE, null, KEY_DATE+">? AND "+ KEY_DATE+"<?", 
+        		new String[]{Long.toString(startDate.getTime()),Long.toString(endDate.getTime()) }, null, null, null);
         
         if (cursor.moveToFirst()){
         	do{
         		Integer id = cursor.getInt(0);
             	String name = cursor.getString(1);
             	Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
+            	dateAsLong = cursor.getLong(3);
         		Date dateNotice = new Date(dateAsLong);
             	String time =cursor.getString(4);
             	String repetition = cursor.getString(5);

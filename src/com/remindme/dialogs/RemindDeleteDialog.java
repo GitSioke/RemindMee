@@ -1,4 +1,9 @@
-package remind.me;
+package com.remindme.dialogs;
+
+import remind.me.R;
+import remind.me.RemindMenuActivity;
+import remind.me.R.layout;
+import remind.me.R.string;
 
 import com.utils.RemindTask;
 

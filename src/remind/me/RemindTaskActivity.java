@@ -1,6 +1,7 @@
     package remind.me;
      
-    import java.util.ArrayList;
+    import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
      
 import android.app.DialogFragment;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
      
+import com.remindme.dialogs.RemindAlertDialog;
+import com.remindme.dialogs.RemindDeleteDialog;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.RemindTask;
@@ -55,9 +58,12 @@ import com.utils.RemindTask;
            txtName.setText(task.getName());
            TextView txtDate = (TextView)findViewById(R.id.Task_Date);
            //TODO Revisar Date
-           txtDate.setText(task.getDate().toString());
-           TextView txtTime = (TextView)findViewById(R.id.Task_DateNotice);
-           txtTime.setText(task.getDateNotice().toString());
+           SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+   		   String dateString = format.format(task.getDate());
+           txtDate.setText(dateString);
+           TextView txtDateNotice = (TextView)findViewById(R.id.Task_DateNotice);
+           dateString = format.format(task.getDateNotice());
+           txtDateNotice.setText(dateString);
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
            txtRepetition.setText(task.getRepetition());
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);

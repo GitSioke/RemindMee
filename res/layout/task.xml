@@ -41,7 +41,18 @@
 	           android:layout_height="wrap_content"
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
-	           android:focusable="false"/>
+	           android:focusable="false"
+	           android:paddingLeft="@dimen/app_padding_left"/>
+	      <TextView
+	           android:id="@+id/Task_DateTxt"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="@string/task_date"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_below="@+id/Task_Name"
+	           android:paddingLeft="@dimen/app_padding_left"/>
 	      <TextView
 	           android:id="@+id/Task_Date"
 	           android:layout_width="wrap_content"
@@ -50,7 +61,19 @@
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
 	           android:layout_below="@+id/Task_Name"
+	           android:layout_toRightOf="@+id/Task_DateTxt"
 	           android:paddingLeft="@dimen/app_padding_left"/>
+	      <TextView
+	           android:id="@+id/Task_DateNoticeTxt"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="@string/task_dateNotice"
+	           android:textSize="@dimen/task_values"
+	           android:textColor="@color/normalText"
+	           android:focusable="false"
+	           android:layout_below="@+id/Task_Date"
+	           android:paddingLeft="@dimen/app_padding_left"/>
+	      
 	      <TextView
 	           android:id="@+id/Task_DateNotice"
 	           android:layout_width="wrap_content"
@@ -59,17 +82,31 @@
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
 	           android:layout_below="@+id/Task_Date"
+	           android:layout_toRightOf="@+id/Task_DateNoticeTxt"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      
+	      <ImageView
+	           android:id="@+id/Task_RepetitionImage"
+	           android:src="@drawable/ic_launcher"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:focusable="false"
+	           android:layout_below="@+id/Task_DateNoticeTxt"/>
 	      <TextView
 	           android:id="@+id/Task_Repetition"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
-	           android:textSize="@dimen/task_values"
-	           android:textColor="@color/normalText"
 	           android:focusable="false"
-	           android:layout_below="@+id/Task_Date"/>
+	           android:layout_below="@+id/Task_DateNoticeTxt"
+	           android:layout_toRightOf="@+id/Task_RepetitionImage"
+	           android:paddingLeft="@dimen/app_padding_left"/>
 	      
+	      <ImageView 
+	          android:id="@+id/Task_TagImage"
+	          android:src="@drawable/ic_launcher"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_below="@+id/Task_RepetitionImage"/>
 	      <TextView
 	           android:id="@+id/Task_Tag"
 	           android:layout_width="wrap_content"
@@ -77,8 +114,8 @@
 	           android:textSize="@dimen/task_values"
 	           android:textColor="@color/normalText"
 	           android:focusable="false"
-	           android:layout_toRightOf="@+id/Task_Repetition"
-	           android:layout_below="@+id/Task_Date"
+	           android:layout_toRightOf="@+id/Task_TagImage"
+	           android:layout_below="@+id/Task_RepetitionImage"
 	           android:paddingLeft="@dimen/app_padding_left"/>
 	      </RelativeLayout>
       <CheckBox 

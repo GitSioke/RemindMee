@@ -29,7 +29,7 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "notifications";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 8;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, " 
 			+"idTask INTEGER not null, date LONG not null, delay LONG, ready BOOL, done BOOL);" ;
@@ -147,9 +147,10 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	 * @return List of notifications that are ready to be notified but not done
 	 */
 	public ArrayList<RemindNotification> getReadyNotifications(){
+		this.open();
 		RemindNotification notification;
 		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
-		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=?" + KEY_DONE+"=?", 
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=?", 
 				new String[]{Integer.toString(1), Integer.toString(0)}, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
@@ -176,9 +177,10 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	 * @return Devuelve todas aquellas notificaciones que no esten listas, ni completas y con fecha inferior a la indicada
 	 */
 	public ArrayList<RemindNotification> getUnreadyNotifications(long dateMax){
+		this.open();
 		RemindNotification notification;
 		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
-		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=?" + KEY_DONE+"=?" + KEY_DATE+"<?", 
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=? AND " + KEY_DATE+"<?", 
 				new String[]{Integer.toString(0), Integer.toString(0), Long.toString(dateMax)}, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
@@ -216,10 +218,11 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	}
 	
 	public ArrayList<RemindNotification> lapsedNotifications(long dateLong){
+		this.open();
 		RemindNotification notification;
 		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
-		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=?" + KEY_DONE+"=?" + KEY_DATE+"<?", 
-				new String[]{Integer.toString(0), Integer.toString(0), Long.toString(dateLong)}, null, null, null);
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=? AND " + KEY_DATE+"<?", 
+				new String[]{Integer.toString(1), Integer.toString(0), Long.toString(dateLong)}, null, null, null);
 	
 		if (cursor.moveToFirst()){
         	do {
@@ -245,10 +248,11 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	 * Devuelve la notificacion proxima con la idTask que se pasa como parametro
 	 */
 	public int amountReadyNotifications(Integer idTask) {
+		this.open();
 		int amount=-1;
 		Cursor cursor = db.rawQuery(
-				"SELECT count(*) from "+ DATABASE_TABLE+ " where "+ KEY_IDTASK+"=?" +
-				KEY_READY+"=?" + KEY_DONE+"=?", 
+				"SELECT count(*) from "+ DATABASE_TABLE+ " where "+ KEY_IDTASK+"=? AND " +
+				KEY_READY+"=? AND " + KEY_DONE+"=?", 
 				new String[]{Integer.toString(idTask), Integer.toString(1),Integer.toString(0)},null);
 		
 		if (cursor.moveToFirst()){

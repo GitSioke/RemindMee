@@ -1,4 +1,10 @@
-package remind.me;
+package com.remindme.dialogs;
+
+import remind.me.R;
+import remind.me.R.layout;
+import remind.me.R.string;
+import remind.me.RemindEditActivity;
+import remind.me.RemindNewActivity;
 
 import com.utils.RemindTask;
 
@@ -29,7 +35,7 @@ public class RemindAlertDialog extends DialogFragment {
 			
 			public void onClick(DialogInterface dialog, int which) {
 				
-				Intent intent = new Intent(getActivity(), RemindMenuActivity.class);
+				Intent intent = new Intent(getActivity(), RemindEditActivity.class);
 				intent.putExtra("Task", task);
 				startActivity(intent);
 			}

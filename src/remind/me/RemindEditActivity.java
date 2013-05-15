@@ -1,6 +1,7 @@
 package remind.me;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.remindme.sqlite.RemindTaskDAO;
@@ -36,7 +37,7 @@ public class RemindEditActivity extends RemindActivity {
         RemindTask task = getIntent().getParcelableExtra("Task");
         initializeFromTask(task);
         
-        textDate = (TextView) findViewById(R.id.Edit_TextViewDateShow);
+        textDate = (TextView) findViewById(R.id.Edit_EditTextDate);
         textTime = (TextView) findViewById(R.id.Edit_TextViewTimeShow);
         
         Spinner repeatSpinner = (Spinner)findViewById(R.id.Edit_SpinnerRepeat);
@@ -78,11 +79,14 @@ public class RemindEditActivity extends RemindActivity {
 		// TODO 
 			EditText txtName = (EditText) findViewById(R.id.Edit_EditText_Name);
 			txtName.setText(task.getName());
-			TextView txtDate = (TextView) findViewById(R.id.Edit_TextViewDateShow);
+			TextView txtDate = (TextView) findViewById(R.id.Edit_EditTextDate);
 			//TODO Revisar date
-			txtDate.setText(task.getDate().toString());
-			TextView txtDateNotice = (TextView) findViewById(R.id.Edit_TextViewDateNoticeShow);
-			txtDateNotice.setText(task.getDateNotice().toString());
+			SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+			String dateString = format.format(task.getDate());
+			txtDate.setText(dateString);
+			TextView txtDateNotice = (TextView) findViewById(R.id.Edit_EditTextDateNotice);
+			dateString = format.format(task.getDateNotice());
+			txtDateNotice.setText(dateString);
 			TextView txtTime = (TextView) findViewById(R.id.Edit_TextViewTimeShow);
 			txtTime.setText(task.getTime());
 			EditText txtTag = (EditText)findViewById(R.id.Edit_EditTextTag);

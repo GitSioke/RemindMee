@@ -20,5 +20,5 @@ public interface RemindTaskDAO {
 	public int deleteTask(Integer idTask);
 	public int deleteSubtask(Integer idTask);
 	public boolean hasSubtask(Integer idTask);
-	public ArrayList<RemindTask> getTaskWithDate(Date date);
+	public ArrayList<RemindTask> getTaskBetweenDates(Date startDate, Date endDate);
 }

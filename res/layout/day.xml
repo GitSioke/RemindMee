@@ -16,7 +16,7 @@
             android:id="@+id/Day_HeaderTxtView"
             android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-            android:textSize="@dimen/text_header"
+            android:textSize="@dimen/text_header_day"
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
         

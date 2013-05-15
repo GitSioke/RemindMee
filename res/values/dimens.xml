@@ -30,5 +30,7 @@
 	<!-- Dialog -->
 	<dimen name="dialog_question">25dp</dimen>
 	<dimen name="dialog_answer">20dp</dimen>
+	<dimen name="text_header_day">25dp</dimen>
+	<dimen name="listItem_padding">5dp</dimen>
 	
 </resources>

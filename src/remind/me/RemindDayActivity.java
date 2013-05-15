@@ -2,11 +2,15 @@ package remind.me;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.Notice;
 import com.utils.RemindTask;
 
 import android.app.DialogFragment;
@@ -28,15 +32,20 @@ public class RemindDayActivity extends RemindActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day);
-        RemindTaskDAO db = new RemindTaskSQLite(this);
+        RemindTaskDAO dbTask = new RemindTaskSQLite(this);
         
        	Long dateLong = (Long)getIntent().getLongExtra("date", 0);
-        Date date = new Date(dateLong);
-		ArrayList<RemindTask> taskList =  db.getTaskWithDate(date);
+        Date day = new Date(dateLong);
+        SimpleDateFormat format = new SimpleDateFormat("EE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+		String dateString = format.format(day);
+		Date endOfDay = new Date(dateLong + Notice.getAsLong(Notice.DAY));
+		
 		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
-		txtHeader.setText(date.toString());
-        if (taskList.isEmpty()){
-        	Toast.makeText(this, R.string.pending_toastEmpty, Toast.LENGTH_LONG).show();
+		txtHeader.setText(dateString);
+		
+		ArrayList<RemindTask> taskList =  dbTask.getTaskBetweenDates(day, endOfDay);
+		if (taskList.isEmpty()){
+        	Toast.makeText(this, R.string.day_toast_noTask, Toast.LENGTH_LONG).show();
         }else{
         	
         	displayTaskWithTextView(taskList);

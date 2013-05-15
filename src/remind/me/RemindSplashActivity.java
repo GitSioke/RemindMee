@@ -51,9 +51,15 @@ public class RemindSplashActivity extends RemindActivity {
 	        	long dateAsLong = Calendar.getInstance().getTimeInMillis();
 	        	Date dated = new Date(dateAsLong);
 	        	RemindNotification noti1 = new RemindNotification(2345, 6789, dated, Calendar.getInstance().getTime(), false, false);
-	        	RemindNotification noti2= new RemindNotification(345, 789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), false, false);
-	        	RemindNotification noti3 = new RemindNotification(45, 789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), false, false);
-	        	RemindNotification noti4 = new RemindNotification(5, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), false, false);
+	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
+	        	dated = new Date(dateAsLong);
+	        	RemindNotification noti2= new RemindNotification(345, 789, dated, Calendar.getInstance().getTime(), false, false);
+	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
+	        	dated = new Date(dateAsLong);
+	        	RemindNotification noti3 = new RemindNotification(45, 789, dated, Calendar.getInstance().getTime(), false, false);
+	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
+	        	dated = new Date(dateAsLong);
+	        	RemindNotification noti4 = new RemindNotification(5, 6789, dated, dated, false, false);
 
 	        	
 	        	dbNoti.insertNotification(noti);
