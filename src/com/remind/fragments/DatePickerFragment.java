@@ -1,4 +1,4 @@
-package remind.me;
+package com.remind.fragments;
 
 
 
@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import remind.me.R;
+import remind.me.RemindDayActivity;
+import remind.me.RemindMenuActivity;
+import remind.me.RemindNewActivity;
 import remind.me.R.id;
 import remind.me.R.layout;
 
@@ -82,8 +85,8 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		String dateString = format.format(date);
 		
 		if (getArguments().getBoolean("islimitdate")){
-			activity.dateLong = this.dateLong;
-			this.activity.textDate.setText(dateString);
+			activity.setDateLong(this.dateLong);
+			this.activity.getDateButton().setText(dateString);
 		}else if(getArguments().getBoolean("pickDay")){
 			Log.d("PASA", "POR AQUI");
 			RemindMenuActivity activity = (RemindMenuActivity)getActivity();
@@ -92,8 +95,9 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
     		startActivity(intent);
 	
 		}else{
-			activity.dateNoticeLong = this.dateLong;
-			activity.txtDateNotice.setText(dateString);
+			//TODO Revisar el pick de date notice
+			activity.setDateNoticeLong(this.dateLong);
+			//activity.txtDateNotice.setText(dateString);
 		}
 
 		

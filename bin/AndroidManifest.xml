@@ -49,7 +49,7 @@
         <activity android:name="RemindNotifiReceiverActivity"></activity>
         <activity android:name="RemindActivity"></activity>
         <!--<activity android:name="RemindMenuActivity"></activity> -->
-        <!-- <activity android:name="RemindNewActivity"></activity>-->
+        <activity android:name="RemindNewActivity"></activity>
         <activity android:name="RemindPendingTaskActivity"></activity>
         <activity android:name="RemindCompletedTaskActivity"></activity>
         <activity android:name="remind.me.RemindDayActivity"></activity>

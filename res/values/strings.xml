@@ -23,12 +23,12 @@
     <string name="new_name_hint">Introduce el nombre de la tarea</string>
     <string name="new_description">Descripcion</string>
     <string name="new_date">Fecha Límite</string>
-    <string name="new_date_hint">Selecciona la fecha de aviso</string>
+    <string name="new_date_hint">Selecciona la fecha</string>
     <string name="new_repeat">Repetición</string>
     <string name="new_repeat_hint">Selecciona cada cuanto se repite</string>
     <string name="new_addButton">Añadir</string>
-    <string name="new_time">Hora de aviso</string>
-    <string name="new_time_hint">Selecciona la hora de aviso</string>
+    <string name="new_time">Hora</string>
+    <string name="new_time_hint">Selecciona la hora</string>
     <string name="new_tag">Etiqueta</string>
     <string name="new_tag_hint"></string>
     

@@ -4,6 +4,7 @@
    android:layout_width="fill_parent"
    android:layout_height="wrap_content" >
 		 <RelativeLayout 
+		    android:id="@+id/ListItemTask_RLayout"
 	   		android:layout_width="fill_parent"
 	   		android:layout_height="wrap_content"
 	   		android:paddingLeft="@dimen/app_padding_left"
@@ -50,14 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:focusable="false"/>
-		 <View
-    		android:layout_width="fill_parent"
-    		android:layout_height="1dp"
-    		android:background="@android:color/darker_gray"
-    		android:layout_below="@+id/ListItemCheck_Checkbox"/>
+            android:focusable="false"
+            android:background="@color/normalText"/>
 
-       
-    
+		 <View
+		     android:layout_width="@dimen/separatorline_width"
+		     android:layout_height="@dimen/separatorline_height"
+		     android:layout_below="@+id/ListItemCheck_Checkbox"
+		     android:layout_toLeftOf="@+id/ListItemCheck_Checkbox"
+		     android:background="@color/normalText"/>
 
 </RelativeLayout>

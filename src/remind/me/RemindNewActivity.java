@@ -7,6 +7,8 @@ package remind.me;
 import java.io.IOException;
 import java.util.Date;
 
+import com.remind.fragments.DatePickerFragment;
+import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.Notice;
@@ -32,24 +34,24 @@ import android.widget.Toast;
 
 public class RemindNewActivity extends RemindActivity {
     
-	TextView textDate;
+	
 	TextView txtDateNotice;
-	Long dateLong;
-	Long dateNoticeLong;
-	Long time;
-	TextView textTime;
-	DialogFragment dateFragment;
+	private Long dateLong;
+	private Long dateNoticeLong;
+	private Long time;DialogFragment dateFragment;
 	private Spinner repeatSpinner;
 	private Spinner noticeSpinner;
+	private Button dateButton;
+	private Button timeButton;
 	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
-        textDate = (TextView) findViewById(R.id.New_TextViewDateShow);
+        setDateButton((Button) findViewById(R.id.New_ButtonDate));
         txtDateNotice = (TextView)findViewById(R.id.New_TextViewDateNoticeShow);
-        textTime = (TextView) findViewById(R.id.New_TextViewTimeShow);
+        setTimeButton((Button) findViewById(R.id.New_ButtonTime));
         //Spinner 1
         repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
@@ -122,10 +124,10 @@ public class RemindNewActivity extends RemindActivity {
 		Boolean correctData = false;
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
-		String timeAsString = textTime.getText().toString();
+		String timeAsString = getTimeButton().getText().toString();
 		//Revisar Date
-		if (!name.contentEquals("") && textDate.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
-			Date date= new Date(this.dateLong+this.time);
+		if (!name.contentEquals("") && dateButton.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
+			Date date= new Date(this.getDateLong()+this.getTime());
 			
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 			String tag = taskTag.getText().toString();
@@ -141,9 +143,9 @@ public class RemindNewActivity extends RemindActivity {
 			Notice notice =Notice.getNotice(noticeAsString, getApplicationContext());
 			
 			Long longNotice = Notice.getAsLong(notice);
-			Date noticeDate = new Date(dateLong - longNotice);
-			Log.d("NEW", Long.toString(dateLong));
-			Log.d("NEW", Long.toString(time));
+			Date noticeDate = new Date(getDateLong() - longNotice);
+			Log.d("NEW", Long.toString(getDateLong()));
+			Log.d("NEW", Long.toString(getTime()));
 			Log.d("NEW", Long.toString(longNotice));
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
@@ -181,7 +183,7 @@ public class RemindNewActivity extends RemindActivity {
 		dateFragment.show(getFragmentManager(), "dateNoticePicker");
 	}
 	public void showTimePickerDialog(View view){
-		dateFragment = new TimePickerFragment(textTime);
+		dateFragment = new TimePickerFragment();
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 
@@ -196,6 +198,46 @@ public class RemindNewActivity extends RemindActivity {
 
 	private Boolean checkDateHasSense(Date date, Date noticeDate){
 		return !date.before(noticeDate);
+	}
+
+	public Long getDateLong() {
+		return dateLong;
+	}
+
+	public void setDateLong(Long dateLong) {
+		this.dateLong = dateLong;
+	}
+
+	public Long getDateNoticeLong() {
+		return dateNoticeLong;
+	}
+
+	public void setDateNoticeLong(Long dateNoticeLong) {
+		this.dateNoticeLong = dateNoticeLong;
+	}
+
+	public Button getDateButton() {
+		return dateButton;
+	}
+
+	public void setDateButton(Button dateButton) {
+		this.dateButton = dateButton;
+	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public Button getTimeButton() {
+		return timeButton;
+	}
+
+	public void setTimeButton(Button timeButton) {
+		this.timeButton = timeButton;
 	}
 
 }

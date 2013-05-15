@@ -1,9 +1,11 @@
-package remind.me;
+package com.remind.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import remind.me.RemindNewActivity;
 
 import android.app.TimePickerDialog;
 import android.app.Dialog;
@@ -22,9 +24,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	/**
 	 * Operaciones con la hora seleccionada
 	 */
-	public TimePickerFragment(TextView txtview){
-		this.timeText = txtview;
-	}
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		/*timeValues = new ContentValues();
@@ -54,9 +53,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		
 		RemindNewActivity activity  = (RemindNewActivity)getActivity();
 		//TODO controlar que no se metan varias veces un tiempo o fecha
-		activity.time = date.getTime();
+		activity.setTime(date.getTime());
 		
-		activity.textTime.setText(dateString);
+		activity.getTimeButton().setText(dateString);
 		
 	}
 	

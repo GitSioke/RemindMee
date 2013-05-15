@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.remind.fragments.DatePickerFragment;
+import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.RemindTask;
@@ -155,7 +157,7 @@ public class RemindEditActivity extends RemindActivity {
 		dateFragment.show(getFragmentManager(), "dateNoticePicker");
 	}
 	public void showTimePickerDialog(View view){
-		dateFragment = new TimePickerFragment(textTime);
+		//dateFragment = new TimePickerFragment(textTime);
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 		public void doPositiveClick() {
