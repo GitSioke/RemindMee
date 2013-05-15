@@ -43,7 +43,7 @@ public class RemindEditActivity extends RemindActivity {
         textTime = (TextView) findViewById(R.id.Edit_TextViewTimeShow);
         
         Spinner repeatSpinner = (Spinner)findViewById(R.id.Edit_SpinnerRepeat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         repeatSpinner.setAdapter(adapter);
@@ -157,7 +157,7 @@ public class RemindEditActivity extends RemindActivity {
 		dateFragment.show(getFragmentManager(), "dateNoticePicker");
 	}
 	public void showTimePickerDialog(View view){
-		//dateFragment = new TimePickerFragment(textTime);
+		dateFragment = new TimePickerFragment();
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 		public void doPositiveClick() {

@@ -1,5 +1,7 @@
 package com.utils;
 
+import remind.me.R;
+import android.content.Context;
 import android.util.Log;
 
 public enum Repetition {
@@ -15,7 +17,7 @@ public enum Repetition {
 	ANNUAL;
 	
 	private static final Long LONG_DAY = Long.valueOf(3600000);
-	private static final Long LONG_WEEK		 = Long.valueOf(7200000);
+	private static final Long LONG_WEEK	= Long.valueOf(7200000);
 	private static final Long LONG_MONTH = Long.valueOf(14400000);
 	private static final Long LONG_YEAR = Long.valueOf(28800000);
 	
@@ -42,21 +44,23 @@ public enum Repetition {
 		return result;
 	}
 	
-	public static Repetition changeStringToEnum(String string){
-		Repetition notice = null;
-		if (string.contentEquals("single")){
-			notice = Repetition.SINGLE;		
-		}else if (string.contentEquals("daily")){
-			notice = Repetition.DAILY;
-		}else if (string.contentEquals("weekly")){
-			notice = Repetition.WEEKLY;
-		}else if (string.contentEquals("monthly")){
-			notice = Repetition.MONTHLY;
-		}else if (string.contentEquals("annual")){
-			notice = Repetition.ANNUAL;
-		}
-		return notice;
-	}
 	
+public static Repetition getRepetition(String repString, Context ctx){
+		
+		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
+		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
+		int position = 0;
+		
+		for(String string: array){
+			if (repString.contentEquals(string))
+				
+				break;
+			else
+				position++;
+		}
+		return Repetition.values()[position];
+		
+		
+	}
 
 }

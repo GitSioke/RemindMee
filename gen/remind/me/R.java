@@ -13,8 +13,8 @@ public final class R {
         public static final int splash_fade2=0x7f040001;
     }
     public static final class array {
-        public static final int new_spinnerNotice=0x7f080001;
-        public static final int repeat_array=0x7f080000;
+        public static final int new_array_spinnerNotice=0x7f080001;
+        public static final int new_array_spinnerRepetition=0x7f080000;
     }
     public static final class attr {
     }

@@ -67,7 +67,7 @@ public enum Notice {
 	//Cambiar y hacer con R.array.etc
 	public static Notice getNotice(String noticeAsString, Context ctx){
 		
-		String[] array  = ctx.getResources().getStringArray(R.array.new_spinnerNotice);
+		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerNotice);
 		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
 		int position = 0;
 		

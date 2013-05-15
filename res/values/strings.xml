@@ -34,7 +34,7 @@
     
     <string name="edit_header">Editar Tarea</string>
     
-    <string-array name="repeat_array">
+    <string-array name="new_array_spinnerRepetition">
         <item>Única</item>
         <item>Diaria</item>
         <item>Semanal</item>
@@ -69,7 +69,7 @@
    <string name="new_toast_missingData">Los campos nombre, fecha limite y fecha de aviso son obligatorios</string>
    <string name="new_dateNotice">Fecha de aviso</string>
    <string name="new_toast_dateNoSense">La fecha de aviso no puede ser superior a la fecha limite</string>
-   <string-array name="new_spinnerNotice">
+   <string-array name="new_array_spinnerNotice">
        <item >1 hora</item>
        <item >2 horas</item>
        <item >4 horas</item>

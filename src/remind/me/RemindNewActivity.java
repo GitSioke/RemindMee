@@ -5,14 +5,19 @@ package remind.me;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
+import com.remindme.sqlite.RemindNotificationDAO;
+import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.Notice;
+import com.utils.RemindNotification;
 import com.utils.RemindTask;
+import com.utils.Repetition;
 
 
 import android.app.DialogFragment;
@@ -38,7 +43,8 @@ public class RemindNewActivity extends RemindActivity {
 	TextView txtDateNotice;
 	private Long dateLong;
 	private Long dateNoticeLong;
-	private Long time;DialogFragment dateFragment;
+	private Long time;
+	DialogFragment dateFragment;
 	private Spinner repeatSpinner;
 	private Spinner noticeSpinner;
 	private Button dateButton;
@@ -54,13 +60,13 @@ public class RemindNewActivity extends RemindActivity {
         setTimeButton((Button) findViewById(R.id.New_ButtonTime));
         //Spinner 1
         repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_array, 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         repeatSpinner.setAdapter(adapter);
         //Spinner 2
         noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
-        ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_spinnerNotice, 
+        ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerNotice, 
         		android.R.layout.simple_selectable_list_item); 
         adapterNotice.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         noticeSpinner.setAdapter(adapterNotice);
@@ -124,37 +130,36 @@ public class RemindNewActivity extends RemindActivity {
 		Boolean correctData = false;
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
-		String timeAsString = getTimeButton().getText().toString();
 		//Revisar Date
 		if (!name.contentEquals("") && dateButton.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
-			Date date= new Date(this.getDateLong()+this.getTime());
+			Date date= new Date(this.dateLong+this.time);
 			
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 			String tag = taskTag.getText().toString();
 			
-			String repetition = (String) repeatSpinner.getSelectedItem();
-				
-			String noticeAsString = (String) noticeSpinner.getSelectedItem();
-			String[] array = getResources().getStringArray(R.array.new_spinnerNotice);
-			for(String string: array){
-				if (noticeAsString.contentEquals(string));
 					
-			}
-			Notice notice =Notice.getNotice(noticeAsString, getApplicationContext());
+			String repString = (String) repeatSpinner.getSelectedItem();
+			Repetition repetition = Repetition.getRepetition(repString, getApplicationContext());
+			repString = repetition.toString();
+			
+			String noticeAsString = (String) noticeSpinner.getSelectedItem();
+			Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
 			
 			Long longNotice = Notice.getAsLong(notice);
-			Date noticeDate = new Date(getDateLong() - longNotice);
-			Log.d("NEW", Long.toString(getDateLong()));
-			Log.d("NEW", Long.toString(getTime()));
+			Date noticeDate = new Date(this.dateLong - longNotice);
+			Log.d("NEW", Long.toString(this.dateLong));
+			Log.d("NEW", Long.toString(this.time));
 			Log.d("NEW", Long.toString(longNotice));
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 				Log.d("NEW", Integer.toString(superTaskID));
-				RemindTask task = new RemindTask(null, name, date, noticeDate, timeAsString, repetition, tag, superTaskID, false);
+				RemindTask task = new RemindTask(null, name, date, noticeDate, time.toString(),
+						repString, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
-				taskDB.insertTask(task);	
+				taskDB.insertTask(task);
+				createRemindNotification(task);
 			}else{
 				Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 			}
@@ -163,6 +168,24 @@ public class RemindNewActivity extends RemindActivity {
 		}
 		return correctData;
 	}
+	
+	private void createRemindNotification(RemindTask task) {
+		RemindNotificationDAO dbNot = new RemindNotificationSQLite(this);
+		Boolean ready = true;
+		Boolean done = false;
+		
+		Date delay = new Date(0);
+		RemindNotification not = new RemindNotification(null, task.getId(), task.getDate(), delay, ready, done);
+		dbNot.insertNotification(not);
+		
+		Repetition rep = Repetition.valueOf(task.getRepetition());
+		Long repAsLong =Repetition.getAsLong(rep);
+		Date date = new Date(task.getDate().getTime() + repAsLong);
+		ready = false;
+		not = new RemindNotification(null, task.getId(), date, delay, ready, done);
+		dbNot.insertNotification(not);
+	}
+
 	/**TODO Pendiente de revision. Intentar pasar por Bundle la actividad o los datos necesarios
 	 * Se encarga de mostrar el fragmento datepicker
 	 * @param view
@@ -200,44 +223,35 @@ public class RemindNewActivity extends RemindActivity {
 		return !date.before(noticeDate);
 	}
 
-	public Long getDateLong() {
-		return dateLong;
-	}
 
 	public void setDateLong(Long dateLong) {
 		this.dateLong = dateLong;
 	}
 
-	public Long getDateNoticeLong() {
-		return dateNoticeLong;
-	}
-
+	
 	public void setDateNoticeLong(Long dateNoticeLong) {
 		this.dateNoticeLong = dateNoticeLong;
 	}
 
-	public Button getDateButton() {
-		return dateButton;
-	}
-
+	
 	public void setDateButton(Button dateButton) {
 		this.dateButton = dateButton;
-	}
-
-	public Long getTime() {
-		return time;
 	}
 
 	public void setTime(Long time) {
 		this.time = time;
 	}
 
-	public Button getTimeButton() {
-		return timeButton;
-	}
-
 	public void setTimeButton(Button timeButton) {
 		this.timeButton = timeButton;
+	}
+
+	public Button getTimeButton() {
+		return this.timeButton;
+	}
+
+	public Button getDateButton() {
+		return this.dateButton;
 	}
 
 }
