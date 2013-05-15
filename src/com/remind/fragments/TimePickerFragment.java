@@ -26,12 +26,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	 */
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		/*timeValues = new ContentValues();
-		timeValues.put("Hour", hourOfDay);
-		timeValues.put("Minute", minute);
-		
-		timeText.setText(String.valueOf(hourOfDay)  + ":" + String.valueOf(minute));*/
-		
 		
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(Calendar.YEAR, 1970);
@@ -48,7 +42,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		Log.d("TIMEPICKER", Long.toString(date.getTime()));
 		
 		Log.d("TIMEPICKER", date.toString());
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		String dateString = format.format(date);
 		
 		RemindNewActivity activity  = (RemindNewActivity)getActivity();
@@ -67,7 +61,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		final Calendar c = Calendar.getInstance();
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-
+        
         return new TimePickerDialog(getActivity(), this, hourOfDay, minute, false);
 	}
 	

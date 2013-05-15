@@ -18,31 +18,25 @@
 	           android:focusable="false" />
 	       
 	        <TextView
-	           android:id="@+id/ListItemTask_Date"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:textSize="@dimen/task_values"
-	           android:textColor="@color/normalText"
-	           android:layout_toRightOf="@+id/ListItemTask_Name"
-	           android:paddingLeft="@dimen/app_padding_left"
-	           android:focusable="false" />      
-	        
-	        
-	        <TextView
 	           android:id="@+id/ListItemTask_Time"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
 	           android:textSize="@dimen/task_values"
+	           android:layout_toLeftOf="@+id/ListItemTask_Date"
+	           android:paddingRight="@dimen/app_padding_right"
 	           android:textColor="@color/normalText"
 	           android:focusable="false" />
-	        
+
 	        <TextView
-	           android:id="@+id/ListItemTask_Repetition"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:textSize="@dimen/task_values"
-	           android:textColor="@color/normalText"
-	           android:focusable="false" />
+	            android:id="@+id/ListItemTask_Date"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="46dp"
+	            android:focusable="false"
+	            android:textColor="@color/normalText"
+	            android:textSize="@dimen/task_values" />
+	        
 	        </RelativeLayout>
 	        
 		 <CheckBox 

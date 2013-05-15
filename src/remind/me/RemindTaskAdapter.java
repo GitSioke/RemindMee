@@ -41,8 +41,6 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 		TextView txtName;
 		TextView txtDate;
 		TextView txtTime;
-		TextView txtRepeat;
-		TextView txtTag;
 		CheckBox check;
 	}
 	
@@ -65,7 +63,6 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             holder.txtName = (TextView) convertView.findViewById(R.id.ListItemTask_Name);
             holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
             holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
-            holder.txtRepeat = (TextView) convertView.findViewById(R.id.ListItemTask_Repetition);
             holder.check = (CheckBox) convertView.findViewById(R.id.ListItemCheck_Checkbox);
             
             convertView.setTag(holder);
@@ -103,7 +100,6 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 		String dateString = format.format(task.getDate());
 		holder.txtDate.setText(dateString);
         holder.txtTime.setText(task.getTime());
-        holder.txtRepeat.setText(task.getRepetition());
         
         return convertView;
 		        
