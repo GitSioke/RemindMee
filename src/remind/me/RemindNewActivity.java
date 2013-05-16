@@ -135,9 +135,12 @@ public class RemindNewActivity extends RemindActivity {
 		//Revisar Date
 		if (!name.contentEquals("") && dateButton.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
 			Date timeAsDate = new Date(this.time);
-			SimpleDateFormat format = new SimpleDateFormat("HH:ss");
+			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 			String timeString = format.format(timeAsDate);
 			Date date= new Date(this.dateLong+this.time);
+			Log.d("NEW_INIT", time.toString());
+			Log.d("NEW_INIT", dateLong.toString());
+			Log.d("NEW_INIT", Long.toString(date.getTime()));
 			
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 			String tag = taskTag.getText().toString();
@@ -153,9 +156,7 @@ public class RemindNewActivity extends RemindActivity {
 			
 			Long longNotice = Notice.getAsLong(notice);
 			Date noticeDate = new Date(this.dateLong - longNotice);
-			Log.d("NEW", Long.toString(this.dateLong));
-			Log.d("NEW", Long.toString(this.time));
-			Log.d("NEW", Long.toString(longNotice));
+			
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);

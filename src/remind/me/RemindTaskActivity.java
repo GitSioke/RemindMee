@@ -68,6 +68,8 @@ import com.utils.RemindTask;
            txtRepetition.setText(task.getRepetition());
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);
            txtTag.setText(task.getTag());
+           TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);
+           txtDescr.setText(task.getDescription());
            
            RemindTaskDAO taskDAO = new RemindTaskSQLite(this);
            ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) taskDAO.getSubtasks(task.getId());

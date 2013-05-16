@@ -117,6 +117,15 @@
 	           android:layout_toRightOf="@+id/Task_TagImage"
 	           android:layout_below="@+id/Task_RepetitionImage"
 	           android:paddingLeft="@dimen/app_padding_left"/>
+	      
+	      <TextView 
+	          android:id="@+id/Task_TextDescription"
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:textColor="@color/normalText"
+	          android:paddingLeft="@dimen/app_padding_left"
+	          android:layout_below="@+id/Task_Tag" 
+	           />
 	      </RelativeLayout>
       <CheckBox 
           android:id="@+id/Task_Checkbox"

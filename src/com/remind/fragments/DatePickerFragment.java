@@ -76,25 +76,34 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		cal.setFirstDayOfWeek(0);
-		CalendarView calendarView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
-        dateLong = calendarView.getDate();
+		CalendarView calView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
 		
-		Date date = new Date(dateLong);
+        dateLong = calView.getDate();
+        Long remainder = dateLong%8640000;
+        dateLong-=remainder;
+        
+        Date date = cal.getTime();
+        //this.dateLong = date.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        String log = format.format(date);
+		Log.d("DATEPICKER", log);
 		
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(date);
 		
 		if (getArguments().getBoolean("islimitdate")){
+			Log.d("PASA", "ISLIMITDATE");
 			activity.setDateLong(this.dateLong);
 			this.activity.getDateButton().setText(dateString);
 		}else if(getArguments().getBoolean("pickDay")){
 			Log.d("PASA", "POR AQUI");
 			RemindMenuActivity activity = (RemindMenuActivity)getActivity();
 			Intent intent = new Intent(activity, RemindDayActivity.class);
-    		intent.putExtra("date", dateLong);
+    		intent.putExtra("date",this.dateLong);
     		startActivity(intent);
 	
 		}else{
+			Log.d("PASA", "DATENOTICE");
 			//TODO Revisar el pick de date notice
 			activity.setDateNoticeLong(this.dateLong);
 			//activity.txtDateNotice.setText(dateString);

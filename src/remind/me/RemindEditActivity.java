@@ -3,6 +3,7 @@ package remind.me;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
@@ -124,7 +125,7 @@ public class RemindEditActivity extends RemindActivity {
 			txtName.setText(task.getName());
 			dateButton = (Button) findViewById(R.id.Edit_ButtonDate);
 			//TODO Revisar date
-			SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			String dateString = format.format(task.getDate());
 			dateButton.setText(dateString);
 			
@@ -134,7 +135,9 @@ public class RemindEditActivity extends RemindActivity {
 				//txtDateNotice.setText(dateString);
 			}
 			timeButton = (Button) findViewById(R.id.Edit_ButtonTime);
-			timeButton.setText(task.getTime());
+			format = new SimpleDateFormat("HH:mm");
+			String timeString = format.format(task.getDate());
+			timeButton.setText(timeString);
 			txtTag = (EditText)findViewById(R.id.Edit_EditTextTag);
 			txtTag.setText(task.getTag());
 			txtDesc = (EditText)findViewById(R.id.Edit_EditText_Description);

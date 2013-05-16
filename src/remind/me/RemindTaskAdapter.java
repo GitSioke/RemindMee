@@ -100,6 +100,8 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(task.getDate());
 		holder.txtDate.setText(dateString);
+		format = new SimpleDateFormat("HH:mm");
+		String timeString = format.format(task.getDate());
         holder.txtTime.setText(task.getTime());
         
         return convertView;
