@@ -5,8 +5,10 @@ package remind.me;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
@@ -132,6 +134,9 @@ public class RemindNewActivity extends RemindActivity {
 		String name = taskName.getText().toString();
 		//Revisar Date
 		if (!name.contentEquals("") && dateButton.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
+			Date timeAsDate = new Date(this.time);
+			SimpleDateFormat format = new SimpleDateFormat("HH:ss");
+			String timeString = format.format(timeAsDate);
 			Date date= new Date(this.dateLong+this.time);
 			
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
@@ -154,7 +159,7 @@ public class RemindNewActivity extends RemindActivity {
 				correctData = true;
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 				Log.d("NEW", Integer.toString(superTaskID));
-				RemindTask task = new RemindTask(null, name, date, noticeDate, time.toString(),
+				RemindTask task = new RemindTask(null, name, date, noticeDate, timeString,
 						repString, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
