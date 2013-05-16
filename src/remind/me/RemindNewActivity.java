@@ -155,7 +155,8 @@ public class RemindNewActivity extends RemindActivity {
 			Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
 			
 			Long longNotice = Notice.getAsLong(notice);
-			Date noticeDate = new Date(this.dateLong - longNotice);
+			Date noticeDate = new Date(date.getTime() - longNotice);
+			
 			
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;

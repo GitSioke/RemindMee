@@ -82,19 +82,17 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
         Long remainder = dateLong%8640000;
         dateLong-=remainder;
         
-        Date date = cal.getTime();
-        //this.dateLong = date.getTime();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        String log = format.format(date);
-		Log.d("DATEPICKER", log);
-		
-		format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date(dateLong);
+      
+        	
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(date);
 		
 		if (getArguments().getBoolean("islimitdate")){
 			Log.d("PASA", "ISLIMITDATE");
 			activity.setDateLong(this.dateLong);
 			this.activity.getDateButton().setText(dateString);
+		
 		}else if(getArguments().getBoolean("pickDay")){
 			Log.d("PASA", "POR AQUI");
 			RemindMenuActivity activity = (RemindMenuActivity)getActivity();
