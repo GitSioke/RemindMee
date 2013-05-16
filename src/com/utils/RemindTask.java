@@ -16,6 +16,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private static final String KEY_NOTICEDATE = "dateNotice";
 	private static final String KEY_TIME = "time";
 	private static final String KEY_REPETITION = "repetition";
+	private static final String KEY_DESCRIPTION = "description";
 	private static final String KEY_TAG = "tag";
 	private static final String KEY_SUPERTASK = "supertask";
 	private static final String KEY_COMPLETED = "completed";
@@ -27,6 +28,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 	private Date dateNotice;
 	private String time;
 	private String repetition;
+	private String description;
 	private Integer superTask;
 	private boolean completed;
 	private List<RemindTask> subTaskList;
@@ -39,7 +41,8 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 					  Date date,
 					  Date dateNotice,
 					  String time, 
-					  String repetition, 
+					  String repetition,
+					  String description,
 					  String tag, 
 					  Integer superTask, 
 					  Boolean completed){
@@ -55,6 +58,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		this.dateNotice = dateNotice;
 		this.time = time;
 		this.repetition = repetition;
+		this.description = description;
 		this.tag =tag;
 		this.superTask=superTask;
 		this.completed=completed;
@@ -71,6 +75,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		this.dateNotice = new Date(dateAsLong);
 		this.time=((String) content.get(KEY_TIME));
 		this.repetition =((String) content.get(KEY_REPETITION));
+		this.description = ((String) content.get(KEY_DESCRIPTION));
 		this.tag =((String) content.get(KEY_TAG));
 		this.superTask =((Integer) content.get(KEY_SUPERTASK));
 		this.completed=((Boolean) content.get(KEY_COMPLETED));
@@ -92,6 +97,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		parcel.writeLong(this.dateNotice.getTime());
 		parcel.writeString(this.time);
 		parcel.writeString(this.repetition);
+		parcel.writeString(this.description);
 		parcel.writeString(this.tag);
 		parcel.writeInt(this.superTask);
 		parcel.writeByte((byte) (this.completed ? 1 : 0));
@@ -117,6 +123,7 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 		this.dateNotice = new Date(dateNoticeAsLong);
 		this.time = parcel.readString();
 		this.repetition = parcel.readString();
+		this.description = parcel.readString();
 		this.tag = parcel.readString();
 		this.superTask = parcel.readInt();
 		this.completed = parcel.readByte() ==1;
@@ -211,6 +218,14 @@ public class RemindTask implements Parcelable, Comparable<RemindTask>{
 
 	public void setDateNotice(Date dateNotice) {
 		this.dateNotice = dateNotice;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	

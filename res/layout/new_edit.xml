@@ -174,7 +174,7 @@
                 android:textColor="@color/newedit_normalText" />
 
             <TextView
-                android:id="@+id/TextView_Description"
+                android:id="@+id/New_TextView_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_description"
@@ -183,7 +183,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/EditText_Description"
+                android:id="@+id/New_EditText_Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/new_description"

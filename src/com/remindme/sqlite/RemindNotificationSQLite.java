@@ -29,7 +29,7 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "notifications";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, " 
 			+"idTask INTEGER not null, date LONG not null, delay LONG, ready BOOL, done BOOL);" ;

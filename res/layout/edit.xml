@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    tools:context=".RemindEditActivity" >
 
     <LinearLayout
         android:id="@+id/RelativeLayout_Header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/header_background">
-        
-        <!--TODO: Cabecera, añadir el texto y una imagen? -->
+        android:background="@color/header_background" >
+
+        <!-- TODO: Cabecera, añadir el texto y una imagen? -->
 
         <TextView
             android:layout_width="fill_parent"
@@ -20,23 +21,24 @@
             android:text="@string/edit_header"
             android:textColor="@color/header_text"
             android:textSize="@dimen/text_header" >
-  </TextView>
-  
-        
-        
+        </TextView>
     </LinearLayout>
+
     <ScrollView
         android:id="@+id/Edit_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:isScrollContainer="true"
-        android:scrollbars="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true"> 
-        <LinearLayout 
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
             android:id="@+id/Edit_LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/app_padding_right"
+            android:paddingRight="@dimen/app_padding_right" >
 
             <TextView
                 android:id="@+id/Edit_TextView_Name"
@@ -46,140 +48,150 @@
                 android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
                 android:textStyle="bold" />
-            <EditText 
+
+            <EditText
                 android:id="@+id/Edit_EditText_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/normalText"
-                android:maxLines="1"
                 android:inputType="textPersonName"
-                />
-            <RelativeLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" >
-            	<TextView
-                	android:id="@+id/Edit_TextView_Date"
-                	android:layout_width="wrap_content"
-                	android:layout_height="wrap_content"
-                	android:text="@string/new_date"
-                	android:textSize="@dimen/new_text"
-                	android:textStyle="bold"
-                	android:textColor="@color/normalText" />
-				<EditText 
-	               	android:id="@+id/Edit_EditTextDate"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignRight="@+id/Edit_TextView_Date"
-	                android:onClick="showDatePickerDialog"
-	                />
-           </RelativeLayout>	
-           
-           <RelativeLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" >
+                android:maxLines="1"
+                android:textColor="@color/newedit_normalText"
+                 />
+
             <TextView
-                android:id="@+id/Edit_TextView_DateNotice"
+                android:id="@+id/Edit_TextView_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/new_dateNotice"
+                android:text="@string/new_date"
+                android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
-                android:textStyle="bold"
-                android:textColor="@color/normalText" />
-			
-     		<EditText 
-               		android:id="@+id/Edit_EditTextDateNotice"
-                	android:layout_width="wrap_content"
-                	android:layout_height="wrap_content"
-                	android:layout_alignRight="@+id/Edit_TextView_DateNotice"
-                	android:onClick="showDatePickerDialog"
-                	/>
-           </RelativeLayout>
-             
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/Edit_ButtonDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@layout/custom_button"
+                    android:maxLines="4"
+                    android:onClick="showDatePickerDialog"
+                    android:textColor="@color/newedit_normalText"
+                     />
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/Edit_TextViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_time"
+                android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
-                android:textStyle="bold"
-                android:textColor="@color/normalText" />
-           <RelativeLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" >
+                android:textStyle="bold" />
 
-           		<Button
-                	android:id="@+id/Edit_ButtonTime"
-                	android:layout_width="wrap_content"
-                	android:layout_height="wrap_content"
-                	android:onClick="showTimePickerDialog"
-                	android:maxLines="4"
-                
-            	/>
-            
-            	<TextView 
-               		android:id="@+id/Edit_TextViewTimeShow"
-                	android:layout_width="wrap_content"
-                	android:layout_height="wrap_content"
-                	android:layout_alignRight="@+id/Edit_ButtonTime"
-                	/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/Edit_ButtonTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@layout/custom_button"
+                    android:maxLines="4"
+                    android:onClick="showTimePickerDialog"
+                    android:textColor="@color/newedit_normalText"
+                     />
             </RelativeLayout>
-           
+
+            <!-- Notice Date -->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/Edit_TextViewDateNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_dateNotice"
+                    android:textColor="@color/normalText"
+                    android:textSize="@dimen/new_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Edit_TextViewDateNoticeShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/New_TextViewDateNotice" />
+            </RelativeLayout>
+
+            <Spinner
+                android:id="@+id/Edit_SpinnerNotice"
+                android:layout_width="@dimen/spinner_width"
+                android:layout_height="@dimen/spinner_height"
+                 />
+
+            <!-- Repeat -->
+
             <TextView
-                android:id="@+id/TextView_Repeat"
+                android:id="@+id/Edit_TextView_Repeat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_repeat"
+                android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
-                android:textStyle="bold"
-                android:textColor="@color/normalText"  />
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/Edit_SpinnerRepeat"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/spinner_width"
+                android:layout_height="@dimen/spinner_height"
+                 />
+
             <TextView
                 android:id="@+id/Edit_TextViewTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_tag"
+                android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
-                android:textStyle="bold"
-                android:textColor="@color/normalText"  />
-            <EditText 
+                android:textStyle="bold" />
+
+            <EditText
                 android:id="@+id/Edit_EditTextTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
                 android:inputType="text|textLongMessage"
-                />
+                android:maxLines="4"
+                android:textColor="@color/newedit_normalText" />
+
             <TextView
-                android:id="@+id/Edit_TextViewDescription"
+                android:id="@+id/Edit_TextView_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_description"
+                android:textColor="@color/normalText"
                 android:textSize="@dimen/new_text"
-                android:textStyle="bold"
-                android:textColor="@color/normalText"  />
-            <EditText 
-                android:id="@+id/Edit_EditTextDescription"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/Edit_EditText_Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
                 android:inputType="text|textLongMessage"
-                />
-               
-            <Button 
-                android:id="@+id/Edit_Button_Add"
-               	android:onClick="addTask"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/new_addButton"
-                />
-            
+                android:maxLines="4"
+                android:textColor="@color/newedit_normalText" />
 
+            <Button
+                android:id="@+id/Edit_Button_Edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="editTask"
+                android:text="@string/edit_editButton" />
         </LinearLayout>
-        
-        
-        </ScrollView>
-    
-   		
-</LinearLayout>    
+    </ScrollView>
+
+</LinearLayout>

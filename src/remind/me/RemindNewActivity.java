@@ -142,7 +142,8 @@ public class RemindNewActivity extends RemindActivity {
 			EditText taskTag = (EditText)findViewById(R.id.New_EditTextTag);
 			String tag = taskTag.getText().toString();
 			
-					
+			EditText txtDesc = (EditText)findViewById(R.id.New_EditText_Description);		
+			String description = txtDesc.getText().toString();		
 			String repString = (String) repeatSpinner.getSelectedItem();
 			Repetition repetition = Repetition.getRepetition(repString, getApplicationContext());
 			repString = repetition.toString();
@@ -160,7 +161,7 @@ public class RemindNewActivity extends RemindActivity {
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 				Log.d("NEW", Integer.toString(superTaskID));
 				RemindTask task = new RemindTask(null, name, date, noticeDate, timeString,
-						repString, tag, superTaskID, false);
+						repString, description, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 				
 				taskDB.insertTask(task);
