@@ -88,8 +88,8 @@
 	      <ImageView
 	           android:id="@+id/Task_RepetitionImage"
 	           android:src="@drawable/ic_repeat1"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
+	           android:layout_width="@dimen/task_icon_width"
+	           android:layout_height="@dimen/task_icon_height"
 	           android:focusable="false"
 	           android:layout_below="@+id/Task_DateNoticeTxt"/>
 	      <TextView
@@ -104,8 +104,8 @@
 	      <ImageView 
 	          android:id="@+id/Task_TagImage"
 	          android:src="@drawable/ic_tag11"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
+	          android:layout_width="@dimen/task_icon_width"
+	           android:layout_height="@dimen/task_icon_height"
 	          android:layout_below="@+id/Task_RepetitionImage"/>
 	      <TextView
 	           android:id="@+id/Task_Tag"

@@ -57,6 +57,8 @@ public final class R {
         public static final int spinner_height=0x7f06001b;
         public static final int spinner_width=0x7f06001a;
         public static final int splash_hello=0x7f060000;
+        public static final int task_icon_height=0x7f06001d;
+        public static final int task_icon_width=0x7f06001c;
         /**  Task text 
          */
         public static final int task_name=0x7f060009;

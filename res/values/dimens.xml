@@ -38,5 +38,7 @@
 	<dimen name="app_padding_right">10dp</dimen>
 	<dimen name="spinner_width">200dp</dimen>
 	<dimen name="spinner_height">40dp</dimen>
+	<dimen name="task_icon_width">30dp</dimen>
+	<dimen name="task_icon_height">30dp</dimen>
 	
 </resources>
