@@ -124,7 +124,7 @@ public class RemindSplashActivity extends RemindActivity {
 	        	
 	        	NotificationCompat.Builder mBuilder =
     	    	        new NotificationCompat.Builder(ctx)
-    	    	        .setSmallIcon(R.drawable.ic_launcher)
+    	    	        .setSmallIcon(R.drawable.ic_notif)
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(notif.getIdTask().toString())
     	    	        .setContentText(notif.getDate().toString());

@@ -31,7 +31,7 @@
             	android:id="@+id/Menu_ImageView_Clock"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:src="@drawable/menu_tags"
+            	android:src="@drawable/ic_calendar3"
             	android:clickable="true" />
         <TableLayout
             android:id="@+id/Menu_TableLayout"
@@ -47,13 +47,13 @@
                 android:id="@+id/Menu_ImageView_Today"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:src="@drawable/menu_today"
+            	android:src="@drawable/menu_today3"
             	android:clickable="true" />
                 <ImageView
                 android:id="@+id/Menu_ImageView_New"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:src="@drawable/menu_new"
+            	android:src="@drawable/menu_new3"
             	android:clickable="true" />
             </TableRow>
             <TableRow 
@@ -64,7 +64,7 @@
             	android:id="@+id/Menu_ImageView_Tags"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:src="@drawable/menu_tags"
+            	android:src="@drawable/menu_tag3"
             	android:clickable="true" />
 				<ImageView
             	android:id="@+id/Menu_ImageView_All"

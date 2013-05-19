@@ -87,7 +87,7 @@
 	      
 	      <ImageView
 	           android:id="@+id/Task_RepetitionImage"
-	           android:src="@drawable/ic_launcher"
+	           android:src="@drawable/ic_repeat1"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
 	           android:focusable="false"
@@ -103,7 +103,7 @@
 	      
 	      <ImageView 
 	          android:id="@+id/Task_TagImage"
-	          android:src="@drawable/ic_launcher"
+	          android:src="@drawable/ic_tag11"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_below="@+id/Task_RepetitionImage"/>
@@ -138,7 +138,7 @@
           android:id="@+id/Task_ImageButtonDelete"
           android:layout_height="wrap_content"
           android:layout_width="wrap_content"
-          android:src="@drawable/ic_delete"
+          android:src="@drawable/ic_delete1"
           android:layout_alignParentRight="true"
           android:onClick="deleteTask"/>
       
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/new_symbol"/>
+            android:src="@drawable/new_symbol1"/>
         
         
     </RelativeLayout>
