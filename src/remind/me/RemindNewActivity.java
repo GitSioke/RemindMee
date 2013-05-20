@@ -133,7 +133,7 @@ public class RemindNewActivity extends RemindActivity {
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
 		//Revisar Date
-		if (!name.contentEquals("") && dateButton.getText().length()>2 /*&& txtDateNotice.getText().length()>2*/){
+		if (!name.contentEquals("") && dateButton.getText().length()>2 ){
 			Date timeAsDate = new Date(this.time);
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 			String timeString = format.format(timeAsDate);

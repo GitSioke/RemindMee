@@ -1,6 +1,7 @@
 package remind.me;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
@@ -26,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class RemindEditActivity extends RemindActivity {
@@ -41,6 +43,7 @@ public class RemindEditActivity extends RemindActivity {
 	private EditText txtDesc;
 	private EditText txtTag;
 	private RemindTask task;
+	private Integer taskID;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,10 @@ public class RemindEditActivity extends RemindActivity {
         			e.printStackTrace();
         		} catch (IllegalAccessException e) {
         			e.printStackTrace();
-        		}
+        		} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         		if (correctData){
         			startActivity(new Intent(RemindEditActivity.this, RemindPendingTaskActivity.class));		
         		}
@@ -110,6 +116,7 @@ public class RemindEditActivity extends RemindActivity {
     	 */
 		private void initializeFromTask(RemindTask task) {
 		// TODO 
+			taskID = task.getId();
 			txtName = (EditText) findViewById(R.id.Edit_EditText_Name);
 			txtName.setText(task.getName());
 			dateButton = (Button) findViewById(R.id.Edit_ButtonDate);
@@ -159,44 +166,58 @@ public class RemindEditActivity extends RemindActivity {
 		 * @throws IOException
 		 * @throws InstantiationException
 		 * @throws IllegalAccessException
+		 * @throws ParseException 
 		 */
-		private Boolean saveTaskChanges() throws IOException, InstantiationException, IllegalAccessException {
+		private Boolean saveTaskChanges() throws IOException, InstantiationException, IllegalAccessException, ParseException {
 		// TODO Meter todos los datos en la base de datos, averiguar como se guarda el dato en el spinner para sacarlo
-		
+			Boolean correctData = false;
+			
 			String name = txtName.getText().toString();
-			String time = timeButton.getText().toString();
-			Long dateAsLong = Long.getLong(dateButton.getText().toString());
-			Date date = new Date(dateAsLong);
-			//TODO poner datos de dateNotice
-			dateAsLong = Long.getLong(dateButton.getText().toString());
-			Date dateNotice = new Date(dateAsLong);
-			
-			String tag = txtTag.getText().toString();
-			String description = txtDesc.getText().toString();
-			
-			final Spinner spinnerRep = (Spinner)findViewById(R.id.Edit_SpinnerRepeat);
-			spinnerRep.setOnItemSelectedListener(new OnItemSelectedListener() {
-					public void onItemSelected(AdapterView<?> parent, View view,
-						int position, long id) {
-					parent.getItemAtPosition(position);
+			//Revisar Date
+			if (!name.contentEquals("") && dateButton.getText().length()>2 ){
+				String timeStr = timeButton.getText().toString();
+				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+				Date time = format.parse(timeStr);
+				
+				String dateStr = dateButton.getText().toString();
+				format = new SimpleDateFormat("dd/MM/yyyy");
+				Date dateWithoutTime = format.parse(dateStr);
+				Date date= new Date(dateWithoutTime.getTime()+time.getTime());
+								
+				String tag = txtTag.getText().toString();
+				String description = txtDesc.getText().toString();		
+				String repString = (String) spinnerRepeat.getSelectedItem();
+				Repetition repetition = Repetition.getRepetition(repString, getApplicationContext());
+				repString = repetition.toString();
+				
+				String noticeAsString = (String) spinnerNotice.getSelectedItem();
+				Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
+				
+				Long longNotice = Notice.getAsLong(notice);
+				Date noticeDate = new Date(date.getTime() - longNotice);
+				
+				
+				if (checkDateHasSense(date, noticeDate)){
+					correctData = true;
+					Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
+					Log.d("NEW", Integer.toString(superTaskID));
+					RemindTask task = new RemindTask(taskID, name, date, noticeDate, timeStr,
+							repString, description, tag, superTaskID, false);
+					RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 					
-				}
-					public void onNothingSelected(AdapterView<?> parent) {
-					return;
+					taskDB.updateTask(task);
 					
+				}else{
+					Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 				}
-			});
-			String repetition = (String) spinnerRep.getSelectedItem();
-			Integer taskID = this.task.getId();
-			Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
-			Log.d("NEW", Integer.toString(superTaskID));
-			RemindTask task = new RemindTask(taskID, name, date,dateNotice, time, repetition, description, tag, superTaskID, false);
-			RemindTaskDAO taskDB = new RemindTaskSQLite(this);
-			
-			taskDB.updateTask(task);
-			return true;	
-			
+			}else{
+				Toast.makeText(this, R.string.new_toast_missingData, Toast.LENGTH_SHORT).show();
+			}
+			return correctData;
 		}
+				
+			
+			
 	/**
 	 * Se encarga de mostrar el fragmento datepicker
 	 * @param view
@@ -224,4 +245,7 @@ public class RemindEditActivity extends RemindActivity {
 		
 	}
 
+	private Boolean checkDateHasSense(Date date, Date noticeDate){
+			return !date.before(noticeDate);
+		}
 }
