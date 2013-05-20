@@ -24,6 +24,7 @@ import com.remindme.dialogs.RemindDeleteDialog;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.RemindTask;
+import com.utils.Repetition;
      
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;
@@ -65,7 +66,8 @@ import com.utils.RemindTask;
            dateString = format.format(task.getDateNotice());
            txtDateNotice.setText(dateString);
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
-           txtRepetition.setText(task.getRepetition());
+           String strTranslated = Repetition.translateString(task.getRepetition(), getApplicationContext());
+           txtRepetition.setText(strTranslated);
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);
            txtTag.setText(task.getTag());
            TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);

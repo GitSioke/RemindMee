@@ -83,4 +83,22 @@ public enum Notice {
 		
 	}
 	
+	public static Integer getNoticeString(Long noticeAsLong){
+		Notice not = null;
+		if(noticeAsLong.compareTo(LONG_HOUR) == 0){
+			not = Notice.HOUR;
+		}else if (noticeAsLong.compareTo(LONG_TWOHOURS) == 0) {
+			not = Notice.TWOHOURS;
+		}else if(noticeAsLong.compareTo(LONG_FOURHOURS) == 0){
+			not = Notice.FOURHOURS;
+		}else if (noticeAsLong.compareTo(LONG_TWELVEHOURS) == 0) {
+			not = Notice.TWELVEHOURS;
+		}else if (noticeAsLong.compareTo(LONG_DAY) == 0) {
+			not = Notice.DAY;
+		}else if (noticeAsLong.compareTo(LONG_TWODAYS) == 0) {
+			not = Notice.TWODAYS;
+		}
+		return not.ordinal();
+	}
+	
 }

@@ -49,9 +49,11 @@ public final class R {
         public static final int dialog_question=0x7f060012;
         public static final int dim_60dp=0x7f060002;
         public static final int listItem_padding=0x7f060015;
+        public static final int menu_marginTop_relativeL=0x7f06001e;
         /** New_edit secreen 
          */
         public static final int new_text=0x7f060008;
+        public static final int repeat_margin=0x7f06001f;
         public static final int separatorline_height=0x7f060017;
         public static final int separatorline_width=0x7f060016;
         public static final int spinner_height=0x7f06001b;
@@ -169,12 +171,12 @@ public final class R {
         public static final int Tag_ImageViewTag=0x7f090041;
         public static final int Tag_TextTag=0x7f090042;
         public static final int Tags_ListViewTags=0x7f090043;
-        public static final int Task_Checkbox=0x7f090050;
+        public static final int Task_Checkbox=0x7f090051;
         public static final int Task_Date=0x7f090048;
         public static final int Task_DateNotice=0x7f09004a;
         public static final int Task_DateNoticeTxt=0x7f090049;
         public static final int Task_DateTxt=0x7f090047;
-        public static final int Task_ImageButtonDelete=0x7f090051;
+        public static final int Task_ImageButtonDelete=0x7f090050;
         public static final int Task_ImgNewSubtask=0x7f090054;
         public static final int Task_ListSubTask=0x7f090055;
         public static final int Task_Name=0x7f090046;

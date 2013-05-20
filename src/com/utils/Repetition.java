@@ -45,7 +45,7 @@ public enum Repetition {
 	}
 	
 	
-public static Repetition getRepetition(String repString, Context ctx){
+	public static Repetition getRepetition(String repString, Context ctx){
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
 		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
@@ -62,5 +62,21 @@ public static Repetition getRepetition(String repString, Context ctx){
 		
 		
 	}
+	
+	/**
+	 * Devuelve la cadena traducida al idioma que se este usando el usuario en la aplicacion
+	 * @param enString
+	 * @param ctx
+	 * @return
+	 */
+	public static String translateString(String enString, Context ctx){
+		Repetition rep = Repetition.valueOf(enString);
+		
+		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
+		
+		return array[rep.ordinal()];
+	}
 
 }
+
+

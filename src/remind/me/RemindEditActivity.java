@@ -9,7 +9,9 @@ import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
+import com.utils.Notice;
 import com.utils.RemindTask;
+import com.utils.Repetition;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -47,22 +49,9 @@ public class RemindEditActivity extends RemindActivity {
         
     	setContentView(R.layout.edit);
     	this.task = getIntent().getParcelableExtra("Task");
+    	
     	initializeFromTask(task);
-        //Spinner 1
-        
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
-        		android.R.layout.simple_selectable_list_item); 
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinnerRepeat.setAdapter(adapter);
-        //Spinner 2
-        ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerNotice, 
-        		android.R.layout.simple_selectable_list_item); 
-        adapterNotice.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinnerNotice.setAdapter(adapterNotice);
-        
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
-        
+       
         spinnerRepeat.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -142,12 +131,27 @@ public class RemindEditActivity extends RemindActivity {
 			txtTag.setText(task.getTag());
 			txtDesc = (EditText)findViewById(R.id.Edit_EditText_Description);
 			txtDesc.setText(task.getDescription());
-		    spinnerNotice = (Spinner) findViewById(R.id.Edit_SpinnerNotice);
-			spinnerNotice.setSelection(0);
-			spinnerRepeat = (Spinner)findViewById(R.id.Edit_SpinnerRepeat);
-			//TODO Mirar el valor de task.getRepetition y modificar el valor por defecto
-			//del spinner
-			spinnerRepeat.setSelection(0);
+			
+			ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerNotice, 
+		        		android.R.layout.simple_selectable_list_item); 
+		    adapterNotice.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		    spinnerNotice = (Spinner)findViewById(R.id.Edit_SpinnerNotice);
+		    spinnerNotice.setAdapter(adapterNotice);
+			Long advanceTime = task.getDate().getTime() - task.getDateNotice().getTime();
+			Log.d("EDIT", "Long advance time:"+advanceTime);
+			Integer ordinal = Notice.getNoticeString(advanceTime);
+		    spinnerNotice.setSelection(ordinal);
+			
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
+	        		android.R.layout.simple_selectable_list_item); 
+	        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+	        spinnerRepeat = (Spinner)findViewById(R.id.Edit_SpinnerRepeat);
+	        spinnerRepeat.setAdapter(adapter);
+			Repetition rep = Repetition.valueOf(task.getRepetition());
+			spinnerRepeat.setSelection(rep.ordinal());
+			
+			this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+			
 			
 	}
 		/**

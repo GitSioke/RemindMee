@@ -40,5 +40,7 @@
 	<dimen name="spinner_height">40dp</dimen>
 	<dimen name="task_icon_width">30dp</dimen>
 	<dimen name="task_icon_height">30dp</dimen>
+	<dimen name="menu_marginTop_relativeL">5dp</dimen>
+	<dimen name="repeat_margin">60dp</dimen>
 	
 </resources>
