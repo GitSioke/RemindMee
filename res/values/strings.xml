@@ -91,6 +91,7 @@
    <string name="task_date">Fecha:</string>
    <string name="task_dateNotice">Aviso:</string>
    <string name="edit_editButton">Editar</string>
+   <string name="menu_bottom">ETS Ing. Informatica</string>
    
    
 </resources>

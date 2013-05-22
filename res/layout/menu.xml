@@ -27,12 +27,15 @@
         android:layout_height="wrap_content"
         android:background="@color/background">
 
+        
         <ImageView
-            	android:id="@+id/Menu_ImageView_Clock"
+                android:id="@+id/Menu_ImageView_New"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:src="@drawable/ic_calendar3"
+            	android:src="@drawable/menu_new3"
             	android:clickable="true" />
+        
+        
         <TableLayout
             android:id="@+id/Menu_TableLayout"
             android:layout_width="fill_parent"
@@ -41,35 +44,37 @@
 
             <TableRow 
                 android:id="@+id/Menu_TableRow01"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_marginTop="@dimen/menu_tableMargin">
                 <ImageView 
                 android:id="@+id/Menu_ImageView_Today"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
+            	android:layout_width="100dp"
+            	android:layout_height="100dp"
             	android:src="@drawable/menu_today3"
             	android:clickable="true" />
                 <ImageView
-                android:id="@+id/Menu_ImageView_New"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:src="@drawable/menu_new3"
+            	android:id="@+id/Menu_ImageView_Clock"
+            	android:layout_width="100dp"
+            	android:layout_height="100dp"
+            	android:src="@drawable/ic_calendar3"
             	android:clickable="true" />
             </TableRow>
             <TableRow 
                 android:id="@+id/Menu_TableRow02"
                 android:layout_height="fill_parent"
-                android:layout_width="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/menu_tableRowMargin">
                  <ImageView
             	android:id="@+id/Menu_ImageView_Tags"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
+            	android:layout_width="100dp"
+            	android:layout_height="100dp"
             	android:src="@drawable/menu_tag3"
             	android:clickable="true" />
 				<ImageView
             	android:id="@+id/Menu_ImageView_All"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
+            	android:layout_width="100dp"
+            	android:layout_height="100dp"
             	android:src="@drawable/menu_all"
             	android:clickable="true" />
             </TableRow>                      
@@ -83,7 +88,8 @@
         <TextView 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Datos de abajo"
+            android:layout_marginTop="5dp"
+            android:text="@string/menu_bottom"
             android:textColor="@android:color/white"
             android:textSize="@dimen/app_info"
             android:gravity="center"/>

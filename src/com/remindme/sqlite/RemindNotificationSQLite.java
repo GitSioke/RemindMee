@@ -24,16 +24,8 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	public static final String KEY_READY="ready";
 	public static final String KEY_DONE="done";
 
-		
-	private static final String TAG = "DBHandler";
-	
-	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "notifications";
-	private static final int DATABASE_VERSION = 10;
-	
-	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, " 
-			+"idTask INTEGER not null, date LONG not null, delay LONG, ready BOOL, done BOOL);" ;
-	
+
 		
 	private final Context context;
 	private DatabaseHelper dbHelper;
@@ -88,7 +80,7 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	}
 
 
-	private static class DatabaseHelper extends SQLiteOpenHelper{
+	/**private static class DatabaseHelper extends SQLiteOpenHelper{
 
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -108,10 +100,11 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 			Log.w(TAG, "Upgrading database from version" +oldVersion + "to" 
 					+ newVersion + ", which will destroy all old data");
 			
-			db.execSQL("DROP TABLE IF EXISTS tasks");
+			db.execSQL("DROP TABLE IF EXISTS notifications");
 			onCreate(db);
 		}
-	}
+	}*/
+	
 	/**
 	 * 
 	 * @return List of notifications that are ready to be notified and are not done

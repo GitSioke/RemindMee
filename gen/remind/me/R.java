@@ -34,6 +34,7 @@ public final class R {
     public static final class dimen {
         public static final int app_doublepadding_left=0x7f060018;
         public static final int app_info=0x7f060003;
+        public static final int app_marginTop=0x7f060020;
         public static final int app_margin_side=0x7f060004;
         public static final int app_name=0x7f060001;
         public static final int app_padding_left=0x7f060005;
@@ -50,6 +51,8 @@ public final class R {
         public static final int dim_60dp=0x7f060002;
         public static final int listItem_padding=0x7f060015;
         public static final int menu_marginTop_relativeL=0x7f06001e;
+        public static final int menu_tableMargin=0x7f060021;
+        public static final int menu_tableRowMargin=0x7f060022;
         /** New_edit secreen 
          */
         public static final int new_text=0x7f060008;
@@ -144,8 +147,8 @@ public final class R {
         public static final int ListItemTask_Time=0x7f090021;
         public static final int Menu_EditTextNotification=0x7f09002d;
         public static final int Menu_ImageView_All=0x7f09002c;
-        public static final int Menu_ImageView_Clock=0x7f090025;
-        public static final int Menu_ImageView_New=0x7f090029;
+        public static final int Menu_ImageView_Clock=0x7f090029;
+        public static final int Menu_ImageView_New=0x7f090025;
         public static final int Menu_ImageView_Tags=0x7f09002b;
         public static final int Menu_ImageView_Today=0x7f090028;
         public static final int Menu_LinearLayout01=0x7f090024;
@@ -170,25 +173,26 @@ public final class R {
         public static final int Splash_TextView01=0x7f090040;
         public static final int Tag_ImageViewTag=0x7f090041;
         public static final int Tag_TextTag=0x7f090042;
-        public static final int Tags_ListViewTags=0x7f090043;
-        public static final int Task_Checkbox=0x7f090051;
-        public static final int Task_Date=0x7f090048;
-        public static final int Task_DateNotice=0x7f09004a;
-        public static final int Task_DateNoticeTxt=0x7f090049;
-        public static final int Task_DateTxt=0x7f090047;
-        public static final int Task_ImageButtonDelete=0x7f090050;
-        public static final int Task_ImgNewSubtask=0x7f090054;
-        public static final int Task_ListSubTask=0x7f090055;
-        public static final int Task_Name=0x7f090046;
-        public static final int Task_RelativeSubTask=0x7f090052;
-        public static final int Task_RelativeTaskAll=0x7f090044;
-        public static final int Task_RelativeTaskText=0x7f090045;
-        public static final int Task_Repetition=0x7f09004c;
-        public static final int Task_RepetitionImage=0x7f09004b;
-        public static final int Task_Tag=0x7f09004e;
-        public static final int Task_TagImage=0x7f09004d;
-        public static final int Task_TextDescription=0x7f09004f;
-        public static final int Task_TxtSubTask=0x7f090053;
+        public static final int Tag_ViewBar=0x7f090043;
+        public static final int Tags_ListViewTags=0x7f090044;
+        public static final int Task_Checkbox=0x7f090052;
+        public static final int Task_Date=0x7f090049;
+        public static final int Task_DateNotice=0x7f09004b;
+        public static final int Task_DateNoticeTxt=0x7f09004a;
+        public static final int Task_DateTxt=0x7f090048;
+        public static final int Task_ImageButtonDelete=0x7f090051;
+        public static final int Task_ImgNewSubtask=0x7f090055;
+        public static final int Task_ListSubTask=0x7f090056;
+        public static final int Task_Name=0x7f090047;
+        public static final int Task_RelativeSubTask=0x7f090053;
+        public static final int Task_RelativeTaskAll=0x7f090045;
+        public static final int Task_RelativeTaskText=0x7f090046;
+        public static final int Task_Repetition=0x7f09004d;
+        public static final int Task_RepetitionImage=0x7f09004c;
+        public static final int Task_Tag=0x7f09004f;
+        public static final int Task_TagImage=0x7f09004e;
+        public static final int Task_TextDescription=0x7f090050;
+        public static final int Task_TxtSubTask=0x7f090054;
         public static final int TextView_Date=0x7f090032;
         public static final int TextView_Name=0x7f090030;
         public static final int TextView_Repeat=0x7f090038;
@@ -232,6 +236,7 @@ public final class R {
         public static final int edit_editButton=0x7f070033;
         public static final int edit_header=0x7f070011;
         public static final int hello=0x7f070000;
+        public static final int menu_bottom=0x7f070034;
         public static final int menu_header=0x7f07001f;
         public static final int menu_toast_delete=0x7f070021;
         public static final int menu_toast_deleteAll=0x7f070020;

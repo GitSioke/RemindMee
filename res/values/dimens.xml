@@ -42,5 +42,9 @@
 	<dimen name="task_icon_height">30dp</dimen>
 	<dimen name="menu_marginTop_relativeL">5dp</dimen>
 	<dimen name="repeat_margin">60dp</dimen>
+	<dimen name="app_marginTop">5dp</dimen>
+	<dimen name="menu_tableMargin">10dp</dimen>
+	<dimen name="menu_tableRowMargin">35dp</dimen>
+	
 	
 </resources>

@@ -13,8 +13,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 public class RemindTaskSQLite implements RemindTaskDAO{
@@ -30,26 +28,9 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 	public static final String KEY_COMPLETED="completed";
 	public static final String KEY_SUPERTASK="supertask";
 		
-	private static final String TAG = "DBHandler";
 	
-	private static final String DATABASE_NAME = "RemindMeDB";
 	private static final String DATABASE_TABLE = "tasks";
-	private static final int DATABASE_VERSION = 10;
-	
-	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
-			+"name VARCHAR not null, date LONG not null, dateNotice LONG, time VARCHAR, repetition VARCHAR, " +
-			"description VARCHAR, tag VARCHAR, supertask INTEGER, completed BOOL);" ;
-	
-	private static final String DATABASE_CREATE4 = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " +
-	 		"name VARCHAR not null)";
 
-	
-	private static final String DATABASE_CREATE3 = "CREATE TABLE IF NOT EXISTS" + DATABASE_TABLE +"("+KEY_ROWID +" INTEGER PRIMARY KEY," 
-			+KEY_NAME+" VARCHAR not null "+KEY_DATE+ " VARCHAR not null " +KEY_TIME+ " VARCHAR " +KEY_REPETITION+ " VARCHAR " +KEY_TAG+ " VARCHAR);";
-	
-	/**private static final String DATABASE_CREATE2 = String.format("create table %s(%s TEXT, %s TEXT,%s TEXT, %s TEXT,%s TEXT, %s TEXT,)", KEY_ROWID, KEY_NAME, 
-			KEY_DATE, KEY_TIME, KEY_REPETITION, KEY_TAG);*/
-	
 	
 	private final Context context;
 	private DatabaseHelper dbHelper;
@@ -112,30 +93,6 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 		
 	}*/
 
-	private static class DatabaseHelper extends SQLiteOpenHelper{
-
-		DatabaseHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		}
-
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			try{
-			db.execSQL(DATABASE_CREATE);
-			}catch (SQLException e){
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading database from version" +oldVersion + "to" 
-					+ newVersion + ", which will destroy all old data");
-			
-			db.execSQL("DROP TABLE IF EXISTS tasks");
-			onCreate(db);
-		}
-	}
 
 	public ArrayList<RemindTask> getAllTasks() {
 		this.open();
@@ -241,7 +198,7 @@ public class RemindTaskSQLite implements RemindTaskDAO{
 
 	public void updateTaskCompleted(RemindTask task) {
 		this.open();
-		SQLiteStatement stmt;
+		
 		ContentValues taskValues = new ContentValues();
 		if(task.isCompleted()){
 			task.setCompleted(false);

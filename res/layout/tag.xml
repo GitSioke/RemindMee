@@ -1,22 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
    android:layout_width="fill_parent"
    android:layout_height="wrap_content" >
-
+ 
         
         <ImageView
            android:id="@+id/Tag_ImageViewTag"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/ic_launcher"
-           android:focusable="false" />      
-        
-        
-        <TextView
-           android:id="@+id/Tag_TextTag"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/new_text"
-           android:textColor="@color/normalText"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:padding="5dp"
+           android:src="@drawable/ic_tag11"
            android:focusable="false" />   
+           
+       
+        <TextView
+            android:id="@+id/Tag_TextTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Tag_ImageViewTag"
+            android:focusable="false"
+            android:textColor="@color/normalText"
+            android:textSize="@dimen/new_text"
+            android:layout_margin="3dp" />
+        
+        <View
+	        android:id="@+id/Tag_ViewBar"
+	        android:layout_width="@dimen/separatorline_width"
+	        android:layout_height="@dimen/separatorline_height"
+	        android:layout_marginLeft="@dimen/app_padding_left"
+	        android:background="@color/header_background"
+	        android:layout_marginTop="@dimen/app_marginTop"
+	        android:layout_below="@+id/Tag_ImageViewTag"/>
 		
-</LinearLayout>
+</RelativeLayout>
