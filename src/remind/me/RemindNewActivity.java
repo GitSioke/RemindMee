@@ -7,6 +7,7 @@ package remind.me;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
@@ -165,7 +166,7 @@ public class RemindNewActivity extends RemindActivity {
 				RemindTask task = new RemindTask(null, name, date, noticeDate, timeString,
 						repString, description, tag, superTaskID, false);
 				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
-				
+				Log.d("NEW", "Create task: "+ task.getDate().toString());
 				taskDB.insertTask(task);
 				createRemindNotification(task);
 			}else{
@@ -179,19 +180,73 @@ public class RemindNewActivity extends RemindActivity {
 	
 	private void createRemindNotification(RemindTask task) {
 		RemindNotificationDAO dbNot = new RemindNotificationSQLite(this);
-		Boolean ready = true;
+		Boolean ready = false;
 		Boolean done = false;
+		Date date = task.getDate();
+		Date dateNotice = task.getDateNotice();
 		
-		Date delay = new Date(0);
-		RemindNotification not = new RemindNotification(null, task.getId(), task.getDate(), delay, ready, done);
+		RemindNotification not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
 		dbNot.insertNotification(not);
-		
+		Log.d("NEW", "Create not1: "+not.getDate().toString());
+		Log.d("NEW", "Create not1: "+not.getDate().toString());
+		Log.d("NEW", "Create not1: "+not.getDelay().toString());
 		Repetition rep = Repetition.valueOf(task.getRepetition());
-		Long repAsLong =Repetition.getAsLong(rep);
-		Date date = new Date(task.getDate().getTime() + repAsLong);
-		ready = false;
-		not = new RemindNotification(null, task.getId(), date, delay, ready, done);
-		dbNot.insertNotification(not);
+		
+		/** Pruebas
+		Calendar cal = Calendar.getInstance();		
+		cal.set(0, 0, 1970);
+		rep = Repetition.DAILY;
+		while(Repetition.values().length >= rep.ordinal() ){
+		 
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+nextDay.toString());
+			rep = Repetition.values()[rep.ordinal()+1];
+		}
+		
+		
+		cal.set(1,12,1970);
+		rep = Repetition.DAILY;
+		while(Repetition.values().length >= rep.ordinal() ){
+		 
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+nextDay.toString());
+			rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(31,1,1970);
+		rep = Repetition.DAILY;
+		while(Repetition.values().length >= rep.ordinal() ){
+		 
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+nextDay.toString());
+			rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(31,12,1970);
+		rep = Repetition.DAILY;
+		while(Repetition.values().length >= rep.ordinal() ){
+		 
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+nextDay.toString());
+			rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(28,2,1970);
+		rep = Repetition.DAILY;
+		while(Repetition.values().length >= rep.ordinal() ){
+		 
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+nextDay.toString());
+			rep = Repetition.values()[rep.ordinal()+1];
+		}
+		*/
+		
+		if(rep.compareTo(Repetition.SINGLE) > 0){
+			date = Repetition.getNextDate(date, rep);
+			dateNotice = Repetition.getNextDate(dateNotice, rep);
+			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
+			dbNot.insertNotification(not);
+		}
+		
+		Log.d("NEW", "Create not2: "+not.getDate().toString());
+		Log.d("NEW", "Create not2: "+not.getDelay().toString());
 	}
 
 	/**TODO Pendiente de revision. Intentar pasar por Bundle la actividad o los datos necesarios

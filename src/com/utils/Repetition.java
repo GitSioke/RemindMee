@@ -1,5 +1,8 @@
 package com.utils;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import remind.me.R;
 import android.content.Context;
 import android.util.Log;
@@ -16,8 +19,8 @@ public enum Repetition {
 	
 	ANNUAL;
 	
-	private static final Long LONG_DAY = Long.valueOf(3600000);
-	private static final Long LONG_WEEK	= Long.valueOf(7200000);
+	private static final Long LONG_DAY = Long.valueOf(86400000);
+	private static final Long LONG_WEEK	= Long.valueOf(604800000);
 	private static final Long LONG_MONTH = Long.valueOf(14400000);
 	private static final Long LONG_YEAR = Long.valueOf(28800000);
 	
@@ -75,6 +78,57 @@ public enum Repetition {
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
 		
 		return array[rep.ordinal()];
+	}
+	
+	public static Date getNextDate(Date date, Repetition rep){
+		
+		Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    int year = calendar.get(Calendar.YEAR);
+	    int month = calendar.get(Calendar.MONTH)+1;
+	    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+	    int day = calendar.get(Calendar.DAY_OF_YEAR);
+	    
+		switch (rep) {
+		case DAILY:
+			dayOfMonth++;
+			day++;
+			if(calendar.getActualMaximum(Calendar.MONTH)<dayOfMonth){
+				day = 0;
+				month++;
+				if(month> Calendar.DECEMBER){
+					year++;
+				}
+			}
+			
+			break;
+		case WEEKLY:
+			dayOfMonth+=7;
+			day+=7;
+			int dayMaxMonth = calendar.getActualMaximum(Calendar.MONTH);
+			if(dayMaxMonth<dayOfMonth){
+				int remainder = dayOfMonth - dayMaxMonth;
+				day += 7 - remainder;
+				month++;
+				if(month> Calendar.DECEMBER){
+					year++;
+				}
+			}
+				
+			break;
+		case MONTHLY:
+			month++;
+			if(month> Calendar.DECEMBER)
+				month = 1;
+			break;
+		case ANNUAL:
+			year++;
+			break;
+		default:
+			break;
+		}
+		calendar.set(year, month, day);
+		return calendar.getTime();
 	}
 
 }
