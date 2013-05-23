@@ -3,6 +3,7 @@ package remind.me;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import com.remind.fragments.DatePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.utils.RemindTask;
+import com.utils.Repetition;
 
 import android.app.DialogFragment;
 import android.app.Notification;
@@ -45,7 +47,84 @@ public class RemindMenuActivity extends RemindActivity {
         Log.d("MENU", "Entrando en onCreate");
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
-       
+        
+        Repetition rep;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar cal = Calendar.getInstance();		
+		cal.set(2013, 1, 28);
+		Date date  = cal.getTime();
+		Log.d("NEW", "Day: "+format.format(date));
+		rep = Repetition.DAILY;
+		boolean fin = false;
+		while(Repetition.values().length >= rep.ordinal() && !fin){
+			
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+format.format(nextDay));
+			if(rep.ordinal()==Repetition.values().length-1)
+				fin = true;
+			if(!fin)
+				rep = Repetition.values()[rep.ordinal()+1];
+		}
+		
+		
+		cal.set(2013,11,31);
+		date  = cal.getTime();
+		rep = Repetition.DAILY;
+		Log.d("NEW", "Day: "+format.format(date));
+		rep = Repetition.DAILY;
+		fin = false;
+		while(Repetition.values().length >= rep.ordinal() && !fin){
+			
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+format.format(nextDay));
+			if(rep.ordinal()==Repetition.values().length-1)
+				fin = true;
+			if(!fin)
+				rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(1970,0,31);
+		date  = cal.getTime();
+		Log.d("NEW", "Day: "+format.format(date));
+		rep = Repetition.DAILY;
+		fin = false;
+		while(Repetition.values().length >= rep.ordinal() && !fin){
+			
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+format.format(nextDay));
+			if(rep.ordinal()==Repetition.values().length-1)
+				fin = true;
+			if(!fin)
+				rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(1970,12,1);
+		date  = cal.getTime();
+		Log.d("NEW", "Day: "+format.format(date));
+		rep = Repetition.DAILY;
+		fin = false;
+		while(Repetition.values().length >= rep.ordinal() && !fin){
+			
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+format.format(nextDay));
+			if(rep.ordinal()==Repetition.values().length-1)
+				fin = true;
+			if(!fin)
+				rep = Repetition.values()[rep.ordinal()+1];
+		}
+		cal.set(1970,2,28);
+		date  = cal.getTime();
+		Log.d("NEW", "Day: "+format.format(date));
+		rep = Repetition.DAILY;
+		fin = false;
+		while(Repetition.values().length >= rep.ordinal() && !fin){
+			
+			Date nextDay = Repetition.getNextDate(date, rep);
+			Log.d("NEW", "Next day: "+format.format(nextDay));
+			if(rep.ordinal()==Repetition.values().length-1)
+				fin = true;
+			if(!fin)
+				rep = Repetition.values()[rep.ordinal()+1];
+		}
+		
         //Elimina las tareas
         if (removedPendingTasks()){
         	RemindTaskDAO taskDB = new RemindTaskSQLite(this);        	

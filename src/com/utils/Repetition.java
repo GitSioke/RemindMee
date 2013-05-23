@@ -84,50 +84,32 @@ public enum Repetition {
 		
 		Calendar calendar = Calendar.getInstance();
 	    calendar.setTime(date);
-	    int year = calendar.get(Calendar.YEAR);
-	    int month = calendar.get(Calendar.MONTH)+1;
-	    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-	    int day = calendar.get(Calendar.DAY_OF_YEAR);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
 	    
-		switch (rep) {
+	    switch (rep) {
 		case DAILY:
-			dayOfMonth++;
-			day++;
-			if(calendar.getActualMaximum(Calendar.MONTH)<dayOfMonth){
-				day = 0;
-				month++;
-				if(month> Calendar.DECEMBER){
-					year++;
-				}
-			}
-			
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
 			break;
+	
 		case WEEKLY:
-			dayOfMonth+=7;
-			day+=7;
-			int dayMaxMonth = calendar.getActualMaximum(Calendar.MONTH);
-			if(dayMaxMonth<dayOfMonth){
-				int remainder = dayOfMonth - dayMaxMonth;
-				day += 7 - remainder;
-				month++;
-				if(month> Calendar.DECEMBER){
-					year++;
-				}
-			}
-				
+			calendar.add(Calendar.DAY_OF_YEAR, 7);
 			break;
+	
 		case MONTHLY:
-			month++;
-			if(month> Calendar.DECEMBER)
-				month = 1;
+			calendar.add(Calendar.MONTH, 1);
 			break;
+			
 		case ANNUAL:
-			year++;
+			calendar.add(Calendar.YEAR, 1);
 			break;
 		default:
 			break;
 		}
-		calendar.set(year, month, day);
+	
+		//uchcalendar.set(year, month, day);
 		return calendar.getTime();
 	}
 
