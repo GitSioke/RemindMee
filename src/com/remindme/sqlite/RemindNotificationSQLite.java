@@ -3,8 +3,8 @@ package com.remindme.sqlite;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.utils.RemindNotification;
-import com.utils.RemindTask;
+import com.remindme.utils.RemindNotification;
+import com.remindme.utils.RemindTask;
 
 import android.content.ContentValues;
 import android.content.Context;

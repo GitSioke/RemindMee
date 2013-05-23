@@ -1,7 +1,9 @@
-package remind.me;
+package com.remindme.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import remind.me.R;
 
 import android.content.Intent;
 import android.database.Cursor;

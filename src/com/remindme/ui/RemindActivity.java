@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 import android.app.Activity;
 

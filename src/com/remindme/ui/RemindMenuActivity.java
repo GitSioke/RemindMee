@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 
 
@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import remind.me.R;
+
 import com.remind.fragments.DatePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.RemindTask;
-import com.utils.Repetition;
+import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
 
 import android.app.DialogFragment;
 import android.app.Notification;
@@ -65,67 +67,7 @@ public class RemindMenuActivity extends RemindActivity {
 			if(!fin)
 				rep = Repetition.values()[rep.ordinal()+1];
 		}
-		
-		
-		cal.set(2013,11,31);
-		date  = cal.getTime();
-		rep = Repetition.DAILY;
-		Log.d("NEW", "Day: "+format.format(date));
-		rep = Repetition.DAILY;
-		fin = false;
-		while(Repetition.values().length >= rep.ordinal() && !fin){
-			
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+format.format(nextDay));
-			if(rep.ordinal()==Repetition.values().length-1)
-				fin = true;
-			if(!fin)
-				rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(1970,0,31);
-		date  = cal.getTime();
-		Log.d("NEW", "Day: "+format.format(date));
-		rep = Repetition.DAILY;
-		fin = false;
-		while(Repetition.values().length >= rep.ordinal() && !fin){
-			
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+format.format(nextDay));
-			if(rep.ordinal()==Repetition.values().length-1)
-				fin = true;
-			if(!fin)
-				rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(1970,12,1);
-		date  = cal.getTime();
-		Log.d("NEW", "Day: "+format.format(date));
-		rep = Repetition.DAILY;
-		fin = false;
-		while(Repetition.values().length >= rep.ordinal() && !fin){
-			
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+format.format(nextDay));
-			if(rep.ordinal()==Repetition.values().length-1)
-				fin = true;
-			if(!fin)
-				rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(1970,2,28);
-		date  = cal.getTime();
-		Log.d("NEW", "Day: "+format.format(date));
-		rep = Repetition.DAILY;
-		fin = false;
-		while(Repetition.values().length >= rep.ordinal() && !fin){
-			
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+format.format(nextDay));
-			if(rep.ordinal()==Repetition.values().length-1)
-				fin = true;
-			if(!fin)
-				rep = Repetition.values()[rep.ordinal()+1];
-		}
-		
-        //Elimina las tareas
+		 //Elimina las tareas
         if (removedPendingTasks()){
         	RemindTaskDAO taskDB = new RemindTaskSQLite(this);        	
         	RemindTask task = getIntent().getParcelableExtra("Task");

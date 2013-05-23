@@ -1,7 +1,9 @@
-package remind.me;
+package com.remindme.ui;
 
 import android.support.v4.app.NotificationCompat;
 import java.util.Calendar;
+
+import remind.me.R;
 
 import android.app.Activity;
 import android.app.Notification;

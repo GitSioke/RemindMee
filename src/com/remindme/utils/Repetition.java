@@ -1,4 +1,4 @@
-package com.utils;
+package com.remindme.utils;
 
 import java.util.Calendar;
 import java.util.Date;

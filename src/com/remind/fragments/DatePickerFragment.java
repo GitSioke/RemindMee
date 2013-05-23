@@ -9,10 +9,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.remindme.ui.RemindDayActivity;
+import com.remindme.ui.RemindMenuActivity;
+import com.remindme.ui.RemindNewActivity;
+
 import remind.me.R;
-import remind.me.RemindDayActivity;
-import remind.me.RemindMenuActivity;
-import remind.me.RemindNewActivity;
 import remind.me.R.id;
 import remind.me.R.layout;
 

@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 
 
@@ -8,10 +8,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import remind.me.R;
+
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.Notice;
-import com.utils.RemindTask;
+import com.remindme.utils.Notice;
+import com.remindme.utils.RemindTask;
 
 import android.app.DialogFragment;
 import android.content.Intent;

@@ -2,7 +2,7 @@ package com.remindme.sqlite;
 
 import java.util.ArrayList;
 
-import com.utils.RemindNotification;
+import com.remindme.utils.RemindNotification;
 
 
 

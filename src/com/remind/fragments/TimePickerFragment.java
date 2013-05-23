@@ -5,7 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import remind.me.RemindNewActivity;
+import com.remindme.ui.RemindNewActivity;
+
 
 import android.app.TimePickerDialog;
 import android.app.Dialog;

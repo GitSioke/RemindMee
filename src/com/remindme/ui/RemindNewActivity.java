@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 
 
@@ -11,16 +11,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
+import remind.me.R;
+
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.Notice;
-import com.utils.RemindNotification;
-import com.utils.RemindTask;
-import com.utils.Repetition;
+import com.remindme.utils.Notice;
+import com.remindme.utils.RemindNotification;
+import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
 
 
 import android.app.DialogFragment;
@@ -191,53 +193,7 @@ public class RemindNewActivity extends RemindActivity {
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDelay().toString());
 		Repetition rep = Repetition.valueOf(task.getRepetition());
-		
-		/** Pruebas
-		Calendar cal = Calendar.getInstance();		
-		cal.set(0, 0, 1970);
-		rep = Repetition.DAILY;
-		while(Repetition.values().length >= rep.ordinal() ){
-		 
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+nextDay.toString());
-			rep = Repetition.values()[rep.ordinal()+1];
-		}
-		
-		
-		cal.set(1,12,1970);
-		rep = Repetition.DAILY;
-		while(Repetition.values().length >= rep.ordinal() ){
-		 
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+nextDay.toString());
-			rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(31,1,1970);
-		rep = Repetition.DAILY;
-		while(Repetition.values().length >= rep.ordinal() ){
-		 
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+nextDay.toString());
-			rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(31,12,1970);
-		rep = Repetition.DAILY;
-		while(Repetition.values().length >= rep.ordinal() ){
-		 
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+nextDay.toString());
-			rep = Repetition.values()[rep.ordinal()+1];
-		}
-		cal.set(28,2,1970);
-		rep = Repetition.DAILY;
-		while(Repetition.values().length >= rep.ordinal() ){
-		 
-			Date nextDay = Repetition.getNextDate(date, rep);
-			Log.d("NEW", "Next day: "+nextDay.toString());
-			rep = Repetition.values()[rep.ordinal()+1];
-		}
-		*/
-		
+				
 		if(rep.compareTo(Repetition.SINGLE) > 0){
 			date = Repetition.getNextDate(date, rep);
 			dateNotice = Repetition.getNextDate(dateNotice, rep);

@@ -1,8 +1,10 @@
-    package remind.me;
+    package com.remindme.ui;
      
     import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import remind.me.R;
      
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -23,8 +25,8 @@ import com.remindme.dialogs.RemindAlertDialog;
 import com.remindme.dialogs.RemindDeleteDialog;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.RemindTask;
-import com.utils.Repetition;
+import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
      
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;

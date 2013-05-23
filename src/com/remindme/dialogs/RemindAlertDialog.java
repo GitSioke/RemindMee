@@ -3,10 +3,10 @@ package com.remindme.dialogs;
 import remind.me.R;
 import remind.me.R.layout;
 import remind.me.R.string;
-import remind.me.RemindEditActivity;
-import remind.me.RemindNewActivity;
 
-import com.utils.RemindTask;
+import com.remindme.ui.RemindEditActivity;
+import com.remindme.ui.RemindNewActivity;
+import com.remindme.utils.RemindTask;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

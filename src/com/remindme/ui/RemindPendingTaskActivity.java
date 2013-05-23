@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 
 
@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import remind.me.R;
+
 import android.provider.Settings.Secure;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.RemindTask;
+import com.remindme.utils.RemindTask;
 
 import android.content.Intent;
 import android.database.Cursor;

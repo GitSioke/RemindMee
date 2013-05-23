@@ -1,4 +1,4 @@
-package remind.me;
+package com.remindme.ui;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -6,13 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
+import remind.me.R;
+
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.Notice;
-import com.utils.RemindTask;
-import com.utils.Repetition;
+import com.remindme.utils.Notice;
+import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
 
 import android.app.DialogFragment;
 import android.content.Intent;

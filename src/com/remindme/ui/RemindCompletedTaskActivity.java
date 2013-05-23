@@ -1,6 +1,8 @@
-package remind.me;
+package com.remindme.ui;
 
 import java.util.ArrayList;
+
+import remind.me.R;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.utils.RemindTask;
+import com.remindme.utils.RemindTask;
 
 public class RemindCompletedTaskActivity extends RemindActivity {
     
