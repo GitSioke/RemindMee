@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import android.provider.Settings.Secure;
 

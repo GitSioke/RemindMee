@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package remind.me;
+package com.remindme.ui;
 
 public final class R {
     public static final class anim {

@@ -3,7 +3,7 @@ package com.remindme.utils;
 import java.util.Calendar;
 import java.util.Date;
 
-import remind.me.R;
+import com.remindme.ui.R;
 import android.content.Context;
 import android.util.Log;
 

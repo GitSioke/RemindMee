@@ -1,6 +1,7 @@
 package com.remindme.ui;
 
-import remind.me.R;
+import com.remindme.ui.R;
+
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;

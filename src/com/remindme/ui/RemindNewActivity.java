@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;

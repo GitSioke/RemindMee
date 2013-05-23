@@ -1,6 +1,7 @@
 package com.remindme.utils;
 
-import remind.me.R;
+import com.remindme.ui.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;

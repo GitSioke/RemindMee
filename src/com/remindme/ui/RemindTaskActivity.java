@@ -4,7 +4,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import remind.me.R;
+import com.remindme.ui.R;
      
 import android.app.DialogFragment;
 import android.content.Intent;

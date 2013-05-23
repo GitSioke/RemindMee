@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
@@ -203,12 +203,18 @@ public class RemindEditActivity extends RemindActivity {
 					correctData = true;
 					Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 					Log.d("NEW", Integer.toString(superTaskID));
-					RemindTask task = new RemindTask(taskID, name, date, noticeDate, timeStr,
+					RemindTask newTask = new RemindTask(taskID, name, date, noticeDate, timeStr,
 							repString, description, tag, superTaskID, false);
 					RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 					
 					taskDB.updateTask(task);
-					
+					if(this.task.getDate().compareTo(newTask.getDate())!= 0 
+							|| this.task.getDateNotice().compareTo(newTask.getDateNotice())!=0) {
+						//TODO
+						/**
+						 * Actualizar las notificaciones con idTask
+						 */
+					}
 				}else{
 					Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 				}

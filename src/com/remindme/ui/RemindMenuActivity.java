@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remindme.sqlite.RemindTaskDAO;

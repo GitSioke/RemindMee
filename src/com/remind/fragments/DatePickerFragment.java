@@ -13,9 +13,9 @@ import com.remindme.ui.RemindDayActivity;
 import com.remindme.ui.RemindMenuActivity;
 import com.remindme.ui.RemindNewActivity;
 
-import remind.me.R;
-import remind.me.R.id;
-import remind.me.R.layout;
+import com.remindme.ui.R;
+import com.remindme.ui.R.id;
+import com.remindme.ui.R.layout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

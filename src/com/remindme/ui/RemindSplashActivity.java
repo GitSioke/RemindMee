@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;

@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package remind.me;
+package com.remindme.ui;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

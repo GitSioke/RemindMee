@@ -2,7 +2,7 @@ package com.remindme.ui;
 
 import java.util.ArrayList;
 
-import remind.me.R;
+import com.remindme.ui.R;
 
 import android.content.Intent;
 import android.database.Cursor;
