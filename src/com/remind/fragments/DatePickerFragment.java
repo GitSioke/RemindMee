@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.remindme.ui.RemindDayActivity;
+import com.remindme.ui.RemindEditActivity;
 import com.remindme.ui.RemindMenuActivity;
 import com.remindme.ui.RemindNewActivity;
 
@@ -28,6 +29,7 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -48,6 +50,7 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	private Long dateLong;
 	private RemindNewActivity activity;
 	private View viewPicker;
+	private OnDateSelectedListener listener;
 	
 	public DatePickerFragment(TextView text) {
 		this.dateTextView = text;
@@ -61,9 +64,26 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		this.activity = activity;
 	}
 
+	
+	public interface OnDateSelectedListener {
+        public void onDateSelected(Date date);
+    }
+	
+	
+	
+	public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnDateSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnDateSelectedListener");
+        }
+	}
+	
 	/** TODO
 	 * Operacion con los datos recogidos en el picker
 	 */
+
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		dateValues = new ContentValues();
 		dateValues.put("Year", year);
@@ -101,6 +121,9 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
     		intent.putExtra("date",this.dateLong);
     		startActivity(intent);
 	
+		}else if(getArguments().getBoolean("isEditActivity")){
+			RemindEditActivity activity = (RemindEditActivity)getActivity();
+			listener.onDateSelected(date);
 		}else{
 			Log.d("PASA", "DATENOTICE");
 			//TODO Revisar el pick de date notice

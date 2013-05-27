@@ -5,9 +5,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.ui.RemindNewActivity;
 
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,9 +24,23 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	
 	ContentValues timeValues;
 	TextView timeText;
+	private OnTimeSelectedListener listener;
+	
 	/**
 	 * Operaciones con la hora seleccionada
 	 */
+	public interface OnTimeSelectedListener {
+        public void onTimeSelected(Date date);
+    }
+	
+	public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnTimeSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnTimeSelectedListener");
+        }
+	}
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		
@@ -46,11 +62,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		String dateString = format.format(date);
 		
-		RemindNewActivity activity  = (RemindNewActivity)getActivity();
-		//TODO controlar que no se metan varias veces un tiempo o fecha
-		activity.setTime(date.getTime());
+		listener.onTimeSelected(date);
 		
-		activity.getTimeButton().setText(dateString);
 		
 	}
 	

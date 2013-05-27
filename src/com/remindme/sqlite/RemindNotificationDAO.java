@@ -16,5 +16,6 @@ public interface RemindNotificationDAO {
 	public ArrayList<RemindNotification> getUnreadyNotifications(long date);
 	public int updateNotification(RemindNotification notif);
 	public ArrayList<RemindNotification> lapsedNotifications(long dateLong);
-	
+	public ArrayList<RemindNotification> allNotifIdTask(Integer idTask);
+	public int deleteAllIdTask(Integer idTask);
 }

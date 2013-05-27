@@ -51,7 +51,6 @@ public enum Repetition {
 	public static Repetition getRepetition(String repString, Context ctx){
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
-		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
 		int position = 0;
 		
 		for(String string: array){
@@ -111,6 +110,18 @@ public enum Repetition {
 	
 		//uchcalendar.set(year, month, day);
 		return calendar.getTime();
+	}
+	
+	private static Boolean isSingle(String repStr){
+		return repStr.contentEquals(SINGLE.toString());
+	}
+	
+	public static Boolean changedFromSingle(String old, String recent){
+		return isSingle(old) && !Repetition.isSingle(recent);
+	}
+	
+	public static Boolean changedToSingle(String old, String recent){
+		return !isSingle(old) && Repetition.isSingle(recent);
 	}
 
 }

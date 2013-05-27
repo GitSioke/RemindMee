@@ -14,6 +14,7 @@ import java.util.logging.SimpleFormatter;
 import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
+import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remind.fragments.TimePickerFragment;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
@@ -42,7 +43,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RemindNewActivity extends RemindActivity {
+public class RemindNewActivity extends RemindActivity implements OnDateSelectedListener {
     
 	
 	TextView txtDateNotice;
@@ -226,6 +227,9 @@ public class RemindNewActivity extends RemindActivity {
 	}
 	public void showTimePickerDialog(View view){
 		dateFragment = new TimePickerFragment();
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("isNewActivity", true);
+		dateFragment.setArguments(bundle);
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 
@@ -271,6 +275,10 @@ public class RemindNewActivity extends RemindActivity {
 
 	public Button getDateButton() {
 		return this.dateButton;
+	}
+
+	public void onDateSelected(Date date) {
+		//TODO
 	}
 
 }

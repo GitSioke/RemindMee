@@ -255,5 +255,38 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 		this.close();
 		return amount;
 	}
+
+	public ArrayList<RemindNotification> allNotifIdTask(Integer idTask) {
+		this.open();
+		RemindNotification notification;
+		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_IDTASK+"=?", 
+				new String[]{Integer.toString(idTask)}, null, null, null);
+	
+		if (cursor.moveToFirst()){
+        	do {
+        		Integer id = cursor.getInt(0);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(3);
+        		Date delay = new Date(dateAsLong);
+        		Boolean ready = cursor.getInt(4)==1 ? true: false;
+        		Boolean done = cursor.getInt(5)==1 ? true: false;
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		notificationList.add(notification);
+        		
+        	}while(cursor.moveToNext());
+        		
+        }
+		return notificationList;
+	}
+
+	public int deleteAllIdTask(Integer idTask) {
+		this.open();
+		int changes = db.delete(DATABASE_TABLE, KEY_IDTASK+"=?", new String[]{idTask.toString()});
+		this.close();
+		return changes;
+		
+	}
 	
 }

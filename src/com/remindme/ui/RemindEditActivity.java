@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 import com.remindme.ui.R;
 
+import com.remind.fragments.DatePickerFragment.*;
+
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.TimePickerFragment;
+import com.remind.fragments.TimePickerFragment.OnTimeSelectedListener;
+import com.remindme.sqlite.RemindNotificationDAO;
+import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.Notice;
+import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
@@ -32,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class RemindEditActivity extends RemindActivity {
+public class RemindEditActivity extends RemindActivity implements OnDateSelectedListener, OnTimeSelectedListener {
     
 	
 	TextView txtDateNotice;
@@ -45,7 +50,6 @@ public class RemindEditActivity extends RemindActivity {
 	private EditText txtDesc;
 	private EditText txtTag;
 	private RemindTask task;
-	private Integer taskID;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,7 +122,7 @@ public class RemindEditActivity extends RemindActivity {
     	 */
 		private void initializeFromTask(RemindTask task) {
 		// TODO 
-			taskID = task.getId();
+			
 			txtName = (EditText) findViewById(R.id.Edit_EditText_Name);
 			txtName.setText(task.getName());
 			dateButton = (Button) findViewById(R.id.Edit_ButtonDate);
@@ -203,18 +207,13 @@ public class RemindEditActivity extends RemindActivity {
 					correctData = true;
 					Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 					Log.d("NEW", Integer.toString(superTaskID));
-					RemindTask newTask = new RemindTask(taskID, name, date, noticeDate, timeStr,
+					RemindTask newTask = new RemindTask(this.task.getId(), name, date, noticeDate, timeStr,
 							repString, description, tag, superTaskID, false);
 					RemindTaskDAO taskDB = new RemindTaskSQLite(this);
 					
-					taskDB.updateTask(task);
-					if(this.task.getDate().compareTo(newTask.getDate())!= 0 
-							|| this.task.getDateNotice().compareTo(newTask.getDateNotice())!=0) {
-						//TODO
-						/**
-						 * Actualizar las notificaciones con idTask
-						 */
-					}
+					taskDB.updateTask(newTask);
+					changeNotifications(task, newTask);
+					
 				}else{
 					Toast.makeText(this, R.string.new_toast_dateNoSense, Toast.LENGTH_SHORT).show();
 				}
@@ -233,6 +232,9 @@ public class RemindEditActivity extends RemindActivity {
 	public void showDatePickerDialog(View view){
 		//TODO Cambiar los contructores y meter un bundle en los dos
 		dateFragment = new DatePickerFragment();
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("isEditActivity", true);
+		dateFragment.setArguments(bundle);
 		dateFragment.show(getFragmentManager(), "datepicker");
 	}	
 	
@@ -242,6 +244,9 @@ public class RemindEditActivity extends RemindActivity {
 	}
 	public void showTimePickerDialog(View view){
 		dateFragment = new TimePickerFragment();
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("isEditActivity", true);
+		dateFragment.setArguments(bundle);
 		dateFragment.show(getFragmentManager(), "timepicker");
 	}
 		public void doPositiveClick() {
@@ -256,4 +261,39 @@ public class RemindEditActivity extends RemindActivity {
 	private Boolean checkDateHasSense(Date date, Date noticeDate){
 			return !date.before(noticeDate);
 		}
+
+
+
+	public void onDateSelected(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		dateButton.setText(format.format(date));
+		
+	}
+
+
+
+	public void onTimeSelected(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+		timeButton.setText(format.format(date));
+		
+	}
+	
+	private void changeNotifications(RemindTask task, RemindTask newTask){
+		RemindNotificationDAO notifDB = new RemindNotificationSQLite(this);
+		Boolean changedDate = task.getDate().compareTo(newTask.getDate())!= 0 ;
+		Boolean changedDateNotice = task.getDateNotice().compareTo(newTask.getDateNotice())!=0;
+		if (!task.getRepetition().contentEquals(newTask.getRepetition()) || changedDate || changedDateNotice){
+			notifDB.deleteAllIdTask(task.getId());	
+			RemindNotification not = new RemindNotification(null, newTask.getId(), newTask.getDate(), newTask.getDateNotice(), false, false);
+			notifDB.insertNotification(not);
+			Repetition rep = Repetition.valueOf(newTask.getRepetition());
+			if(rep.compareTo(Repetition.SINGLE)!=0){
+				Date newDate = Repetition.getNextDate(newTask.getDate(), rep);
+				Date newDateNotice = Repetition.getNextDate(newTask.getDateNotice(), rep);
+				not = new RemindNotification(null, newTask.getId(), newDate, newDateNotice, false, false);
+				notifDB.insertNotification(not);
+			}
+		}
+				
+	}
 }
