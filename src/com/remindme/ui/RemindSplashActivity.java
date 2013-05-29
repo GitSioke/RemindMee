@@ -6,6 +6,7 @@ package com.remindme.ui;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import com.remindme.ui.R;
 
@@ -30,14 +31,21 @@ import android.widget.TextView;
 
 public class RemindSplashActivity extends RemindActivity {
 	private Thread thread;
-	private static long sleepTime = 60000;
+	private static final Date sleepTime;
+	static {
+	    Calendar cal;
+		cal = GregorianCalendar.getInstance();
+	    cal.set(Calendar.MINUTE, 2);
+	    sleepTime = cal.getTime();
+	}
 	
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash);
-		startFadeIn();
 		launchLoopThread();
+		startFadeIn();
+		
 			
 	}
 	
@@ -48,29 +56,7 @@ public class RemindSplashActivity extends RemindActivity {
 			RemindTaskDAO dbTask = new RemindTaskSQLite(ctx);
 			public void run() {
 	        	Boolean firstLoop = true;
-	        	//Insert
-	        	RemindNotification noti = new RemindNotification(12, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false);
-	        	long dateAsLong = Calendar.getInstance().getTimeInMillis();
-	        	Date dated = new Date(dateAsLong);
-	        	RemindNotification noti1 = new RemindNotification(2345, 6789, dated, Calendar.getInstance().getTime(), false, false);
-	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
-	        	dated = new Date(dateAsLong);
-	        	RemindNotification noti2= new RemindNotification(345, 789, dated, Calendar.getInstance().getTime(), false, false);
-	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
-	        	dated = new Date(dateAsLong);
-	        	RemindNotification noti3 = new RemindNotification(45, 789, dated, Calendar.getInstance().getTime(), false, false);
-	        	dateAsLong = Calendar.getInstance().getTimeInMillis();
-	        	dated = new Date(dateAsLong);
-	        	RemindNotification noti4 = new RemindNotification(5, 6789, dated, dated, false, false);
-
-	        	
-	        	dbNoti.insertNotification(noti);
-	        	dbNoti.insertNotification(noti1);
-	        	dbNoti.insertNotification(noti2);
-	        	dbNoti.insertNotification(noti3);
-	        	dbNoti.insertNotification(noti4);
-	        	
-	        	while (true) {
+	           	while (true) {
 	            	try {
 	                    // do something here
 	            		if (firstLoop){
@@ -111,7 +97,7 @@ public class RemindSplashActivity extends RemindActivity {
 	                		createNotification(notif);	                		
 	                	}
 	            		Log.d("Splash", "local Thread sleeping");
-	                    Thread.sleep(sleepTime);
+	                    Thread.sleep(sleepTime.getTime());
 	                } catch (InterruptedException e) {
 	                    Log.e("Splash", "local Thread error", e);
 	                }

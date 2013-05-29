@@ -16,6 +16,7 @@ import com.remindme.ui.R;
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remind.fragments.TimePickerFragment;
+import com.remind.fragments.TimePickerFragment.OnTimeSelectedListener;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
@@ -43,13 +44,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RemindNewActivity extends RemindActivity implements OnDateSelectedListener {
+public class RemindNewActivity extends RemindActivity implements OnDateSelectedListener, OnTimeSelectedListener {
     
 	
 	TextView txtDateNotice;
 	private Long dateLong;
 	private Long dateNoticeLong;
-	private Long time;
+	private long time;
 	DialogFragment dateFragment;
 	private Spinner repeatSpinner;
 	private Spinner noticeSpinner;
@@ -142,7 +143,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 			String timeString = format.format(timeAsDate);
 			Date date= new Date(this.dateLong+this.time);
-			Log.d("NEW_INIT", time.toString());
+			
 			Log.d("NEW_INIT", dateLong.toString());
 			Log.d("NEW_INIT", Long.toString(date.getTime()));
 			
@@ -279,6 +280,13 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 
 	public void onDateSelected(Date date) {
 		//TODO
+	}
+
+	public void onTimeSelected(Date date) {
+		// TODO 
+		this.time = date.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+		timeButton.setText(format.format(date));
 	}
 
 }

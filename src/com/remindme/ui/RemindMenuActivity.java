@@ -10,6 +10,7 @@ import java.util.Date;
 import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
+import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
@@ -35,7 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RemindMenuActivity extends RemindActivity {
+public class RemindMenuActivity extends RemindActivity implements OnDateSelectedListener {
     /** Called when the activity is first created. */
 	public static final String NOTIFICATION_DATA = "NOTIFICATION_DATA";
 	public TextView text;
@@ -145,6 +146,13 @@ public class RemindMenuActivity extends RemindActivity {
 	
 	public void setDateLong(Long date){
 		this.dateLong = date;
+	}
+
+
+
+	public void onDateSelected(Date date) {
+		// TODO Auto-generated method stub
+		this.dateLong = date.getTime();
 	}
 	
 	
