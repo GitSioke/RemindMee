@@ -1,5 +1,8 @@
 package com.remindme.utils;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import com.remindme.ui.R;
 
 import android.app.Activity;
@@ -100,6 +103,40 @@ public enum Notice {
 			not = Notice.TWODAYS;
 		}
 		return not.ordinal();
+	}
+	
+	public static Date delayDate(Date date, Notice not){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		switch (not) {
+		case HOUR:
+			cal.roll(Calendar.HOUR_OF_DAY, -1);
+			break;
+		case TWOHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -2);
+			break;
+		case FOURHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -4);
+			break;
+		case EIGHTHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -8);
+			break;
+		case TWELVEHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -12);
+			break;
+		case DAY:
+			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			break;	
+		case TWODAYS:
+			cal.roll(Calendar.DAY_OF_YEAR, -2);
+			break;
+		default:
+			
+			break;
+		}
+		return cal.getTime();
+		
 	}
 	
 }

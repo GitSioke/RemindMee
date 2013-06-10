@@ -15,6 +15,7 @@ import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindNotification;
+import com.remindme.utils.RemindTask;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -51,10 +52,12 @@ public class RemindSplashActivity extends RemindActivity {
 	
 	private void launchLoopThread() {
 		thread = new Thread() {
+			
 			private Context ctx = getApplicationContext();
 			RemindNotificationDAO dbNoti = new RemindNotificationSQLite(ctx);
 			RemindTaskDAO dbTask = new RemindTaskSQLite(ctx);
 			public void run() {
+				Log.d("Thread", "Start");
 	        	Boolean firstLoop = true;
 	           	while (true) {
 	            	try {
@@ -79,7 +82,8 @@ public class RemindSplashActivity extends RemindActivity {
 	                		NotificationManager notificationManager =(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 	                		
 	                		for(RemindNotification notification: notificationList){
-	                			createNotification(notification);
+	                			RemindTask task= dbTask.getTaskWithID(notification.getIdTask());
+	                			createNotification(task, notification);
 	                		}
 	                		firstLoop = false;
 	                	}
@@ -94,10 +98,12 @@ public class RemindSplashActivity extends RemindActivity {
 	                	for(RemindNotification notif : pendingNotifications){
 	                		notif.setDone(true);
 	                		dbNoti.updateNotification(notif);
-	                		createNotification(notif);	                		
+	                		RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
+	                		createNotification(task, notif);	                		
 	                	}
-	            		Log.d("Splash", "local Thread sleeping");
+	            		Log.d("Thread", "local Thread sleeping");
 	                    Thread.sleep(sleepTime.getTime());
+	                    
 	                } catch (InterruptedException e) {
 	                    Log.e("Splash", "local Thread error", e);
 	                }
@@ -108,14 +114,14 @@ public class RemindSplashActivity extends RemindActivity {
 	         * Crea notificacion en notification manager a partir de la notification pasada por parametro
 	         * @param notif
 	         */
-	        private void createNotification(RemindNotification notif){
+	        private void createNotification(RemindTask task,RemindNotification notif){
 	        	
 	        	NotificationCompat.Builder mBuilder =
     	    	        new NotificationCompat.Builder(ctx)
     	    	        .setSmallIcon(R.drawable.ic_notif)
     	    	        .setWhen(notif.getDate().getTime())
-    	    	        .setContentTitle(notif.getIdTask().toString())
-    	    	        .setContentText(notif.getDate().toString());
+    	    	        .setContentTitle(task.getName().toString())
+    	    	        .setContentText(notif.getDate().toString());;
     					
     	    	// Creates an explicit intent for an Activity in your app
     	    	Intent resultIntent = new Intent(ctx, RemindMenuActivity.class);

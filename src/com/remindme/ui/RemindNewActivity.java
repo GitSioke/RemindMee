@@ -141,8 +141,15 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		if (!name.contentEquals("") && dateButton.getText().length()>2 ){
 			Date timeAsDate = new Date(this.time);
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(timeAsDate);
+			int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+			int minutes = cal.get(Calendar.MINUTE);
 			String timeString = format.format(timeAsDate);
-			Date date= new Date(this.dateLong+this.time);
+			Date date= new Date(this.dateLong);
+			cal.setTime(date);
+			cal.roll(Calendar.HOUR_OF_DAY, hourOfDay);
+			cal.roll(Calendar.MINUTE, minutes);
 			
 			Log.d("NEW_INIT", dateLong.toString());
 			Log.d("NEW_INIT", Long.toString(date.getTime()));
@@ -158,10 +165,8 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			
 			String noticeAsString = (String) noticeSpinner.getSelectedItem();
 			Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-			
-			Long longNotice = Notice.getAsLong(notice);
-			Date noticeDate = new Date(date.getTime() - longNotice);
-			
+			Date noticeDate = Notice.delayDate(date, notice);
+						
 			
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
