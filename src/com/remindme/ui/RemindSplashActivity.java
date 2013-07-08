@@ -3,10 +3,12 @@ package com.remindme.ui;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import com.remindme.ui.R;
 
@@ -46,8 +48,6 @@ public class RemindSplashActivity extends RemindActivity {
 		setContentView(R.layout.splash);
 		launchLoopThread();
 		startFadeIn();
-		
-			
 	}
 	
 	private void launchLoopThread() {
@@ -83,7 +83,8 @@ public class RemindSplashActivity extends RemindActivity {
 	                		
 	                		for(RemindNotification notification: notificationList){
 	                			RemindTask task= dbTask.getTaskWithID(notification.getIdTask());
-	                			createNotification(task, notification);
+	                			if(task!=null)
+	                				createNotification(task, notification);
 	                		}
 	                		firstLoop = false;
 	                	}
@@ -99,7 +100,8 @@ public class RemindSplashActivity extends RemindActivity {
 	                		notif.setDone(true);
 	                		dbNoti.updateNotification(notif);
 	                		RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
-	                		createNotification(task, notif);	                		
+	                		if(task!=null)
+	                			createNotification(task, notif);	                		
 	                	}
 	            		Log.d("Thread", "local Thread sleeping");
 	                    Thread.sleep(sleepTime.getTime());
@@ -115,16 +117,19 @@ public class RemindSplashActivity extends RemindActivity {
 	         * @param notif
 	         */
 	        private void createNotification(RemindTask task,RemindNotification notif){
-	        	
+	        	Locale loc = new Locale("es ES");
+	        	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
+	        	String strDate = format.format(notif.getDate());
 	        	NotificationCompat.Builder mBuilder =
     	    	        new NotificationCompat.Builder(ctx)
     	    	        .setSmallIcon(R.drawable.ic_notif)
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(task.getName().toString())
-    	    	        .setContentText(notif.getDate().toString());;
+    	    	        .setContentText(strDate);
     					
     	    	// Creates an explicit intent for an Activity in your app
-    	    	Intent resultIntent = new Intent(ctx, RemindMenuActivity.class);
+    	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
+    	    	resultIntent.putExtra("task", task);
 
     	    	// The stack builder object will contain an artificial back stack for the
     	    	// started Activity.

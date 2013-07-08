@@ -4,6 +4,7 @@ package com.remind.fragments;
 
 
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +43,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 @SuppressLint("ValidFragment")
-public class DatePickerFragment extends DialogFragment implements OnDateSetListener{
+public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
 	public TextView dateTextView;
 	public CalendarView calendarView;
@@ -85,31 +86,16 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	 */
 
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		dateValues = new ContentValues();
-		dateValues.put("Year", year);
-		dateValues.put("Month", month);
-		dateValues.put("Day", day);
-	
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.set(year, month, day);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		cal.setFirstDayOfWeek(0);
+				
 		CalendarView calView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
 		
         dateLong = calView.getDate();
-        Long remainder = dateLong%8640000;
-        dateLong-=remainder;
-        
         Date date = new Date(dateLong);
-      
-        	
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		String dateString = format.format(date);
+        this.listener.onDateSelected(date);        	
 		
-		if (getArguments().getBoolean("islimitdate")){
+		
+		/**Old code
+		 * if (getArguments().getBoolean("islimitdate")){
 			Log.d("PASA", "ISLIMITDATE");
 			activity.setDateLong(this.dateLong);
 			this.activity.getDateButton().setText(dateString);
@@ -129,7 +115,7 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 			//TODO Revisar el pick de date notice
 			activity.setDateNoticeLong(this.dateLong);
 			//activity.txtDateNotice.setText(dateString);
-		}
+		}*/
 
 		
 	}
@@ -146,7 +132,32 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        try
+        {
+            CalendarView cv = (CalendarView) this.viewPicker.findViewById(R.id.DatePicker_Calendar);
+            Class<?> cvClass = cv.getClass();
+            Field field = cvClass.getDeclaredField("mMonthName");
+            field.setAccessible(true);
+
+            try
+            {
+                TextView tv = (TextView) field.get(cv);
+                tv.setTextColor(getResources().getColor(R.color.hintText2));
+            } 
+            catch (IllegalArgumentException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        catch (NoSuchFieldException e)
+        {
+            e.printStackTrace();
+        }
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day); 
         dialog.setView(this.viewPicker);
         
         return dialog;

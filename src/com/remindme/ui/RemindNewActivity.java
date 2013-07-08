@@ -30,6 +30,7 @@ import com.remindme.utils.Repetition;
 import android.app.DialogFragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -86,7 +87,9 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				parent.getItemAtPosition(position);
-				
+				TextView selectedText = (TextView) parent.getChildAt(position);
+				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
+				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
@@ -101,7 +104,9 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				parent.getItemAtPosition(position);
-				
+				TextView selectedText = (TextView) parent.getChildAt(position);
+				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
+				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
@@ -150,6 +155,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			cal.setTime(date);
 			cal.roll(Calendar.HOUR_OF_DAY, hourOfDay);
 			cal.roll(Calendar.MINUTE, minutes);
+			date = cal.getTime();
 			
 			Log.d("NEW_INIT", dateLong.toString());
 			Log.d("NEW_INIT", Long.toString(date.getTime()));
@@ -285,6 +291,11 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 
 	public void onDateSelected(Date date) {
 		//TODO
+		Log.d("NEW", "OnDateSelected");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String dateString = format.format(date);
+		this.dateLong = date.getTime();
+		this.dateButton.setText(dateString);
 	}
 
 	public void onTimeSelected(Date date) {

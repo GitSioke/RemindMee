@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     
-    android:background="@color/splash_title">
+    android:background="@color/white">
 
 	<CalendarView
 	    android:id="@+id/DatePicker_Calendar"
@@ -11,12 +11,12 @@
 	    android:layout_width="fill_parent"
 	    android:showWeekNumber="false"
 	    android:selectedWeekBackgroundColor="@color/header_background"
-	    android:focusedMonthDateColor="@color/white"
-	    android:unfocusedMonthDateColor="@color/hintText"
+	    android:focusedMonthDateColor="@color/splash_title"
+	    android:unfocusedMonthDateColor="@color/newedit_normalText"
 	    android:weekNumberColor="@color/white"
-	    android:weekSeparatorLineColor="@color/white"
+	    android:weekSeparatorLineColor="@color/splash_title"
+	    android:firstDayOfWeek="2"
 	   
-	    
 	    
 	    android:minDate="03/10/2013"
         android:maxDate="12/31/2025"

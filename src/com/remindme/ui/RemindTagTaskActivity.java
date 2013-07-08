@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 public class RemindTagTaskActivity extends RemindActivity{
 	
@@ -20,9 +21,11 @@ public class RemindTagTaskActivity extends RemindActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.all);
-			
 		String tag = getIntent().getStringExtra("tag");
+		
+		setContentView(R.layout.all);
+		TextView txtHeader = (TextView)findViewById(R.id.All_HeaderTxtView);
+		txtHeader.setText(tag);
 		RemindTaskSQLite db = new RemindTaskSQLite(this);
 		db.open();
 		ArrayList<RemindTask> taskList = db.getTaskWithTag(tag);
