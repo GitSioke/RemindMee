@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class RemindTagsActivity extends RemindActivity {
         super.onCreate(savedInstanceState);
         Log.d("TAG", "Set content view");
         setContentView(R.layout.tags);
+        setHeaderButton();
         Log.d("TAG", "Initialize cursor");
        
         /**
@@ -77,5 +79,25 @@ public class RemindTagsActivity extends RemindActivity {
 			Toast.makeText(this, "Bucle", Toast.LENGTH_LONG).show();
 			Toast.makeText(this, "Etiqueta: " + tag, Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	private void setHeaderButton(){
+		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+		imageNew.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindTagsActivity.this, RemindNewActivity.class));
+				
+			}
+		});
+		
+		imageHome.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindTagsActivity.this, RemindMenuActivity.class));
+				
+			}
+		});
 	}
 }

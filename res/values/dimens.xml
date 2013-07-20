@@ -10,9 +10,9 @@
 	<dimen name="header_marginLeft">15dp</dimen>
 	<dimen name="header_marginRight">10dp</dimen>
 	
-	<dimen name="text_header">35dp</dimen>
+	<dimen name="text_header">30dp</dimen>
 	<dimen name="text_header_margin">7dp</dimen>
-	<dimen name="header_icon">40dp</dimen>
+	<dimen name="header_icon">30dp</dimen>
 	<dimen name="header_day_text">25dp</dimen>
 	
 	<!--New_edit secreen -->

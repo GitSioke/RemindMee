@@ -36,6 +36,7 @@ import com.remindme.utils.Repetition;
            Log.d("TASK", "Set content view");
            setContentView(R.layout.task);
            Log.d("TASK", "Initialize cursor");
+           setHeaderButton();
            
            //RemindTaskDAO taskDB = new  RemindTaskSQLite(this);
            //Integer id = 1088402616;
@@ -157,5 +158,26 @@ import com.remindme.utils.Repetition;
     			//TODO Tachar los textview
     			//crossOutTaskElements();
     		}
+    	}
+    	
+    	private void setHeaderButton(){
+    		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+            ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+    		imageNew.setOnClickListener(new View.OnClickListener() {
+    			
+    			public void onClick(View v) {
+    				startActivity(new Intent(RemindTaskActivity.this, RemindNewActivity.class));
+    				
+    			}
+    		});
+    		
+    		imageHome.setOnClickListener(new View.OnClickListener() {
+    			
+    			public void onClick(View v) {
+    				startActivity(new Intent(RemindTaskActivity.this, RemindMenuActivity.class));
+    				
+    			}
+    		});
+    		
     	}
     }
