@@ -86,8 +86,9 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         ImageView imageAll = (ImageView) findViewById(R.id.Menu_ImageView_All);
         ImageView imageTags = (ImageView) findViewById(R.id.Menu_ImageView_Tags);
         ImageView imageToday = (ImageView) findViewById(R.id.Menu_ImageView_Today);
-        ImageView imageNew = (ImageView) findViewById(R.id.Menu_ImageView_New);
-        ImageView imageClock = (ImageView) findViewById(R.id.Menu_ImageView_Clock);
+        ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+        ImageView imageCalendar = (ImageView) findViewById(R.id.Menu_ImageView_Calendar);
         
         imageAll.setOnClickListener(new View.OnClickListener() {
 			
@@ -120,7 +121,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         	}
         });
         
-        imageClock.setOnClickListener(new View.OnClickListener() {
+        imageCalendar.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				dateFragment = new DatePickerFragment();
@@ -128,6 +129,14 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 				bundle.putBoolean("pickDay", true);
 				dateFragment.setArguments(bundle);
 				dateFragment.show(getFragmentManager(), "dateNoticePicker");		
+				
+			}
+		});
+        
+        imageHome.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindMenuActivity.this, RemindMenuActivity.class));
 				
 			}
 		});

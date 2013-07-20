@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +35,13 @@ public class RemindDayActivity extends RemindActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day);
+        setHeaderButton();
+        
         RemindTaskDAO dbTask = new RemindTaskSQLite(this);
         
        	Long dateLong = (Long)getIntent().getLongExtra("date", 0);
         Date day = new Date(dateLong);
-        SimpleDateFormat format = new SimpleDateFormat("EE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+        SimpleDateFormat format = new SimpleDateFormat("d 'de' MMM yyyy", new Locale("es", "ES"));
 		String dateString = format.format(day);
 		Date endOfDay = new Date(dateLong + Notice.getAsLong(Notice.DAY));
 		
@@ -91,5 +94,25 @@ public class RemindDayActivity extends RemindActivity {
 		checkListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_check, taskList));
 		
 	}*/
+	
+	private void setHeaderButton(){
+		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+		imageNew.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindDayActivity.this, RemindNewActivity.class));
+				
+			}
+		});
+		
+		imageHome.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindDayActivity.this, RemindMenuActivity.class));
+				
+			}
+		});
+	}
 
 }

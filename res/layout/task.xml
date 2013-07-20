@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/RelativeLayout_Header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,27 @@
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
         
-    </LinearLayout>
+        <ImageView 
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:layout_centerInParent="true"
+            android:id="@+id/Header_NewImage"
+            android:src="@drawable/header_new"
+            android:layout_toLeftOf="@+id/Header_HomeImage"
+            
+            />
+        
+         <ImageView 
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:id="@+id/Header_HomeImage"
+            android:src="@drawable/header_home"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/header_marginLeft"
+            android:layout_marginRight="@dimen/header_marginRight"
+            android:layout_centerInParent="true"/>
+        
+    </RelativeLayout>
     
     <!--TODO Tarea con atributos en RelativeLayout, Creacion Subtareas, Display subtareas -->
     
@@ -33,7 +53,8 @@
             android:id="@+id/Task_RelativeTaskText"
         	android:layout_height="wrap_content"
         	android:layout_width="fill_parent"
-        	android:onClick="editTask">
+        	android:onClick="editTask"
+        	android:layout_marginTop="@dimen/task_marginTop">
        
 	      <TextView
 	           android:id="@+id/Task_Name"
@@ -146,17 +167,16 @@
 	          android:onClick="deleteTask"
 	          android:src="@drawable/ic_delete1" />
 
+	      <CheckBox
+	          android:id="@+id/Task_Checkbox"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_alignParentTop="true"
+	          android:layout_alignRight="@+id/Task_ImageButtonDelete"
+	          android:background="@color/normalText"
+	          android:onClick="onCheckBoxClicked" />
+
 	      </RelativeLayout>
-      <CheckBox 
-          android:id="@+id/Task_Checkbox"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-          android:layout_below="@+id/Task_Name"
-          android:layout_marginRight="10dp"
-          android:layout_marginTop="5dp"
-          android:onClick="onCheckBoxClicked"
-          android:background="@color/normalText"/>
       
     	</RelativeLayout>
 

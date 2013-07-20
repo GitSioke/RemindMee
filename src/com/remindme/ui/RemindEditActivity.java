@@ -32,6 +32,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,8 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
     	super.onCreate(savedInstanceState);
         
     	setContentView(R.layout.edit);
+    	setHeaderButton();
+    	
     	this.task = getIntent().getParcelableExtra("Task");
     	
     	initializeFromTask(task);
@@ -295,5 +298,26 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			}
 		}
 				
+	}
+	
+	private void setHeaderButton(){
+		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+		imageNew.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindEditActivity.this, RemindNewActivity.class));
+				
+			}
+		});
+		
+		imageHome.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindEditActivity.this, RemindMenuActivity.class));
+				
+			}
+		});
+		
 	}
 }
