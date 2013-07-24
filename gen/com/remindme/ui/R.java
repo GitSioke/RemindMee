@@ -108,7 +108,9 @@ public final class R {
         public static final int new_symbol=0x7f02001f;
         public static final int new_symbol1=0x7f020020;
         public static final int new_symbol2=0x7f020021;
-        public static final int typeb_calendar_today=0x7f020022;
+        public static final int notif_complete=0x7f020022;
+        public static final int notif_delay=0x7f020023;
+        public static final int typeb_calendar_today=0x7f020024;
     }
     public static final class id {
         public static final int All_FrameOfListTask=0x7f0a0002;

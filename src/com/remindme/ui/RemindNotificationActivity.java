@@ -22,7 +22,7 @@ public class RemindNotificationActivity extends Activity {
 	  public void createNotification(View view) {
 	    // Prepare intent which is triggered if the
 	    // notification is selected
-	    Intent intent = new Intent(this, RemindNotifiReceiverActivity.class);
+	    Intent intent = new Intent(this, RemindDelayActivity.class);
 	    PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
 	    // Build notification

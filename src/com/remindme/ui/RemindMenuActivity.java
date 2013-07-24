@@ -11,11 +11,14 @@ import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
+import com.remindme.services.NotificationIntentService;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.DialogFragment;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -50,7 +53,15 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         Log.d("MENU", "Entrando en onCreate");
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+        Context ctx = getApplicationContext();
+        ctx.startService(new Intent(RemindMenuActivity.this, NotificationIntentService.class));
         
+        if (isMyServiceRunning())
+        {
+        	Log.d("Menu.Service", "SI");
+        }else{
+        	Log.d("Menu.Service", "NO");
+        }
         Repetition rep;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar cal = Calendar.getInstance();		
@@ -165,6 +176,16 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 		Intent intent = new Intent(this, RemindDayActivity.class);
 		intent.putExtra("date",this.dateLong);
 		startActivity(intent);
+	}
+	
+	private boolean isMyServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (NotificationIntentService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	
 

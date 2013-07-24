@@ -77,6 +77,11 @@
 </activity>
 
         <receiver android:name="NotificationSender"/>
+        
+        <service 
+         android:enabled="true" 
+         android:name="com.remindme.services.NotificationIntentService" />
+        
     </application>
 
 </manifest>
