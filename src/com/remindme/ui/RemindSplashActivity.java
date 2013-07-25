@@ -130,7 +130,7 @@ public class RemindSplashActivity extends RemindActivity {
 	        	
 	        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
 	        	
-	        	Intent delayIntent = new Intent(RemindSplashActivity.this, RemindMenuActivity.class);
+	        	Intent delayIntent = new Intent(RemindSplashActivity.this, DialogDelayActivity.class);
 	        	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent, 0);
 	        	
 	        	// Creates an explicit intent for an Activity in your app
@@ -145,7 +145,7 @@ public class RemindSplashActivity extends RemindActivity {
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(task.getName().toString())
     	    	        .setContentText(strDate)
-    	    	        .addAction(R.drawable.notif_complete, getString(R.string.notif_complete), pcIntent)
+    	    	        .addAction(R.drawable.ic_complete, getString(R.string.notif_complete), pcIntent)
     	    	        .addAction(R.drawable.icon_delay, getString(R.string.notif_delay), pdIntent);
     					
     	

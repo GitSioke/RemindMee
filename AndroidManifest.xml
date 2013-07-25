@@ -60,6 +60,9 @@
        <!-- <activity android:name="RemindAlertDialog"
             android:theme="@android:style/Theme.Holo.Dialog"></activity>-->
         <activity android:name="RemindEditActivity"></activity>
+        <activity android:name="DialogDelayActivity"
+            android:theme="@android:style/Theme.Dialog">
+        </activity>
         
         <activity android:name="CalendarActivity">
     
