@@ -95,22 +95,23 @@ public final class R {
         public static final int ic_task=0x7f020012;
         public static final int ic_task1=0x7f020013;
         public static final int ic_task2=0x7f020014;
-        public static final int menu_all=0x7f020015;
-        public static final int menu_new=0x7f020016;
-        public static final int menu_new2=0x7f020017;
-        public static final int menu_new3=0x7f020018;
-        public static final int menu_tag=0x7f020019;
-        public static final int menu_tag2=0x7f02001a;
-        public static final int menu_tag3=0x7f02001b;
-        public static final int menu_today=0x7f02001c;
-        public static final int menu_today2=0x7f02001d;
-        public static final int menu_today3=0x7f02001e;
-        public static final int new_symbol=0x7f02001f;
-        public static final int new_symbol1=0x7f020020;
-        public static final int new_symbol2=0x7f020021;
-        public static final int notif_complete=0x7f020022;
-        public static final int notif_delay=0x7f020023;
-        public static final int typeb_calendar_today=0x7f020024;
+        public static final int icon_delay=0x7f020015;
+        public static final int menu_all=0x7f020016;
+        public static final int menu_new=0x7f020017;
+        public static final int menu_new2=0x7f020018;
+        public static final int menu_new3=0x7f020019;
+        public static final int menu_tag=0x7f02001a;
+        public static final int menu_tag2=0x7f02001b;
+        public static final int menu_tag3=0x7f02001c;
+        public static final int menu_today=0x7f02001d;
+        public static final int menu_today2=0x7f02001e;
+        public static final int menu_today3=0x7f02001f;
+        public static final int new_symbol=0x7f020020;
+        public static final int new_symbol1=0x7f020021;
+        public static final int new_symbol2=0x7f020022;
+        public static final int notif_complete=0x7f020023;
+        public static final int notif_delay=0x7f020024;
+        public static final int typeb_calendar_today=0x7f020025;
     }
     public static final class id {
         public static final int All_FrameOfListTask=0x7f0a0002;
@@ -273,6 +274,8 @@ public final class R {
         public static final int new_time_hint=0x7f07000e;
         public static final int new_toast_dateNoSense=0x7f070028;
         public static final int new_toast_missingData=0x7f070026;
+        public static final int notif_complete=0x7f070035;
+        public static final int notif_delay=0x7f070036;
         public static final int pending_header=0x7f070012;
         public static final int pending_taskid=0x7f070014;
         /**  All View 

@@ -20,23 +20,26 @@ public class NotificationIntentService extends Service{
 		Log.d("Service", "Servicio iniciado");
 		RemindTask task = intent.getParcelableExtra("task");
 		if (task!=null){
+			
 			Log.d("Service", task.getName());
 			RemindTaskDAO dbTask = new RemindTaskSQLite(getApplicationContext());
 			task.setCompleted(true);
 			dbTask.updateTask(task);
+			
 		}
 		String str = intent.getStringExtra("extra");
 		if (str!=null)
 			Log.d("Service", str);		
+		this.stopSelf();
 		return startId;
+		
 	}
 	
 	@Override
 	public void onDestroy()
 	{
-		
 		Log.d("Service", "Servicio parado");
-
+		super.onDestroy();
 	}
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -45,11 +48,7 @@ public class NotificationIntentService extends Service{
 		return null;
 	}
 
-	/**public NotificationIntentService() 
-	{
-		super("NotificationIntentService");
-	}
-
+	/**
 	@Override
 	protected void onHandleIntent(Intent intent) 
 	{

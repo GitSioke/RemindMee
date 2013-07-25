@@ -93,5 +93,6 @@
    <string name="edit_editButton">Editar</string>
    <string name="menu_bottom">ETS Ing. Informatica</string>
    
-   
+   <string name="notif_complete">Completar</string>
+   <string name="notif_delay">Retrasar</string>
 </resources>

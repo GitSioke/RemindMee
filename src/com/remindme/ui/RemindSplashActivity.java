@@ -124,29 +124,31 @@ public class RemindSplashActivity extends RemindActivity {
 	        	Locale loc = new Locale("es ES");
 	        	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
 	        	String strDate = format.format(notif.getDate());
+	        	
 	        	Intent completeIntent = new Intent(RemindSplashActivity.this, NotificationIntentService.class);
 	        	completeIntent.putExtra("task", task);
+	        	
 	        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
 	        	
-	        	
-	     
 	        	Intent delayIntent = new Intent(RemindSplashActivity.this, RemindMenuActivity.class);
 	        	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent, 0);
-	        	//TODO Añadir al intent la manera de completar la tarea
-	        
-	        	NotificationCompat.Builder mBuilder =
+	        	
+	        	// Creates an explicit intent for an Activity in your app
+    	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
+    	    	resultIntent.putExtra("task", task);
+    	    	
+    	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
+
+    	    	NotificationCompat.Builder mBuilder =
     	    	        new NotificationCompat.Builder(ctx)
     	    	        .setSmallIcon(R.drawable.ic_notif)
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(task.getName().toString())
-    	    	        .setContentText(strDate);
-    	    	        //.addAction(R.drawable.notif_complete, "complete", pcIntent)
-    	    	        //.addAction(R.drawable.notif_delay, "delay", pdIntent);
+    	    	        .setContentText(strDate)
+    	    	        .addAction(R.drawable.notif_complete, getString(R.string.notif_complete), pcIntent)
+    	    	        .addAction(R.drawable.icon_delay, getString(R.string.notif_delay), pdIntent);
     					
-    	    	// Creates an explicit intent for an Activity in your app
-    	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
-    	    	resultIntent.putExtra("task", task);
-
+    	
     	    	// The stack builder object will contain an artificial back stack for the
     	    	// started Activity.
     	    	// This ensures that navigating backward from the Activity leads out of
@@ -155,13 +157,14 @@ public class RemindSplashActivity extends RemindActivity {
     	    	// Adds the back stack for the Intent (but not the Intent itself)
     	    	stackBuilder.addParentStack(RemindMenuActivity.class);
     	    	// Adds the Intent that starts the Activity to the top of the stack
-    	    	stackBuilder.addNextIntent(completeIntent);
-    	    	PendingIntent resultPendingIntent =
-    	    	        stackBuilder.getPendingIntent(
-    	    	            0,
-    	    	            PendingIntent.FLAG_UPDATE_CURRENT
-    	    	        );
-    	    	mBuilder.setContentIntent(pcIntent);
+    	    	//stackBuilder.addNextIntent(resultIntent);
+    	    	//PendingIntent resultPendingIntent =
+    	    	//        stackBuilder.getPendingIntent(
+    	    //	            0,
+    	    //	            PendingIntent.FLAG_UPDATE_CURRENT
+    	    	//        );
+    	    	mBuilder.setAutoCancel(true);
+    	    	mBuilder.setContentIntent(rpIntent);
     	    	NotificationManager mNotificationManager =
     	    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     	    	// mId allows you to update the notification later on.
