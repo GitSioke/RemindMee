@@ -17,6 +17,10 @@ import android.content.res.Resources;
  */
 public enum Notice {
 	
+	FIFHTEENMINUTES,
+	
+	THIRTYMINUTES,
+	
 	HOUR,
 	
 	TWOHOURS,
@@ -31,49 +35,23 @@ public enum Notice {
 	
 	TWODAYS;
 	
-	private static final Long LONG_HOUR = Long.valueOf(3600000);
-	private static final Long LONG_TWOHOURS		 = Long.valueOf(7200000);
-	private static final Long LONG_FOURHOURS = Long.valueOf(14400000);
-	private static final Long LONG_EIGTHHOURS = Long.valueOf(28800000);
-	private static final Long LONG_TWELVEHOURS = Long.valueOf(43200000);
-	private static final Long LONG_DAY = Long.valueOf(86400000);
-	private static final Long LONG_TWODAYS = Long.valueOf(172800000);
+	private static final Integer INT_FIFTHTEENMINUTES = Integer.valueOf(15);
+	private static final Integer INT_THIRTYMINUTES = Integer.valueOf(30);
+	private static final Integer INT_HOUR = Integer.valueOf(1);
+	private static final Integer INT_TWOHOURS	= Integer.valueOf(2);
+	private static final Integer INT_FOURHOURS = Integer.valueOf(4);
+	private static final Integer INT_EIGTHHOURS = Integer.valueOf(8);
+	private static final Integer INT_TWELVEHOURS = Integer.valueOf(12);
+	private static final Integer INT_DAY = Integer.valueOf(1);
+	private static final Integer INT_TWODAYS = Integer.valueOf(2);
 	
 	
-	public static Long getAsLong(Notice notice){
-		Long result;
-		switch (notice) {
-		case HOUR:
-			result =LONG_HOUR;
-			break;
-		case TWOHOURS:
-			result =LONG_TWOHOURS;
-			break;
-		case FOURHOURS:
-			result =LONG_FOURHOURS;
-			break;
-		case EIGHTHOURS:
-			result =LONG_EIGTHHOURS;
-			break;
-		case TWELVEHOURS:
-			result = LONG_TWELVEHOURS;
-			break;
-		case DAY:
-			result =LONG_DAY;
-			break;	
-			
-		default:
-			result =LONG_TWODAYS;
-			break;
-		}
-		return result;
-	}
 	//Cambiar y hacer con R.array.etc
 	public static Notice getNotice(String noticeAsString, Context ctx){
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerNotice);
 		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
-		int position = 0;
+		int position = -2;
 		
 		for(String string: array){
 			if (noticeAsString.contentEquals(string))
@@ -87,7 +65,97 @@ public enum Notice {
 		
 	}
 	
-	public static Integer getNoticeString(Long noticeAsLong){
+	public static Notice getDelay(String strDelay, Context ctx)
+	{
+		
+		String[] array  = ctx.getResources().getStringArray(R.array.dialogDelay_array_spinnerDelay);
+		int position = 0;
+		
+		for(String string: array){
+			if (strDelay.contentEquals(string))
+				
+				break;
+			else
+				position++;
+		}
+		return Notice.values()[position];
+		
+	}
+	
+	public static Date noticeDate(Date date, Notice not){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		switch (not) {
+		case HOUR:
+			cal.roll(Calendar.HOUR_OF_DAY, -INT_HOUR);
+			break;
+		case TWOHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -INT_TWOHOURS);
+			break;
+		case FOURHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -INT_FOURHOURS);
+			break;
+		case EIGHTHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -INT_EIGTHHOURS);
+			break;
+		case TWELVEHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, -INT_TWELVEHOURS);
+			break;
+		case DAY:
+			cal.roll(Calendar.DAY_OF_YEAR, -INT_DAY);
+			break;	
+		case TWODAYS:
+			cal.roll(Calendar.DAY_OF_YEAR, -INT_TWODAYS);
+			break;
+		default:
+			
+			break;
+		}
+		return cal.getTime();
+		
+	}
+	
+	public static Date delayDate(Date date, Notice not){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		switch (not) {
+		case FIFHTEENMINUTES:
+			cal.roll(Calendar.MINUTE, INT_FIFTHTEENMINUTES);
+			break;
+		case THIRTYMINUTES:
+			cal.roll(Calendar.MINUTE, INT_THIRTYMINUTES);
+			break;
+		case HOUR:
+			cal.roll(Calendar.HOUR_OF_DAY, INT_HOUR);
+			break;
+		case TWOHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, INT_TWOHOURS);
+			break;
+		case FOURHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY,INT_FOURHOURS);
+			break;
+		case EIGHTHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, INT_EIGTHHOURS);
+			break;
+		case TWELVEHOURS:
+			cal.roll(Calendar.HOUR_OF_DAY, INT_TWELVEHOURS);
+			break;
+		case DAY:
+			cal.roll(Calendar.DAY_OF_YEAR, INT_DAY);
+			break;	
+		case TWODAYS:
+			cal.roll(Calendar.DAY_OF_YEAR, INT_TWODAYS);
+			break;
+		default:
+			
+			break;
+		}
+		return cal.getTime();
+		
+	}
+	/* static Integer getNoticeString(Long noticeAsLong){
 		Notice not = null;
 		if(noticeAsLong.compareTo(LONG_HOUR) == 0){
 			not = Notice.HOUR;
@@ -103,40 +171,7 @@ public enum Notice {
 			not = Notice.TWODAYS;
 		}
 		return not.ordinal();
-	}
+	}*/
 	
-	public static Date delayDate(Date date, Notice not){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
 		
-		switch (not) {
-		case HOUR:
-			cal.roll(Calendar.HOUR_OF_DAY, -1);
-			break;
-		case TWOHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -2);
-			break;
-		case FOURHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -4);
-			break;
-		case EIGHTHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -8);
-			break;
-		case TWELVEHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -12);
-			break;
-		case DAY:
-			cal.roll(Calendar.DAY_OF_YEAR, -1);
-			break;	
-		case TWODAYS:
-			cal.roll(Calendar.DAY_OF_YEAR, -2);
-			break;
-		default:
-			
-			break;
-		}
-		return cal.getTime();
-		
-	}
-	
 }

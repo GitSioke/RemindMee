@@ -1,14 +1,10 @@
 package com.remindme.ui;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.remindme.ui.R;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;

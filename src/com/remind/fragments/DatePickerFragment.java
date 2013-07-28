@@ -5,35 +5,20 @@ package com.remind.fragments;
 
 
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
-import com.remindme.ui.RemindDayActivity;
-import com.remindme.ui.RemindEditActivity;
-import com.remindme.ui.RemindMenuActivity;
-import com.remindme.ui.RemindNewActivity;
-
 import com.remindme.ui.R;
-import com.remindme.ui.R.id;
-import com.remindme.ui.R.layout;
+import com.remindme.ui.RemindNewActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
+
 
 import android.view.LayoutInflater;
 import android.view.View;

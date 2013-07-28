@@ -171,7 +171,6 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 
 
 	public void onDateSelected(Date date) {
-		// TODO Auto-generated method stub
 		this.dateLong = date.getTime();
 		Intent intent = new Intent(this, RemindDayActivity.class);
 		intent.putExtra("date",this.dateLong);

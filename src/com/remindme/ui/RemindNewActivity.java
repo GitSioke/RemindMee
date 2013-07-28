@@ -112,7 +112,6 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 		});

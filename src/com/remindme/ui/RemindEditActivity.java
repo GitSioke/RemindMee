@@ -88,7 +88,6 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -155,6 +154,9 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 		    spinnerNotice.setAdapter(adapterNotice);
 			Long advanceTime = task.getDate().getTime() - task.getDateNotice().getTime();
 			Log.d("EDIT", "Long advance time:"+advanceTime);
+			//TODO Hay qeu cambiarlo y buscar la forma de comparar las dos 
+			//fechas para asi saber a que spinner corresponde. Joda Time
+			
 			Integer ordinal = Notice.getNoticeString(advanceTime);
 		    spinnerNotice.setSelection(ordinal);
 			
@@ -201,9 +203,9 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 				
 				String noticeAsString = (String) spinnerNotice.getSelectedItem();
 				Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-				
-				Long longNotice = Notice.getAsLong(notice);
-				Date noticeDate = new Date(date.getTime() - longNotice);
+				Date noticeDate = Notice.noticeDate(date, notice);
+				//Long longNotice = Notice.getAsLong(notice);
+				//Date noticeDate = new Date(date.getTime() - longNotice);
 				
 				
 				if (checkDateHasSense(date, noticeDate)){

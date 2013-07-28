@@ -4,9 +4,7 @@ import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 
-import android.app.IntentService;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;

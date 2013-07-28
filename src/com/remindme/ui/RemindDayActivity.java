@@ -43,7 +43,9 @@ public class RemindDayActivity extends RemindActivity {
         Date day = new Date(dateLong);
         SimpleDateFormat format = new SimpleDateFormat("d 'de' MMM yyyy", new Locale("es", "ES"));
 		String dateString = format.format(day);
-		Date endOfDay = new Date(dateLong + Notice.getAsLong(Notice.DAY));
+		Calendar cal = Calendar.getInstance();
+		cal.roll(Calendar.DAY_OF_YEAR, 1);
+		Date endOfDay = cal.getTime();
 		
 		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
 		txtHeader.setText(dateString);
