@@ -5,6 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.joda.time.Interval;
+import org.joda.time.Period;
+
 import com.remindme.ui.R;
 
 import com.remind.fragments.DatePickerFragment.*;
@@ -157,7 +160,8 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			//TODO Hay qeu cambiarlo y buscar la forma de comparar las dos 
 			//fechas para asi saber a que spinner corresponde. Joda Time
 			
-			Integer ordinal = Notice.getNoticeString(advanceTime);
+
+			Integer ordinal = Notice.getNoticeOrdinal(task.getDateNotice(), task.getDate());
 		    spinnerNotice.setSelection(ordinal);
 			
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 

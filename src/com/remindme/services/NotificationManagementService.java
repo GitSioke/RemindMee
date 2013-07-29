@@ -162,8 +162,8 @@ public class NotificationManagementService extends Service{
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(task.getName().toString())
     	    	        .setContentText(strDate)
-    	    	        .addAction(R.drawable.notif_delay, getString(R.string.notif_complete), pcIntent)
-    	    	        .addAction(R.drawable.notif_delay, getString(R.string.notif_delay), pdIntent);
+    	    	        .addAction(R.drawable.notif_check_opt, getString(R.string.notif_complete), pcIntent)
+    	    	        .addAction(R.drawable.notif_clock_opt, getString(R.string.notif_delay), pdIntent);
     					
     	
     	    	// The stack builder object will contain an artificial back stack for the

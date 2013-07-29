@@ -3,6 +3,9 @@ package com.remindme.utils;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.joda.time.Interval;
+import org.joda.time.Period;
+
 import com.remindme.ui.R;
 
 import android.app.Activity;
@@ -35,15 +38,15 @@ public enum Notice {
 	
 	TWODAYS;
 	
-	private static final Integer INT_FIFTHTEENMINUTES = Integer.valueOf(15);
-	private static final Integer INT_THIRTYMINUTES = Integer.valueOf(30);
-	private static final Integer INT_HOUR = Integer.valueOf(1);
-	private static final Integer INT_TWOHOURS	= Integer.valueOf(2);
-	private static final Integer INT_FOURHOURS = Integer.valueOf(4);
-	private static final Integer INT_EIGTHHOURS = Integer.valueOf(8);
-	private static final Integer INT_TWELVEHOURS = Integer.valueOf(12);
-	private static final Integer INT_DAY = Integer.valueOf(1);
-	private static final Integer INT_TWODAYS = Integer.valueOf(2);
+	private static final int INT_FIFTHTEENMINUTES = 15;
+	private static final int INT_THIRTYMINUTES = 30;
+	private static final int INT_HOUR = 1;
+	private static final int INT_TWOHOURS	= 2;
+	private static final int INT_FOURHOURS = 4;
+	private static final int INT_EIGTHHOURS = 8;
+	private static final int INT_TWELVEHOURS = 12;
+	private static final int INT_DAY = 1;
+	private static final int INT_TWODAYS = 2;
 	
 	
 	//Cambiar y hacer con R.array.etc
@@ -172,6 +175,56 @@ public enum Notice {
 		}
 		return not.ordinal();
 	}*/
+
+	public static Integer getNoticeOrdinal(Date startDate, Date endDate)
+	{
+		Notice result = null;
+		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
+		Period period = interval.toPeriod();
+		switch (period.getMinutes()) {
+		case INT_FIFTHTEENMINUTES:
+			result = FIFHTEENMINUTES;
+			break;
+		case INT_THIRTYMINUTES:
+			result = THIRTYMINUTES;
+		
+		default:
+			switch (period.getHours())
+			{
+			case INT_HOUR:
+				result = HOUR;
+				break;
+			case INT_TWODAYS:
+				result = TWOHOURS;
+			case INT_FOURHOURS:
+				result = FOURHOURS;
+			case INT_EIGTHHOURS:
+				result = EIGHTHOURS;
+			case INT_TWELVEHOURS:
+				result = TWELVEHOURS;
+			
+			default:
+				switch (period.getDays())
+				{
+				case INT_DAY:
+					result = DAY;
+					break;
+				case INT_TWODAYS:
+					result = TWODAYS;
+				default:
+					break;
+				
+				}
+				break;
+			}
+			break;
+		
+		}
+		
+		
+		
+		return result.ordinal();
+	}
 	
 		
 }
