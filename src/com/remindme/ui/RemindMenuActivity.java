@@ -12,6 +12,7 @@ import com.remindme.ui.R;
 import com.remind.fragments.DatePickerFragment;
 import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.services.NotificationIntentService;
+import com.remindme.services.NotificationManagementService;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
@@ -180,7 +181,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 	private boolean isMyServiceRunning() {
 	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (NotificationIntentService.class.getName().equals(service.service.getClassName())) {
+	        if (NotificationManagementService.class.getName().equals(service.service.getClassName())) {
 	            return true;
 	        }
 	    }

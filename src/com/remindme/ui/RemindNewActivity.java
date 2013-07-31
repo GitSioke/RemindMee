@@ -56,6 +56,8 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 	DialogFragment dateFragment;
 	private Spinner repeatSpinner;
 	private Spinner noticeSpinner;
+	private TextView datePicked;
+	private TextView timePicked;
 	private Button dateButton;
 	private Button timeButton;
 	
@@ -65,9 +67,8 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_edit);
         setHeaderButton();
-        setDateButton((Button) findViewById(R.id.New_ButtonDate));
-        txtDateNotice = (TextView)findViewById(R.id.New_TextViewDateNoticeShow);
-        setTimeButton((Button) findViewById(R.id.New_ButtonTime));
+        
+        txtDateNotice = (TextView)findViewById(R.id.New_TxtDatePicked);
         //Spinner 1
         repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
@@ -89,7 +90,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				parent.getItemAtPosition(position);
-				TextView selectedText = (TextView) parent.getChildAt(position);
+				TextView selectedText = (TextView) parent.getChildAt(0);
 				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
 				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
@@ -106,7 +107,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				parent.getItemAtPosition(position);
-				TextView selectedText = (TextView) parent.getChildAt(position);
+				TextView selectedText = (TextView) parent.getChildAt(0);
 				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
 				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
@@ -144,7 +145,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		EditText taskName = (EditText)findViewById(R.id.EditText_Name);
 		String name = taskName.getText().toString();
 		//Revisar Date
-		if (!name.contentEquals("") && dateButton.getText().length()>2 ){
+		if (!name.contentEquals("") && datePicked.getText().length()>2 ){
 			Date timeAsDate = new Date(this.time);
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 			Calendar cal = Calendar.getInstance();
@@ -172,7 +173,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			
 			String noticeAsString = (String) noticeSpinner.getSelectedItem();
 			Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-			Date noticeDate = Notice.delayDate(date, notice);
+			Date noticeDate = Notice.advanceDate(date, notice);
 						
 			
 			if (checkDateHasSense(date, noticeDate)){
@@ -269,41 +270,35 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		this.dateNoticeLong = dateNoticeLong;
 	}
 
-	
-	public void setDateButton(Button dateButton) {
-		this.dateButton = dateButton;
-	}
+
 
 	public void setTime(Long time) {
 		this.time = time;
 	}
 
-	public void setTimeButton(Button timeButton) {
-		this.timeButton = timeButton;
-	}
-
-	public Button getTimeButton() {
-		return this.timeButton;
-	}
-
-	public Button getDateButton() {
-		return this.dateButton;
-	}
+	
 
 	public void onDateSelected(Date date) {
 		//TODO
 		Log.d("NEW", "OnDateSelected");
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String dateString = format.format(date);
+		this.dateButton = (Button) findViewById(R.id.New_ButtonDate);
+		this.dateButton.setHint("");
 		this.dateLong = date.getTime();
-		this.dateButton.setText(dateString);
-	}
+        this.datePicked = (TextView) findViewById(R.id.New_TxtDatePicked);
+		this.datePicked.setText(dateString);
+		}
 
 	public void onTimeSelected(Date date) {
 		// TODO 
 		this.time = date.getTime();
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-		timeButton.setText(format.format(date));
+		this.timeButton = (Button) findViewById(R.id.New_ButtonTime);
+		this.timeButton.setHint("");
+		this.timePicked = (TextView) findViewById(R.id.New_TxtTimePicked);
+		this.timePicked.setText(format.format(this.time));
+		//timeButton.setText(format.format(date));
 	}
 	
 	private void setHeaderButton(){

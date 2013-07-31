@@ -159,13 +159,13 @@
 
 	      <ImageView
 	          android:id="@+id/Task_ImageButtonDelete"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
+	          android:layout_width="@dimen/header_icon"
+	          android:layout_height="@dimen/header_icon"
 	          android:layout_alignBottom="@+id/Task_Tag"
 	          android:layout_alignParentRight="true"
 	          android:layout_marginRight="10dp"
 	          android:onClick="deleteTask"
-	          android:src="@drawable/ic_delete1" />
+	          android:src="@drawable/ic_cancel" />
 
 	      <CheckBox
 	          android:id="@+id/Task_Checkbox"
@@ -195,19 +195,21 @@
      
         <TextView 
             android:id="@+id/Task_TxtSubTask"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/task_subtask"
             android:textColor="@color/header_background"
-            android:textSize="@dimen/text_header"/>
+            android:textSize="@dimen/text_header"
+            android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/Task_ImgNewSubtask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/new_symbol1" />
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:layout_marginLeft="@dimen/app_margin_side"
+            android:layout_toRightOf="@+id/Task_TxtSubTask"
+            android:src="@drawable/ic_subtask" 
+            android:layout_centerVertical="true"/>
         
     </RelativeLayout>
    

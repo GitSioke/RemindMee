@@ -18,6 +18,9 @@
 	<!--New_edit secreen -->
 	<dimen name="new_text">20dp</dimen>
 	<dimen name="new_textSpinner">12dp</dimen>
+	<dimen name="new_textPicked">15dp</dimen>
+	<dimen name="new_marginLeft">12dp</dimen>
+	
 	
 	<!-- Task text -->
 	<dimen name="task_name">20dp</dimen>

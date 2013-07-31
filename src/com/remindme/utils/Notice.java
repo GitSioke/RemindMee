@@ -54,7 +54,7 @@ public enum Notice {
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerNotice);
 		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
-		int position = -2;
+		int position = 2;
 		
 		for(String string: array){
 			if (noticeAsString.contentEquals(string))
@@ -85,7 +85,7 @@ public enum Notice {
 		
 	}
 	
-	public static Date noticeDate(Date date, Notice not){
+	public static Date advanceDate(Date date, Notice not){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		
@@ -225,6 +225,7 @@ public enum Notice {
 		
 		return result.ordinal();
 	}
+
 	
 		
 }

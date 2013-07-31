@@ -207,7 +207,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 				
 				String noticeAsString = (String) spinnerNotice.getSelectedItem();
 				Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-				Date noticeDate = Notice.noticeDate(date, notice);
+				Date noticeDate = Notice.advanceDate(date, notice);
 				//Long longNotice = Notice.getAsLong(notice);
 				//Date noticeDate = new Date(date.getTime() - longNotice);
 				

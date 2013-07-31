@@ -83,7 +83,19 @@
         
         <service 
          android:enabled="true" 
-         android:name="com.remindme.services.NotificationIntentService" />
+         android:name="com.remindme.services.NotificationIntentService"></service>
+        
+        <service 
+            android:enabled="true"
+            android:name="com.remindme.services.NotificationDelayService"></service>
+        
+        <service 
+            android:enabled="true"
+            android:name="com.remindme.services.NotificationManagementService"></service>
+        
+        <service 
+            android:enabled="true"
+            android:name="com.remindme.services.NotificationRestartService"></service>
         
     </application>
 

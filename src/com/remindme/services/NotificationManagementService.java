@@ -14,30 +14,42 @@ import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
+import com.remindme.ui.RemindSplashActivity;
 import com.remindme.ui.RemindTaskActivity;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 
+import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.provider.AlarmClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-public class NotificationManagementService extends Service{
+public class NotificationManagementService extends IntentService{
+	
+	
 	private Thread thread;
-	private static final Date sleepTime;
+	private static final long sleepTime;
 	
 
 	static {
 	    Calendar cal;
 		cal = GregorianCalendar.getInstance();
-	    cal.set(Calendar.MINUTE, 1);
-	    sleepTime = cal.getTime();
+		cal.clear();
+	    cal.set(Calendar.SECOND, 5);
+	    
+	    sleepTime = cal.getTimeInMillis();
+	}
+
+	public NotificationManagementService() {
+		super("NotificationManagementService");
 	}
 	
 	@Override
@@ -45,8 +57,9 @@ public class NotificationManagementService extends Service{
 		return null;
 	}
 
+
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId)
+	protected void onHandleIntent(final Intent intent)
 	{
 		Log.d("ServiceManagement", "Servicio iniciado");
 		thread = new Thread() 
@@ -55,80 +68,39 @@ public class NotificationManagementService extends Service{
 			RemindNotificationDAO dbNoti = new RemindNotificationSQLite(ctx);
 			RemindTaskDAO dbTask = new RemindTaskSQLite(ctx);
 			
-			
 			public void start()
 			{
-				Log.d("Thread", "Starting");
+				Log.d("ServiceManagement", "Starting");
 				this.run();
 			}
 			
 			public void run() 
 			{
-				Log.d("Thread", "Running");
-	        	Boolean firstLoop = true;
-	           	
-	        	while (true)
-	        	{
-	            	try
-	            	{
-	                    // do something here
-	            		if (firstLoop)
-	            		{
-	            			ArrayList<RemindNotification> lapsedNotifs = 
-	            					dbNoti.lapsedNotifications(Calendar.getInstance().getTimeInMillis());
-		            		for(RemindNotification notif :lapsedNotifs)
-		            		{
-		            			if(notif.getDate().before(Calendar.getInstance().getTime()) 
-		            					&& dbNoti.amountReadyNotifications(notif.getIdTask())>1)
-		            			{
-		            				
-		            				notif.setReady(false);
-		            				dbNoti.updateNotification(notif);
-		            			}
-		            		}
-	            			//TODO Iniciar como si estuviese apagad
-	                		//RemindNotification not = new RemindNotification(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false);
-	                		//dbNoti.insertNotification(not);
-	                		//Long longas = Calendar.getInstance().getTime().getTime() + 10000;
-	                		//not = new RemindNotification(12346, 6789,  new Date(longas), new Date(longas), false, false);
-	                		//dbNoti.insertNotification(not);
-	                		ArrayList<RemindNotification> notificationList= dbNoti.getAllNotifications();
-	                		NotificationManager notificationManager =
-	                				(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-	                		
-	                		for(RemindNotification notification: notificationList)
-	                		{
-	                			RemindTask task= dbTask.getTaskWithID(notification.getIdTask());
-	                			if(task!=null)
-	                				createNotification(task, notification);
-	                		}
-	                		firstLoop = false;
-	                	}
-	            		
-	                	//TODO Actualizar lo que se deba
-	            		//Se eliminan todas las notificaciones que esten pasadas de fecha(haya una notificacion pediente de la misma
-	            		//idTask) preparada. 
-	            		
-	            		//Se coloca a ready todas las tareas que esten listas para ser notificadas en un periodo de 24h 
-	            		//todas estas tareas entran en el notification manager
-	                	ArrayList<RemindNotification> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
-	                	for(RemindNotification notif : pendingNotifications)
-	                	{
-	                		notif.setDone(true);
-	                		dbNoti.updateNotification(notif);
-	                		RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
-	                		if(task!=null)
-	                			createNotification(task, notif);	                		
-	                	}
-	            		Log.d("Thread", "local Thread sleeping");
-	                    Thread.sleep(sleepTime.getTime());
-	                    
-	                }
-	            	catch (InterruptedException e) 
-	                {
-	                    Log.e("Splash", "local Thread error", e);
-	                }
-	            }
+				Log.d("ServiceManagement", "Running");
+	        		//TODO Actualizar lo que se deba
+					//Se eliminan todas las notificaciones que esten pasadas de fecha(haya una notificacion pediente de la misma
+					//idTask) preparada. 
+					
+					//Se coloca a ready todas las tareas que esten listas para ser notificadas en un periodo de 24h 
+					//todas estas tareas entran en el notification manager
+	        		Log.d("ServiceManagement", "Loop");
+	        		ArrayList<RemindNotification> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
+					for(RemindNotification notif : pendingNotifications)
+					{
+						notif.setDone(true);
+						dbNoti.updateNotification(notif);
+						RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
+						if(task!=null)
+							createNotification(task, notif);	                		
+					}
+					Intent intentManage = new Intent(NotificationManagementService.this, NotificationManagementService.class);
+					intent.putExtra("firstLoop", false);
+					PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intentManage, 0);
+					
+				    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+				    alarmManager.cancel(pendingIntent);
+				    alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime, pendingIntent);
+					            
 	        }
 			
 	        /**
@@ -136,7 +108,7 @@ public class NotificationManagementService extends Service{
 	         * @param notif
 	         */
 	        private void createNotification(RemindTask task,RemindNotification notif){
-	        	Log.d("Splash", "Creando notification "+task.getName());
+	        	Log.d("ServiceManagement", "Creando notification "+task.getName());
 	        	
 	        	Locale loc = new Locale("es ES");
 	        	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
@@ -192,16 +164,8 @@ public class NotificationManagementService extends Service{
 	    };
 	    
 	    thread.start();
-	    Log.d("ServiceManagement", "Stopping");
-		this.stopSelf();
-		return startId;
+	    //Log.d("ServiceManagement", "Stopping");
+		//this.stopSelf();
 		
-	}
-	
-	@Override
-	public void onDestroy()
-	{
-		Log.d("Service", "Servicio parado");
-		super.onDestroy();
 	}
 }

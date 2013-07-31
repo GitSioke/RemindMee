@@ -15,6 +15,7 @@ import com.remindme.ui.R;
 import com.remindme.services.NotificationDelayService;
 import com.remindme.services.NotificationIntentService;
 import com.remindme.services.NotificationManagementService;
+import com.remindme.services.NotificationRestartService;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
@@ -22,6 +23,7 @@ import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -37,6 +39,17 @@ import android.widget.TextView;
 
 public class RemindSplashActivity extends RemindActivity {
 	
+private static final long sleepTime;
+	
+
+	static {
+	    Calendar cal;
+		cal = GregorianCalendar.getInstance();
+		cal.clear();
+	    cal.set(Calendar.SECOND, 5);
+	    
+	    sleepTime = cal.getTimeInMillis();
+	}
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -46,8 +59,17 @@ public class RemindSplashActivity extends RemindActivity {
 	}
 	
 	private void launchLoopThread() {
-		Intent intent  = new Intent(RemindSplashActivity.this, NotificationManagementService.class);
+		Intent intent  = new Intent(RemindSplashActivity.this, NotificationRestartService.class);
+		intent.putExtra("firstLoop", true);
 		startService(intent);
+		
+		Intent intentManage = new Intent(RemindSplashActivity.this, NotificationRestartService.class);
+		intent.putExtra("firstLoop", false);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intentManage, 0);
+	    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+	    alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime, pendingIntent);
+		Log.d("ServiceManagement", "Sleep for:" + new Date(sleepTime) +" /n til: "+ new Date(Calendar.getInstance().getTimeInMillis()+sleepTime) );
+	    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), sleepTime, pendingIntent);
 	}	
 	private void startFadeIn(){
 		TextView title = (TextView) findViewById(R.id.Splash_TextView01);
