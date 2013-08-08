@@ -8,13 +8,13 @@ public class RemindNotification {
 	private Integer id;
 	private Integer idTask;
 	private Date date;
-	private Date delay;
+	private Date notifyDate;
 	private Boolean ready;
 	private Boolean done;
 
 	
 
-	public RemindNotification(Integer id, Integer idTask, Date date, Date delay, Boolean ready, Boolean done){
+	public RemindNotification(Integer id, Integer idTask, Date date, Date notifyDate, Boolean ready, Boolean done){
 		if (id==null)
 			this.id = hashCode();
 		else{
@@ -23,7 +23,7 @@ public class RemindNotification {
 		
 		this.idTask= idTask;
 		this.date = date;
-		this.delay = delay;
+		this.notifyDate = notifyDate;
 		this.ready= ready;
 		this.done = done;
 	}
@@ -46,11 +46,11 @@ public class RemindNotification {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Date getDelay() {
-		return delay;
+	public Date getNotifyDate() {
+		return notifyDate;
 	}
-	public void setDelay(Date delay) {
-		this.delay = delay;
+	public void setnotifyDate(Date notifyDate) {
+		this.notifyDate = notifyDate;
 	}
 	public void setReady(Boolean ready){
 		this.ready = ready;

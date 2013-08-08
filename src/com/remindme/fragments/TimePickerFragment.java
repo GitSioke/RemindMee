@@ -1,11 +1,11 @@
-package com.remind.fragments;
+package com.remindme.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
+import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.ui.RemindNewActivity;
 
 

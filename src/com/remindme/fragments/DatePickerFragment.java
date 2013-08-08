@@ -1,4 +1,4 @@
-package com.remind.fragments;
+package com.remindme.fragments;
 
 
 

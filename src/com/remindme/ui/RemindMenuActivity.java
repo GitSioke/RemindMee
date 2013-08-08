@@ -9,8 +9,8 @@ import java.util.Date;
 
 import com.remindme.ui.R;
 
-import com.remind.fragments.DatePickerFragment;
-import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
+import com.remindme.fragments.DatePickerFragment;
+import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.services.NotificationIntentService;
 import com.remindme.services.NotificationManagementService;
 import com.remindme.sqlite.RemindTaskDAO;

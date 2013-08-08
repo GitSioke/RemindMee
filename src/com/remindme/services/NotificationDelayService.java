@@ -30,7 +30,7 @@ public class NotificationDelayService extends Service {
 			Log.d("Service", notif.getId().toString());
 			RemindNotificationDAO dbNotif = new RemindNotificationSQLite(ctx);
 			
-			Date date = notif.getDelay();
+			Date date = notif.getNotifyDate();
 			Notice not = Notice.getDelay(strDelay, ctx);
 			Notice.delayDate(date, not);
 			dbNotif.updateNotification(notif);

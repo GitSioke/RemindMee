@@ -87,12 +87,13 @@ public class NotificationManagementService extends IntentService{
 	        		ArrayList<RemindNotification> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
 					for(RemindNotification notif : pendingNotifications)
 					{
-						notif.setDone(true);
+						notif.setReady(true);
 						dbNoti.updateNotification(notif);
 						RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
 						if(task!=null)
 							createNotification(task, notif);	                		
 					}
+					
 					Intent intentManage = new Intent(NotificationManagementService.this, NotificationManagementService.class);
 					intent.putExtra("firstLoop", false);
 					PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intentManage, 0);

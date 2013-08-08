@@ -19,9 +19,10 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	public static final String KEY_ROWID = "id";
 	public static final String KEY_IDTASK = "idTask";
 	public static final String KEY_DATE="date";
-	public static final String KEY_DELAY="delay";
+	public static final String KEY_NOTIFYDATE="notifyDate";
 	public static final String KEY_READY="ready";
 	public static final String KEY_DONE="done";
+	public static final String KEY_UNATTENDED="unattended";
 
 	private static final String DATABASE_TABLE = "notifications";
 
@@ -60,9 +61,10 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 		notValues.put(KEY_ROWID, notification.getId());
 		notValues.put(KEY_IDTASK, notification.getIdTask());
 		notValues.put(KEY_DATE, notification.getDate().getTime());
-		notValues.put(KEY_DELAY, notification.getDelay().getTime());
+		notValues.put(KEY_NOTIFYDATE, notification.getNotifyDate().getTime());
 		notValues.put(KEY_READY, notification.isReady());
 		notValues.put(KEY_DONE, notification.isDone());
+		notValues.put(KEY_UNATTENDED, this.unattendedNotifications(notification.getIdTask()));
 		long changes = db.insert(DATABASE_TABLE, null, notValues);
 		this.close();
 		return changes;
@@ -200,7 +202,7 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 		taskValues.put(KEY_ROWID, notif.getId());
 		taskValues.put(KEY_IDTASK, notif.getIdTask());
 		taskValues.put(KEY_DATE, notif.getDate().getTime());
-		taskValues.put(KEY_DELAY, notif.getDelay().getTime());
+		taskValues.put(KEY_NOTIFYDATE, notif.getNotifyDate().getTime());
 		taskValues.put(KEY_READY, notif.isReady());
 		taskValues.put(KEY_DONE, notif.isDone());
 		int id = db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"=?", new String[]{notif.getId().toString()});
@@ -288,4 +290,18 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 		
 	}
 	
+	public int unattendedNotifications(Integer idTask){
+		Integer result = 0;
+		Cursor cursor;
+		this.open();
+		cursor = db.rawQuery(
+				"SELECT count(*) from "+ DATABASE_TABLE+ " where "+ KEY_IDTASK+"=? AND " +
+				KEY_READY+"=? AND " + KEY_DONE+"=?", 
+				new String[]{Integer.toString(idTask), Integer.toString(1),Integer.toString(0)},null);
+		
+		result = cursor.getInt(0);
+		result = (result==0) ? 0 : result-1;
+		this.close();
+		return result;
+	}
 }

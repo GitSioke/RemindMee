@@ -13,10 +13,10 @@ import java.util.logging.SimpleFormatter;
 
 import com.remindme.ui.R;
 
-import com.remind.fragments.DatePickerFragment;
-import com.remind.fragments.DatePickerFragment.OnDateSelectedListener;
-import com.remind.fragments.TimePickerFragment;
-import com.remind.fragments.TimePickerFragment.OnTimeSelectedListener;
+import com.remindme.fragments.DatePickerFragment;
+import com.remindme.fragments.TimePickerFragment;
+import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
+import com.remindme.fragments.TimePickerFragment.OnTimeSelectedListener;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
@@ -206,7 +206,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		dbNot.insertNotification(not);
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
-		Log.d("NEW", "Create not1: "+not.getDelay().toString());
+		Log.d("NEW", "Create not1: "+not.getNotifyDate().toString());
 		Repetition rep = Repetition.valueOf(task.getRepetition());
 				
 		if(rep.compareTo(Repetition.SINGLE) > 0){
@@ -217,7 +217,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		}
 		
 		Log.d("NEW", "Create not2: "+not.getDate().toString());
-		Log.d("NEW", "Create not2: "+not.getDelay().toString());
+		Log.d("NEW", "Create not2: "+not.getNotifyDate().toString());
 	}
 
 	/**TODO Pendiente de revision. Intentar pasar por Bundle la actividad o los datos necesarios

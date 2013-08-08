@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 	
 	private static final String TAG = "DBHandler";
 	
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			"description VARCHAR, tag VARCHAR, supertask INTEGER, completed BOOL);" ;
 	
 	private static final String DATABASE_CREATENOTIF = "CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, " 
-			+"idTask INTEGER not null, date LONG not null, delay LONG, ready BOOL, done BOOL);" ;
+			+"idTask INTEGER not null, date LONG not null, delay LONG, ready BOOL, done BOOL, unattended INTEGER);" ;
 	
 	
 	
