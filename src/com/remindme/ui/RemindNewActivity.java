@@ -65,7 +65,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_edit);
+        setContentView(R.layout.new_task);
         setHeaderButton();
         
         txtDateNotice = (TextView)findViewById(R.id.New_TxtDatePicked);
@@ -91,7 +91,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 					int position, long id) {
 				parent.getItemAtPosition(position);
 				TextView selectedText = (TextView) parent.getChildAt(0);
-				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
+				selectedText.setTextColor(getResources().getColor(R.color.newedit_normalText));
 				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
 
@@ -108,7 +108,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 					int position, long id) {
 				parent.getItemAtPosition(position);
 				TextView selectedText = (TextView) parent.getChildAt(0);
-				selectedText.setTextColor(getResources().getColor(R.color.hintText2));
+				selectedText.setTextColor(getResources().getColor(R.color.newedit_normalText));
 				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 			}
 
@@ -207,14 +207,16 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getNotifyDate().toString());
-		Repetition rep = Repetition.valueOf(task.getRepetition());
-				
-		if(rep.compareTo(Repetition.SINGLE) > 0){
-			date = Repetition.getNextDate(date, rep);
-			dateNotice = Repetition.getNextDate(dateNotice, rep);
+		
+		date = Repetition.getNextDate(date, task.getRepetition());
+		dateNotice = Repetition.getNextDate(dateNotice, task.getRepetition());
+		if(date !=null && dateNotice!=null)
+		{
 			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
 			dbNot.insertNotification(not);
 		}
+			
+		
 		
 		Log.d("NEW", "Create not2: "+not.getDate().toString());
 		Log.d("NEW", "Create not2: "+not.getNotifyDate().toString());

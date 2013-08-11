@@ -68,6 +68,9 @@ public class RemindNotification {
 		this.done = done;
 	}
 
-
+	public RemindNotification getNextNotification(){
+		
+		return new RemindNotification(null, null, date, notifyDate, false, false);
+	}
 	
 }

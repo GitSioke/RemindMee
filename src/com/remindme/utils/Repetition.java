@@ -79,33 +79,37 @@ public enum Repetition {
 		return array[rep.ordinal()];
 	}
 	
-	public static Date getNextDate(Date date, Repetition rep){
+	public static Date getNextDate(Date date, String enRepStr){
+		Calendar calendar = null;
+		if (isSingle(enRepStr))
+		{
+			calendar = Calendar.getInstance();
+		    calendar.setTime(date);
+		    calendar.set(Calendar.SECOND, 0);
+		    calendar.set(Calendar.MILLISECOND, 0);
+		    calendar.set(Calendar.HOUR_OF_DAY, 0);
+		    calendar.set(Calendar.MINUTE, 0);
+		    
+		    switch (valueOf(enRepStr)) 
+		    {
+			case DAILY:
+				calendar.add(Calendar.DAY_OF_YEAR, 1);
+				break;
 		
-		Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(date);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    
-	    switch (rep) {
-		case DAILY:
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
-			break;
-	
-		case WEEKLY:
-			calendar.add(Calendar.DAY_OF_YEAR, 7);
-			break;
-	
-		case MONTHLY:
-			calendar.add(Calendar.MONTH, 1);
-			break;
-			
-		case ANNUAL:
-			calendar.add(Calendar.YEAR, 1);
-			break;
-		default:
-			break;
+			case WEEKLY:
+				calendar.add(Calendar.DAY_OF_YEAR, 7);
+				break;
+		
+			case MONTHLY:
+				calendar.add(Calendar.MONTH, 1);
+				break;
+				
+			case ANNUAL:
+				calendar.add(Calendar.YEAR, 1);
+				break;
+			default:
+				break;
+		    }
 		}
 	
 		//uchcalendar.set(year, month, day);

@@ -63,6 +63,9 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         }else{
         	Log.d("Menu.Service", "NO");
         }
+        
+        //TODO Averiguear que coño hace esto
+        /* No se que coño hace esto
         Repetition rep;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar cal = Calendar.getInstance();		
@@ -79,7 +82,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 				fin = true;
 			if(!fin)
 				rep = Repetition.values()[rep.ordinal()+1];
-		}
+		}*/
 		 //Elimina las tareas
         if (removedPendingTasks()){
         	RemindTaskDAO taskDB = new RemindTaskSQLite(this);        	

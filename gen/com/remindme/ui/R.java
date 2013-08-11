@@ -233,7 +233,7 @@ public final class R {
         public static final int list_item_task=0x7f03000a;
         public static final int main=0x7f03000b;
         public static final int menu=0x7f03000c;
-        public static final int new_edit=0x7f03000d;
+        public static final int new_task=0x7f03000d;
         public static final int notification_customized=0x7f03000e;
         public static final int result=0x7f03000f;
         public static final int splash=0x7f030010;

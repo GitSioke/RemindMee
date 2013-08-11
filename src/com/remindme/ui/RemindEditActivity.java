@@ -71,7 +71,11 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
+			
 				parent.getItemAtPosition(position);
+				TextView selectedText = (TextView) parent.getChildAt(0);
+				selectedText.setTextColor(getResources().getColor(R.color.newedit_normalText));
+				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 				
 			}
 
@@ -87,6 +91,9 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				parent.getItemAtPosition(position);
+				TextView selectedText = (TextView) parent.getChildAt(0);
+				selectedText.setTextColor(getResources().getColor(R.color.newedit_normalText));
+				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
 				
 			}
 
@@ -160,9 +167,9 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			//TODO Hay qeu cambiarlo y buscar la forma de comparar las dos 
 			//fechas para asi saber a que spinner corresponde. Joda Time
 			
-
+						
 			Integer ordinal = Notice.getNoticeOrdinal(task.getDateNotice(), task.getDate());
-		    spinnerNotice.setSelection(ordinal);
+		    spinnerNotice.setSelection(ordinal-2);
 			
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
 	        		android.R.layout.simple_selectable_list_item); 
@@ -295,10 +302,10 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			notifDB.deleteAllIdTask(task.getId());	
 			RemindNotification not = new RemindNotification(null, newTask.getId(), newTask.getDate(), newTask.getDateNotice(), false, false);
 			notifDB.insertNotification(not);
-			Repetition rep = Repetition.valueOf(newTask.getRepetition());
-			if(rep.compareTo(Repetition.SINGLE)!=0){
-				Date newDate = Repetition.getNextDate(newTask.getDate(), rep);
-				Date newDateNotice = Repetition.getNextDate(newTask.getDateNotice(), rep);
+			//Repetition rep = Repetition.valueOf(newTask.getRepetition());
+			Date newDate = Repetition.getNextDate(newTask.getDate(), newTask.getRepetition());
+			Date newDateNotice = Repetition.getNextDate(newTask.getDateNotice(), newTask.getRepetition());
+			if(newDate!=null && newDateNotice!=null){
 				not = new RemindNotification(null, newTask.getId(), newDate, newDateNotice, false, false);
 				notifDB.insertNotification(not);
 			}

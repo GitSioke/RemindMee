@@ -66,7 +66,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         }
 	}
 	
-	/** TODO
+	/** TODO gdg
 	 * Operacion con los datos recogidos en el picker
 	 */
 

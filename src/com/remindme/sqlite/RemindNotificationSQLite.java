@@ -293,15 +293,18 @@ public class RemindNotificationSQLite implements RemindNotificationDAO {
 	public int unattendedNotifications(Integer idTask){
 		Integer result = 0;
 		Cursor cursor;
-		this.open();
+		
 		cursor = db.rawQuery(
 				"SELECT count(*) from "+ DATABASE_TABLE+ " where "+ KEY_IDTASK+"=? AND " +
 				KEY_READY+"=? AND " + KEY_DONE+"=?", 
 				new String[]{Integer.toString(idTask), Integer.toString(1),Integer.toString(0)},null);
-		
-		result = cursor.getInt(0);
-		result = (result==0) ? 0 : result-1;
-		this.close();
+
+		if (cursor.moveToFirst())
+		{
+			result = cursor.getInt(0);
+			result = (result==0 || result ==-1) ? 0 : result-1;
+			
+		}
 		return result;
 	}
 }
