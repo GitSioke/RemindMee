@@ -21,7 +21,7 @@ import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.remindme.utils.Notice;
+import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
@@ -172,8 +172,8 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			repString = repetition.toString();
 			
 			String noticeAsString = (String) noticeSpinner.getSelectedItem();
-			Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-			Date noticeDate = Notice.advanceDate(date, notice);
+			NoticeNew notice = NoticeNew.getNotice(noticeAsString, getApplicationContext());
+			Date noticeDate = NoticeNew.advanceDate(date, notice);
 						
 			
 			if (checkDateHasSense(date, noticeDate)){

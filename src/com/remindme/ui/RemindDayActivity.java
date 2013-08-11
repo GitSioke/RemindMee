@@ -12,7 +12,7 @@ import com.remindme.ui.R;
 
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.remindme.utils.Notice;
+import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindTask;
 
 import android.app.DialogFragment;

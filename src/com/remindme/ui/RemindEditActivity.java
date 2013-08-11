@@ -19,7 +19,7 @@ import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.sqlite.RemindTaskDAO;
 import com.remindme.sqlite.RemindTaskSQLite;
-import com.remindme.utils.Notice;
+import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
@@ -168,7 +168,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			//fechas para asi saber a que spinner corresponde. Joda Time
 			
 						
-			Integer ordinal = Notice.getNoticeOrdinal(task.getDateNotice(), task.getDate());
+			Integer ordinal = NoticeNew.getNoticeOrdinal(task.getDateNotice(), task.getDate());
 		    spinnerNotice.setSelection(ordinal-2);
 			
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
@@ -213,8 +213,8 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 				repString = repetition.toString();
 				
 				String noticeAsString = (String) spinnerNotice.getSelectedItem();
-				Notice notice = Notice.getNotice(noticeAsString, getApplicationContext());
-				Date noticeDate = Notice.advanceDate(date, notice);
+				NoticeNew notice = NoticeNew.getNotice(noticeAsString, getApplicationContext());
+				Date noticeDate = NoticeNew.advanceDate(date, notice);
 				//Long longNotice = Notice.getAsLong(notice);
 				//Date noticeDate = new Date(date.getTime() - longNotice);
 				

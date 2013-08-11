@@ -11,6 +11,7 @@ import android.util.Log;
 import com.remindme.sqlite.RemindNotificationDAO;
 import com.remindme.sqlite.RemindNotificationSQLite;
 import com.remindme.utils.Notice;
+import com.remindme.utils.NoticeDelay;
 import com.remindme.utils.RemindNotification;
 
 public class NotificationDelayService extends Service {
@@ -31,8 +32,8 @@ public class NotificationDelayService extends Service {
 			RemindNotificationDAO dbNotif = new RemindNotificationSQLite(ctx);
 			
 			Date date = notif.getNotifyDate();
-			Notice not = Notice.getDelay(strDelay, ctx);
-			Notice.delayDate(date, not);
+			NoticeDelay not = NoticeDelay.getDelay(strDelay, ctx);
+			NoticeDelay.delayDate(date, not);
 			dbNotif.updateNotification(notif);
 			
 		}
