@@ -50,7 +50,7 @@ public enum NoticeNew implements Notice {
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerNotice);
 		//String[] array = Resources.getSystem().getStringArray(R.array.new_spinnerNotice);
-		int position = 2;
+		int position = 0;
 		
 		for(String string: array){
 			if (noticeAsString.contentEquals(string))

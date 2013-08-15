@@ -54,7 +54,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		cal.set(Calendar.MILLISECOND, 0);
 		
 		
-		
         Date date = cal.getTime();
 		Log.d("TIMEPICKER", Long.toString(date.getTime()));
 		

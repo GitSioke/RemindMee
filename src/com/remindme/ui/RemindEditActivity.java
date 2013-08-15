@@ -169,7 +169,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			
 						
 			Integer ordinal = NoticeNew.getNoticeOrdinal(task.getDateNotice(), task.getDate());
-		    spinnerNotice.setSelection(ordinal-2);
+		    spinnerNotice.setSelection(ordinal);
 			
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
 	        		android.R.layout.simple_selectable_list_item); 

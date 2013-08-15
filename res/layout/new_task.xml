@@ -186,7 +186,7 @@
                 android:textSize="@dimen/new_text"
                 android:textStyle="bold" />
 
-            <Spinner
+            <com.remindme.ui.SpinnerRepeat
                 android:id="@+id/New_SpinnerRepeat"
                 android:layout_width="@dimen/spinner_width"
                 android:layout_height="@dimen/spinner_height"

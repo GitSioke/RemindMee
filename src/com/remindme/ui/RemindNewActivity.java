@@ -54,7 +54,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 	private Long dateNoticeLong;
 	private long time;
 	DialogFragment dateFragment;
-	private Spinner repeatSpinner;
+	private SpinnerRepeat repeatSpinner;
 	private Spinner noticeSpinner;
 	private TextView datePicked;
 	private TextView timePicked;
@@ -70,11 +70,11 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
         
         txtDateNotice = (TextView)findViewById(R.id.New_TxtDatePicked);
         //Spinner 1
-        repeatSpinner = (Spinner)findViewById(R.id.New_SpinnerRepeat);
+        repeatSpinner = (SpinnerRepeat)findViewById(R.id.New_SpinnerRepeat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        repeatSpinner.setAdapter(adapter);
+        repeatSpinner.setad.setAdapter(adapter);
         //Spinner 2
         noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
         ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerNotice, 
@@ -83,23 +83,6 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
         noticeSpinner.setAdapter(adapterNotice);
         
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
-        
-		repeatSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				parent.getItemAtPosition(position);
-				TextView selectedText = (TextView) parent.getChildAt(0);
-				selectedText.setTextColor(getResources().getColor(R.color.newedit_normalText));
-				selectedText.setTextSize(getResources().getDimension(R.dimen.new_textSpinner));
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				return;
-				
-			}
-		});
 		
 		
 		noticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {

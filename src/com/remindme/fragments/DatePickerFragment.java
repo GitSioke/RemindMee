@@ -114,9 +114,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		this.viewPicker = inflater.inflate(R.layout.date_picker_fragment, null);
 		final Calendar c = Calendar.getInstance();
+		c.clear();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        int day = c.get(Calendar.DAY_OF_YEAR);
         try
         {
             CalendarView cv = (CalendarView) this.viewPicker.findViewById(R.id.DatePicker_Calendar);
