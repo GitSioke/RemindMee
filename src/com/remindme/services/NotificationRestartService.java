@@ -3,6 +3,8 @@ package com.remindme.services;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import com.remindme.sqlite.RemindNotificationDAO;
@@ -12,21 +14,36 @@ import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
+import com.remindme.ui.RemindSplashActivity;
 import com.remindme.ui.RemindTaskActivity;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
+
 import android.util.Log;
 
 public class NotificationRestartService extends Service {
+	
+	private static final long sleepTime;
+	
+
+	static {
+	    Calendar cal;
+		cal = GregorianCalendar.getInstance();
+		cal.clear();
+	    cal.set(Calendar.SECOND, 5);
+	    
+	    sleepTime = cal.getTimeInMillis();
+	}
 	
 	private Context ctx;
 	@Override
@@ -99,9 +116,8 @@ public class NotificationRestartService extends Service {
 	    	
 	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
 
-	    	NotificationCompat.Builder mBuilder =
-	    	        new NotificationCompat.Builder(ctx)
-	    	        .setSmallIcon(R.drawable.ic_notif)
+	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
+	    			.setSmallIcon(R.drawable.ic_notif)
 	    	        .setWhen(notif.getDate().getTime())
 	    	        .setContentTitle(task.getName().toString())
 	    	        .setContentText(strDate)
@@ -130,6 +146,18 @@ public class NotificationRestartService extends Service {
 	    	// mId allows you to update the notification later on.
 	    	mNotificationManager.notify(notif.getId(), mBuilder.build());
 	    	
+	    	launchNotificationManagment();
+	    	
+	    	
         }
+		
+		private void launchNotificationManagment(){
+			
+			Intent intentManage = new Intent(this, NotificationManagementService.class);
+			PendingIntent pendingIntent = PendingIntent.getService(this, 0, intentManage, 0);
+		    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		    alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime, pendingIntent);
+			Log.d("ServiceManagement", "Sleep for:" + new Date(sleepTime) +" /n til: "+ new Date(Calendar.getInstance().getTimeInMillis()+sleepTime) );
+		}
 		
 }

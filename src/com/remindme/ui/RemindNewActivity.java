@@ -74,7 +74,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerRepetition, 
         		android.R.layout.simple_selectable_list_item); 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        repeatSpinner.setad.setAdapter(adapter);
+        repeatSpinner.setAdapter(adapter);
         //Spinner 2
         noticeSpinner = (Spinner)findViewById(R.id.New_SpinnerNotice);
         ArrayAdapter<CharSequence> adapterNotice = ArrayAdapter.createFromResource(this, R.array.new_array_spinnerNotice, 
