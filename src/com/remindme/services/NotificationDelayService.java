@@ -8,11 +8,17 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.remindme.sqlite.RemindNotificationDAO;
-import com.remindme.sqlite.RemindNotificationSQLite;
+import com.remindme.db.RemindNotificationDAO;
+import com.remindme.db.RemindNotificationSQLite;
 import com.remindme.utils.Notice;
 import com.remindme.utils.NoticeDelay;
 import com.remindme.utils.RemindNotification;
+
+/** This service is launched when an user select "Delay" option on the notification pop-up.
+ * 
+ * @author pick
+ *
+ */
 
 public class NotificationDelayService extends Service {
 	

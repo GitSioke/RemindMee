@@ -48,5 +48,5 @@
 	
 	<dimen name="task_marginTop">20dp</dimen>
 	
-	
+	<dimen name="today_expiredSubcategory">25dp</dimen>
 </resources>

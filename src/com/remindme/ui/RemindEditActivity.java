@@ -11,14 +11,14 @@ import org.joda.time.Period;
 import com.remindme.ui.R;
 
 
+import com.remindme.db.RemindNotificationDAO;
+import com.remindme.db.RemindNotificationSQLite;
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.TimePickerFragment;
 import com.remindme.fragments.DatePickerFragment.*;
 import com.remindme.fragments.TimePickerFragment.OnTimeSelectedListener;
-import com.remindme.sqlite.RemindNotificationDAO;
-import com.remindme.sqlite.RemindNotificationSQLite;
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;

@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import com.remindme.sqlite.RemindNotificationDAO;
-import com.remindme.sqlite.RemindNotificationSQLite;
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindNotificationDAO;
+import com.remindme.db.RemindNotificationSQLite;
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
@@ -90,7 +90,7 @@ public class NotificationRestartService extends Service {
 		}
 		
 		
-		
+		launchNotificationManagment();
 		this.stopSelf();
 		return startId;
 		
@@ -144,10 +144,7 @@ public class NotificationRestartService extends Service {
 	    	NotificationManager mNotificationManager =
 	    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	    	// mId allows you to update the notification later on.
-	    	mNotificationManager.notify(notif.getId(), mBuilder.build());
-	    	
-	    	launchNotificationManagment();
-	    	
+	    	mNotificationManager.notify(notif.getId(), mBuilder.build());    	
 	    	
         }
 		

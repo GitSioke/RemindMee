@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindTaskSQLite;
 
 public class RemindTagsActivity extends RemindActivity {
 	

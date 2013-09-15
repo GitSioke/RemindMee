@@ -1,4 +1,4 @@
-package com.remindme.sqlite;
+package com.remindme.db;
 
 import java.util.ArrayList;
 import java.util.Date;

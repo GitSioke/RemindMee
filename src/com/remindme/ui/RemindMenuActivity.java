@@ -9,12 +9,12 @@ import java.util.Date;
 
 import com.remindme.ui.R;
 
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.services.NotificationIntentService;
 import com.remindme.services.NotificationManagementService;
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
@@ -132,7 +132,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         imageToday.setOnClickListener(new View.OnClickListener() {
         	//TODO Cambio provisional de Today por CompletedTask
         	public void onClick(View v) {
-        		startActivity(new Intent(RemindMenuActivity.this, RemindCompletedTaskActivity.class));
+        		startActivity(new Intent(RemindMenuActivity.this, RemindTodayActivity.class));
         	}
         });
         

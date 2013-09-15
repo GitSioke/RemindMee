@@ -16,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 
-public class RemindCompletedTaskActivity extends RemindActivity {
+public class RemindTodayActivity extends RemindActivity {
     
 	private ListView taskListView;
 	/** Called when the activity is first created. */
@@ -29,20 +29,25 @@ public class RemindCompletedTaskActivity extends RemindActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("Completed", "Set content view");
-        setContentView(R.layout.all);
+        setContentView(R.layout.today);
         Log.d("Completed", "Initialize cursor");
         
         TextView txtHeader =(TextView)findViewById(R.id.All_HeaderTxtView);
-        txtHeader.setText(R.string.completed_header);
+        txtHeader.setText(R.string.today_header);
          
         
         RemindTaskDAO db = new RemindTaskSQLite(this);
-        
+        //TODO REalizar bien las dos llamadas a base de datos para recoger los correctos valores de las tareas
 		ArrayList<RemindTask> taskList =  db.getPendingTasks(true);
         if (taskList.isEmpty()){
         	Toast.makeText(this, R.string.completed_toastEmpty, Toast.LENGTH_LONG).show();
         }else{
         	displayTaskWithTextView(taskList);
+        }
+        ArrayList<RemindTask> expiredTaskList = db.getPendingTasks(true);
+        if(expiredTaskList.isEmpty()){
+        	TextView text = (TextView)findViewById(R.id.Today_TextNoExpiredTask);
+        	text.setText(R.string.today_noexpiredtasks);
         }
         
     }
@@ -70,7 +75,7 @@ public class RemindCompletedTaskActivity extends RemindActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				// TODO 
-				Intent intent = new Intent(RemindCompletedTaskActivity.this, RemindTaskActivity.class);
+				Intent intent = new Intent(RemindTodayActivity.this, RemindTaskActivity.class);
 				RemindTask task = taskList.get(position);
 				intent.putExtra("task", task);
 				startActivity(intent);

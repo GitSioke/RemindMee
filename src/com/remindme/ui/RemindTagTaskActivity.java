@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.remindme.ui.R;
 
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.content.Intent;

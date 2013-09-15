@@ -11,8 +11,8 @@ import com.remindme.ui.R;
 
 import android.provider.Settings.Secure;
 
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.content.Intent;

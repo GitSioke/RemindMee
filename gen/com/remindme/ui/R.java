@@ -75,6 +75,7 @@ public final class R {
         public static final int task_values=0x7f060011;
         public static final int text_header=0x7f060008;
         public static final int text_header_margin=0x7f060009;
+        public static final int today_expiredSubcategory=0x7f060024;
     }
     public static final class drawable {
         public static final int background=0x7f020000;
@@ -213,6 +214,14 @@ public final class R {
         public static final int TextView_Date=0x7f0a0035;
         public static final int TextView_Name=0x7f0a0033;
         public static final int TextView_Repeat=0x7f0a003d;
+        public static final int Today_ExpiredText=0x7f0a0064;
+        public static final int Today_FrameOfListExpiredTask=0x7f0a0066;
+        public static final int Today_FrameOfListTask=0x7f0a0061;
+        public static final int Today_HeaderTxtView=0x7f0a0060;
+        public static final int Today_ListViewExpiredTask=0x7f0a0067;
+        public static final int Today_ListViewTask=0x7f0a0062;
+        public static final int Today_RelativeLayoutText=0x7f0a0063;
+        public static final int Today_TextNoExpiredTask=0x7f0a0065;
         public static final int button1=0x7f0a0027;
         public static final int custom_notification=0x7f0a0044;
         public static final int notification_image=0x7f0a0045;
@@ -241,6 +250,7 @@ public final class R {
         public static final int tag=0x7f030011;
         public static final int tags=0x7f030012;
         public static final int task=0x7f030013;
+        public static final int today=0x7f030014;
     }
     public static final class string {
         public static final int app_name=0x7f070001;
@@ -306,7 +316,9 @@ public final class R {
         public static final int task_subtask=0x7f070016;
         public static final int task_subtaskhint=0x7f070017;
         public static final int task_toast_hasSubtask=0x7f070025;
+        public static final int today_expired=0x7f070038;
         public static final int today_header=0x7f070003;
+        public static final int today_noexpiredtasks=0x7f070039;
     }
     public static final class style {
         public static final int spinner=0x7f090000;

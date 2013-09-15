@@ -108,4 +108,8 @@
        <item >8 horas</item>
        <item >1 dia</item>
     </string-array>
+    
+   <string name="today_expired">Tareas acumuladas</string>
+   <string name="today_noexpiredtasks">No hay tareas acumuladas</string>
+   
 </resources>

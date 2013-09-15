@@ -1,4 +1,4 @@
-package com.remindme.sqlite;
+package com.remindme.db;
 
 public class RemindTaskNotifSQLite implements RemindTaskNotifDAO{
 	

@@ -10,8 +10,8 @@ import java.util.Locale;
 
 import com.remindme.ui.R;
 
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindTask;
 

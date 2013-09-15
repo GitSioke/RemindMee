@@ -21,10 +21,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
      
+import com.remindme.db.RemindTaskDAO;
+import com.remindme.db.RemindTaskSQLite;
 import com.remindme.dialogs.RemindAlertDialog;
 import com.remindme.dialogs.RemindDeleteDialog;
-import com.remindme.sqlite.RemindTaskDAO;
-import com.remindme.sqlite.RemindTaskSQLite;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
      
