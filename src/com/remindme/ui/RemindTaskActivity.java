@@ -21,8 +21,8 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
      
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.dialogs.RemindAlertDialog;
 import com.remindme.dialogs.RemindDeleteDialog;
 import com.remindme.utils.RemindTask;
@@ -76,7 +76,7 @@ import com.remindme.utils.Repetition;
            TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);
            txtDescr.setText(task.getDescription());
            
-           RemindTaskDAO taskDAO = new RemindTaskSQLite(this);
+           TaskDAO taskDAO = new TaskSQLite(this);
            ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) taskDAO.getSubtasks(task.getId());
            if (!subTasks.isEmpty()){
         		   displayTaskWithTextView(subTasks);         
@@ -150,7 +150,7 @@ import com.remindme.utils.Repetition;
         * @param view
         */ 
     	public void onCheckBoxClicked(View view){
-    		RemindTaskDAO taskDB = new RemindTaskSQLite(this);
+    		TaskDAO taskDB = new TaskSQLite(this);
     		if (taskDB.hasSubtask(task.getId())){
     			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
     		}else{

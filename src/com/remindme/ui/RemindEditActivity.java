@@ -11,10 +11,10 @@ import org.joda.time.Period;
 import com.remindme.ui.R;
 
 
-import com.remindme.db.RemindNotificationDAO;
-import com.remindme.db.RemindNotificationSQLite;
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.TimePickerFragment;
 import com.remindme.fragments.DatePickerFragment.*;
@@ -225,7 +225,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 					Log.d("NEW", Integer.toString(superTaskID));
 					RemindTask newTask = new RemindTask(this.task.getId(), name, date, noticeDate, timeStr,
 							repString, description, tag, superTaskID, false);
-					RemindTaskDAO taskDB = new RemindTaskSQLite(this);
+					TaskDAO taskDB = new TaskSQLite(this);
 					
 					taskDB.updateTask(newTask);
 					changeNotifications(task, newTask);
@@ -295,19 +295,19 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 	}
 	
 	private void changeNotifications(RemindTask task, RemindTask newTask){
-		RemindNotificationDAO notifDB = new RemindNotificationSQLite(this);
+		NotificationDAO notifDB = new NotificationSQLite(this);
 		Boolean changedDate = task.getDate().compareTo(newTask.getDate())!= 0 ;
 		Boolean changedDateNotice = task.getDateNotice().compareTo(newTask.getDateNotice())!=0;
 		if (!task.getRepetition().contentEquals(newTask.getRepetition()) || changedDate || changedDateNotice){
 			notifDB.deleteAllIdTask(task.getId());	
 			RemindNotification not = new RemindNotification(null, newTask.getId(), newTask.getDate(), newTask.getDateNotice(), false, false);
-			notifDB.insertNotification(not);
+			notifDB.insert(not);
 			//Repetition rep = Repetition.valueOf(newTask.getRepetition());
 			Date newDate = Repetition.getNextDate(newTask.getDate(), newTask.getRepetition());
 			Date newDateNotice = Repetition.getNextDate(newTask.getDateNotice(), newTask.getRepetition());
 			if(newDate!=null && newDateNotice!=null){
 				not = new RemindNotification(null, newTask.getId(), newDate, newDateNotice, false, false);
-				notifDB.insertNotification(not);
+				notifDB.insert(not);
 			}
 		}
 				

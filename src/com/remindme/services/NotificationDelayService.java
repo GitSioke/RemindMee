@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.remindme.db.RemindNotificationDAO;
-import com.remindme.db.RemindNotificationSQLite;
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
 import com.remindme.utils.Notice;
 import com.remindme.utils.NoticeDelay;
 import com.remindme.utils.RemindNotification;
@@ -35,7 +35,7 @@ public class NotificationDelayService extends Service {
 		if (notif!=null){
 			
 			Log.d("Service", notif.getId().toString());
-			RemindNotificationDAO dbNotif = new RemindNotificationSQLite(ctx);
+			NotificationDAO dbNotif = new NotificationSQLite(ctx);
 			
 			Date date = notif.getNotifyDate();
 			NoticeDelay not = NoticeDelay.getDelay(strDelay, ctx);

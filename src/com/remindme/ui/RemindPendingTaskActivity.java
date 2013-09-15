@@ -11,8 +11,8 @@ import com.remindme.ui.R;
 
 import android.provider.Settings.Secure;
 
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.content.Intent;
@@ -58,7 +58,7 @@ public class RemindPendingTaskActivity extends RemindActivity {
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
-        RemindTaskDAO db = new RemindTaskSQLite(this);
+        TaskDAO db = new TaskSQLite(this);
         /**
         RemindTask task =new RemindTask("Name1", "10/05/2013", "10:00", "DIARIA", "Tag2","none");
         RemindTask task2=new RemindTask("Name2", "20/03/2013", "21:01", "ANUAL", "Tag1", null);

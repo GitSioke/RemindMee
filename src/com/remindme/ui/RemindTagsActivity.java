@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskSQLite;
 
 public class RemindTagsActivity extends RemindActivity {
 	
@@ -33,7 +33,7 @@ public class RemindTagsActivity extends RemindActivity {
          * Se insertan correctamente los datos en la base de datos. 
          * Y se muestran correctamente
          */
-        RemindTaskSQLite db = new RemindTaskSQLite(this);
+        TaskSQLite db = new TaskSQLite(this);
          /**
          * Apertura database y muestreo de todas las tareas
          */

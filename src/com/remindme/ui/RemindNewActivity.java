@@ -13,10 +13,10 @@ import java.util.logging.SimpleFormatter;
 
 import com.remindme.ui.R;
 
-import com.remindme.db.RemindNotificationDAO;
-import com.remindme.db.RemindNotificationSQLite;
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.TimePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
@@ -165,7 +165,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 				Log.d("NEW", Integer.toString(superTaskID));
 				RemindTask task = new RemindTask(null, name, date, noticeDate, timeString,
 						repString, description, tag, superTaskID, false);
-				RemindTaskDAO taskDB = new RemindTaskSQLite(this);
+				TaskDAO taskDB = new TaskSQLite(this);
 				Log.d("NEW", "Create task: "+ task.getDate().toString());
 				taskDB.insertTask(task);
 				createRemindNotification(task);
@@ -179,14 +179,14 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 	}
 	
 	private void createRemindNotification(RemindTask task) {
-		RemindNotificationDAO dbNot = new RemindNotificationSQLite(this);
+		NotificationDAO dbNot = new NotificationSQLite(this);
 		Boolean ready = false;
 		Boolean done = false;
 		Date date = task.getDate();
 		Date dateNotice = task.getDateNotice();
 		
 		RemindNotification not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
-		dbNot.insertNotification(not);
+		dbNot.insert(not);
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getNotifyDate().toString());
@@ -196,7 +196,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		if(date !=null && dateNotice!=null)
 		{
 			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
-			dbNot.insertNotification(not);
+			dbNot.insert(not);
 		}
 			
 		

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.remindme.ui.R;
 
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.content.Intent;
@@ -26,7 +26,7 @@ public class RemindTagTaskActivity extends RemindActivity{
 		setContentView(R.layout.all);
 		TextView txtHeader = (TextView)findViewById(R.id.All_HeaderTxtView);
 		txtHeader.setText(tag);
-		RemindTaskSQLite db = new RemindTaskSQLite(this);
+		TaskSQLite db = new TaskSQLite(this);
 		db.open();
 		ArrayList<RemindTask> taskList = db.getTaskWithTag(tag);
 		displayTaskWithTextView(taskList);

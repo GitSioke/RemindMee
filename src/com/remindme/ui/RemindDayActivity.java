@@ -10,8 +10,8 @@ import java.util.Locale;
 
 import com.remindme.ui.R;
 
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindTask;
 
@@ -37,7 +37,7 @@ public class RemindDayActivity extends RemindActivity {
         setContentView(R.layout.day);
         setHeaderButton();
         
-        RemindTaskDAO dbTask = new RemindTaskSQLite(this);
+        TaskDAO dbTask = new TaskSQLite(this);
         
        	Long dateLong = (Long)getIntent().getLongExtra("date", 0);
         Date day = new Date(dateLong);

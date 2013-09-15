@@ -9,8 +9,8 @@ import java.util.Date;
 
 import com.remindme.ui.R;
 
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.services.NotificationIntentService;
@@ -85,7 +85,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 		}*/
 		 //Elimina las tareas
         if (removedPendingTasks()){
-        	RemindTaskDAO taskDB = new RemindTaskSQLite(this);        	
+        	TaskDAO taskDB = new TaskSQLite(this);        	
         	RemindTask task = getIntent().getParcelableExtra("Task");
         	taskDB.deleteTask(task.getId());
         	Toast toast = Toast.makeText(this, R.string.menu_toast_delete, Toast.LENGTH_SHORT);

@@ -319,6 +319,7 @@ public final class R {
         public static final int today_expired=0x7f070038;
         public static final int today_header=0x7f070003;
         public static final int today_noexpiredtasks=0x7f070039;
+        public static final int today_toastEmpty=0x7f07003a;
     }
     public static final class style {
         public static final int spinner=0x7f090000;

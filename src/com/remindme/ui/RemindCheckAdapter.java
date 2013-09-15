@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.remindme.ui.R;
 
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.app.Activity;
@@ -69,7 +69,7 @@ public class RemindCheckAdapter extends ArrayAdapter<RemindTask>{
 				
 				Log.d("Adapter", task.getName());
 				Log.d("ADAPTER", task.getId().toString());
-				RemindTaskDAO taskDB= new RemindTaskSQLite(context);
+				TaskDAO taskDB= new TaskSQLite(context);
 				boolean checked = ((CheckBox) view).isChecked();
 				if(checked){
 					taskDB.updateTaskCompleted(task);					

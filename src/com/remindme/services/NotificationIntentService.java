@@ -1,7 +1,7 @@
 package com.remindme.services;
 
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.utils.RemindTask;
 
 import android.app.Service;
@@ -20,7 +20,7 @@ public class NotificationIntentService extends Service{
 		if (task!=null){
 			
 			Log.d("Service", task.getName());
-			RemindTaskDAO dbTask = new RemindTaskSQLite(getApplicationContext());
+			TaskDAO dbTask = new TaskSQLite(getApplicationContext());
 			task.setCompleted(true);
 			dbTask.updateTask(task);
 			

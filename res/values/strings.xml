@@ -111,5 +111,6 @@
     
    <string name="today_expired">Tareas acumuladas</string>
    <string name="today_noexpiredtasks">No hay tareas acumuladas</string>
+   <string name="today_toastEmpty">No tienes tareas programadas para hoy. ¡Hora de relajarse!</string>
    
 </resources>

@@ -7,14 +7,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import com.remindme.db.RemindNotificationDAO;
-import com.remindme.db.RemindNotificationSQLite;
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
-import com.remindme.ui.RemindSplashActivity;
 import com.remindme.ui.RemindTaskActivity;
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
@@ -65,8 +64,8 @@ public class NotificationManagementService extends IntentService{
 		thread = new Thread() 
 		{
 			private Context ctx = getApplicationContext();
-			RemindNotificationDAO dbNoti = new RemindNotificationSQLite(ctx);
-			RemindTaskDAO dbTask = new RemindTaskSQLite(ctx);
+			NotificationDAO dbNoti = new NotificationSQLite(ctx);
+			TaskDAO dbTask = new TaskSQLite(ctx);
 			
 			public void start()
 			{

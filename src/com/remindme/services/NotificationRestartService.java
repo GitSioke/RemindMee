@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import com.remindme.db.RemindNotificationDAO;
-import com.remindme.db.RemindNotificationSQLite;
-import com.remindme.db.RemindTaskDAO;
-import com.remindme.db.RemindTaskSQLite;
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
+import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
@@ -54,8 +54,8 @@ public class NotificationRestartService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId){
 		this.ctx =   getApplicationContext();
-		RemindNotificationDAO dbNoti = new RemindNotificationSQLite(this.ctx);
-		RemindTaskDAO dbTask = new RemindTaskSQLite(this.ctx);
+		NotificationDAO dbNoti = new NotificationSQLite(this.ctx);
+		TaskDAO dbTask = new TaskSQLite(this.ctx);
 		
 		Log.d("ServiceRestart", "FirstLoop");
         	
