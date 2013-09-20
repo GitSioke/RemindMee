@@ -32,7 +32,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
-		Log.d("ADAPTER", taskList.get(0).getName().toString());
+		//Log.d("ADAPTER", taskList.get(0).getName().toString());
 	}
 	
 	/**

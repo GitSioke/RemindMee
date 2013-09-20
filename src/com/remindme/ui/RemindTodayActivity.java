@@ -3,7 +3,6 @@ package com.remindme.ui;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import com.remindme.ui.R;
 
@@ -31,15 +30,18 @@ import com.remindme.utils.Repetition;
 
 public class RemindTodayActivity extends RemindActivity {
     
-	private ListView taskListView;
+	//private ListView taskListView;
+	//private ListView expiredTaskListView;
+	//private ArrayList<RemindTask> taskList;
+	//private ArrayList<RemindTask> expiredTaskList;
 	/** Called when the activity is first created. */
    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Completed", "Set content view");
+        Log.d("Today", "Set content view");
         setContentView(R.layout.today);
-        Log.d("Completed", "Initialize cursor");
+        Log.d("Today", "Initialize cursor");
         
         TextView txtHeader =(TextView)findViewById(R.id.Today_HeaderTxtView);
         String strToday = getResources().getString(R.string.today_header);
@@ -59,8 +61,8 @@ public class RemindTodayActivity extends RemindActivity {
         String time = "no hora";
         String repetition = Repetition.DAILY.toString();
         
-        
-        RemindTask task1 = new RemindTask(null, "Tarea1", date, date, time, repetition, "", "Naranja", null, false);
+        /**
+        RemindTask task1 = new RemindTask(null, "MACAYEAH", date, date, time, repetition, "", "Naranja", null, false);
         cal.roll(Calendar.DAY_OF_YEAR, -1);
         date = cal.getTime();
         RemindTask task2 = new RemindTask(null, "Tarea2", date, date, time, repetition, "", "Sandia", null, false);
@@ -80,16 +82,17 @@ public class RemindTodayActivity extends RemindActivity {
 
         dbNotif.insert(notif1);
         dbNotif.insert(notif2);
-        dbNotif.insert(notif3);
+        dbNotif.insert(notif3);*/
         
         //TODO REalizar bien las dos llamadas a base de datos para recoger los correctos valores de las tareas
-        
+        Date dateOfRecord = cal.getTime();
 		ArrayList<RemindTask> taskList =  dbJoin.getAllTasksWith(dateOfRecord);
 		ArrayList<RemindTask> expiredTaskList = dbJoin.getAllTasksBefore(dateOfRecord);
         if (taskList.isEmpty() && expiredTaskList.isEmpty()){
         	Toast.makeText(this, R.string.today_toastEmpty, Toast.LENGTH_LONG).show();
         }else{
-        	displayTaskWithTextView(taskList);
+        	displayListView(taskList, false);
+        	displayListView(expiredTaskList, true);
         }
         
         if(expiredTaskList.isEmpty()){
@@ -113,10 +116,16 @@ public class RemindTodayActivity extends RemindActivity {
 	/**
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
-	private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
-		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
-		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
-		
+	private void displayListView(final ArrayList<RemindTask> taskList, Boolean expiredList){
+		ListView listView; 
+		if (expiredList==true){
+			listView = (ListView) findViewById(R.id.Today_ListViewExpiredTask);
+			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+		}else{
+			listView = (ListView)findViewById(R.id.Today_ListViewTask);
+			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+		}
+				
 		OnItemClickListener listener = new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -129,13 +138,7 @@ public class RemindTodayActivity extends RemindActivity {
 				
 			}
 		};
-		taskListView.setOnItemClickListener(listener);
-		
-		/**
-		 * Crea los remind y los muestra 
-		 */	
-		
-		
+		listView.setOnItemClickListener(listener);		
 	}
 	
 	public void onCheckTaskItem(View view){
