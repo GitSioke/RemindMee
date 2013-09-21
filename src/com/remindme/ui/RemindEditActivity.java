@@ -300,13 +300,13 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 		Boolean changedDateNotice = task.getDateNotice().compareTo(newTask.getDateNotice())!=0;
 		if (!task.getRepetition().contentEquals(newTask.getRepetition()) || changedDate || changedDateNotice){
 			notifDB.deleteAllIdTask(task.getId());	
-			RemindNotification not = new RemindNotification(null, newTask.getId(), newTask.getDate(), newTask.getDateNotice(), false, false);
+			RemindNotification not = new RemindNotification(null, newTask.getId(), newTask.getDate(), newTask.getDateNotice(), false, false, Integer.valueOf(0));
 			notifDB.insert(not);
 			//Repetition rep = Repetition.valueOf(newTask.getRepetition());
 			Date newDate = Repetition.getNextDate(newTask.getDate(), newTask.getRepetition());
 			Date newDateNotice = Repetition.getNextDate(newTask.getDateNotice(), newTask.getRepetition());
 			if(newDate!=null && newDateNotice!=null){
-				not = new RemindNotification(null, newTask.getId(), newDate, newDateNotice, false, false);
+				not = new RemindNotification(null, newTask.getId(), newDate, newDateNotice, false, false, task.getSuperTask());
 				notifDB.insert(not);
 			}
 		}

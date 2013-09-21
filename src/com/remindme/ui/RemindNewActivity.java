@@ -185,7 +185,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		Date date = task.getDate();
 		Date dateNotice = task.getDateNotice();
 		
-		RemindNotification not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
+		RemindNotification not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done, null);
 		dbNot.insert(not);
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
@@ -195,7 +195,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		dateNotice = Repetition.getNextDate(dateNotice, task.getRepetition());
 		if(date !=null && dateNotice!=null)
 		{
-			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done);
+			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done, null);
 			dbNot.insert(not);
 		}
 			
