@@ -11,11 +11,12 @@ public class RemindNotification {
 	private Date notifyDate;
 	private Boolean ready;
 	private Boolean done;
+	private Integer superNotif;
 
 	
 
-	public RemindNotification(Integer id, Integer idTask, Date date, Date notifyDate, Boolean ready, Boolean done){
-		if (id==null)
+	public RemindNotification(Integer id, Integer idTask, Date date, Date notifyDate, Boolean ready, Boolean done, Integer superNotif){
+		if (id==null || id == 0)
 			this.id = hashCode();
 		else{
 			this.id = id;
@@ -26,6 +27,9 @@ public class RemindNotification {
 		this.notifyDate = notifyDate;
 		this.ready= ready;
 		this.done = done;
+		if (superNotif == null || superNotif == 0){
+			this.superNotif = Integer.valueOf(0); 
+		}
 	}
 	
 	public Integer getId() {
@@ -69,8 +73,16 @@ public class RemindNotification {
 	}
 
 	public RemindNotification getNextNotification(){
-		
-		return new RemindNotification(null, null, date, notifyDate, false, false);
+		//TODO Recalcula la siguiente notificacion?
+		return new RemindNotification(null, null, date, notifyDate, false, false, superNotif);
+	}
+
+	public Integer getSuperNotif() {
+		return superNotif;
+	}
+
+	public void setSuperNotif(Integer superTask) {
+		this.superNotif = superTask;
 	}
 	
 }
