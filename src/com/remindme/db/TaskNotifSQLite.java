@@ -2,6 +2,7 @@ package com.remindme.db;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -87,6 +88,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 				TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
 				+ NotificationSQLite.KEY_IDTASK);
 		queryBuilder.appendWhere(NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DATE + "<" + date.getTime() );
+		queryBuilder.appendWhere(" AND " + NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DONE + "=" + Integer.toString(0) );
 		
 		Log.d("TaskNotifSQLite", Long.toString(date.getTime()));
 		Cursor cursor = queryBuilder.query(db, null, null, null, null, null, null);
@@ -122,5 +124,37 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 		return taskList;
 		
 	}
-
+	
+	
+	public List<RemindTask> getSubNotif(Integer idNotif) {
+		RemindTask task = null;
+		List<RemindTask> subTasks= new ArrayList<RemindTask>();
+		this.open();
+        Cursor cursor =db.query(NotificationSQLite.DATABASE_TABLE, null, NotificationSQLite.KEY_SUPERNOTIF+"=?", new String[]{Long.toString(idNotif)}, null, null, null);
+        
+        if (cursor.moveToFirst()){
+        	do{
+        		Integer id = cursor.getInt(0);
+            	String name = cursor.getString(1);
+            	Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+            	String time =cursor.getString(4);
+            	String repetition = cursor.getString(5);
+            	String description = cursor.getString(6);
+            	String tag = cursor.getString(7);
+            	Integer superTask = cursor.getInt(8);
+            	Boolean completed = cursor.getInt(9)==1 ? true: false;
+            	task = new RemindTask(id, name, date,dateNotice, time, repetition, description, tag, superTask, completed);
+            	subTasks.add(task);
+        	}while(cursor.moveToNext());
+        
+        }
+        this.close();
+		return subTasks;
+	}
+	
+	
+	
 }

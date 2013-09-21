@@ -2,6 +2,7 @@ package com.remindme.db;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.remindme.utils.RemindNotification;
 import com.remindme.utils.RemindTask;
@@ -23,6 +24,7 @@ public class NotificationSQLite implements NotificationDAO {
 	public static final String KEY_READY="ready";
 	public static final String KEY_DONE="done";
 	public static final String KEY_UNATTENDED="unattended";
+	public static final String KEY_SUPERNOTIF="superNotif";
 
 	public static final String DATABASE_TABLE = "notifications";
 
@@ -65,6 +67,7 @@ public class NotificationSQLite implements NotificationDAO {
 		notValues.put(KEY_READY, notification.isReady());
 		notValues.put(KEY_DONE, notification.isDone());
 		notValues.put(KEY_UNATTENDED, this.unattendedNotifications(notification.getIdTask()));
+		notValues.put(KEY_SUPERNOTIF, notification.getSuperNotif());
 		long changes = db.insert(DATABASE_TABLE, null, notValues);
 		this.close();
 		return changes;
@@ -80,32 +83,6 @@ public class NotificationSQLite implements NotificationDAO {
 		
 	}
 
-
-	/**private static class DatabaseHelper extends SQLiteOpenHelper{
-
-		DatabaseHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		}
-
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			try{
-			db.execSQL(DATABASE_CREATE);
-			}catch (SQLException e){
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading database from version" +oldVersion + "to" 
-					+ newVersion + ", which will destroy all old data");
-			
-			db.execSQL("DROP TABLE IF EXISTS notifications");
-			onCreate(db);
-		}
-	}*/
-	
 	/**
 	 * 
 	 * @return List of notifications that are ready to be notified and are not done
@@ -125,7 +102,8 @@ public class NotificationSQLite implements NotificationDAO {
         		Date delay= new Date(dateAsLong);
         		Boolean ready =  cursor.getInt(4)==1 ? true: false;
         		Boolean done =  cursor.getInt(5)==1 ? true: false;
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		Integer superNotif = cursor.getInt(6);
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
         		notifyList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -156,7 +134,8 @@ public class NotificationSQLite implements NotificationDAO {
         		Date delay = new Date(dateAsLong);
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		Integer superNotif = cursor.getInt(6);
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -186,7 +165,8 @@ public class NotificationSQLite implements NotificationDAO {
         		Date delay = new Date(dateAsLong);
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		Integer superNotif = cursor.getInt(6);
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -228,7 +208,8 @@ public class NotificationSQLite implements NotificationDAO {
         		Date delay = new Date(dateAsLong);
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		Integer superNotif = cursor.getInt(6);
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -273,7 +254,8 @@ public class NotificationSQLite implements NotificationDAO {
         		Date delay = new Date(dateAsLong);
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done);
+        		Integer superNotif = cursor.getInt(6);
+        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -307,6 +289,52 @@ public class NotificationSQLite implements NotificationDAO {
 		}
 		return result;
 	}
-
 	
+	//TODO Check funciona
+	public int deleteSubNotification(Integer idNotif) {
+		this.open();
+		int changes = db.delete(DATABASE_TABLE, KEY_SUPERNOTIF+"=?", new String[]{idNotif.toString()});
+		this.close();
+		return changes;
+	}
+	//TODO Check funciona
+	public boolean hasSubNotification(Integer idNotif) {
+		this.open();
+		Boolean hasSubtask=false;
+		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_SUPERNOTIF}, KEY_SUPERNOTIF+"=?", new String[]{Long.toString(idNotif)}, null, null, null);
+		if (cursor.getCount()>0){
+			hasSubtask=true;
+		}
+		this.close();
+		return hasSubtask;
+	}
+	//TODO Check que funciona 
+	public List<RemindTask> getSubNotification(Integer idNotif) {
+		RemindTask task = null;
+		List<RemindTask> subTasks= new ArrayList<RemindTask>();
+		this.open();
+        Cursor cursor =db.query(DATABASE_TABLE, null, KEY_SUPERNOTIF+"=?", new String[]{Long.toString(idNotif)}, null, null, null);
+        
+        if (cursor.moveToFirst()){
+        	do{
+        		Integer id = cursor.getInt(0);
+            	String name = cursor.getString(1);
+            	Long dateAsLong = cursor.getLong(2);
+        		Date date = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotice = new Date(dateAsLong);
+            	String time =cursor.getString(4);
+            	String repetition = cursor.getString(5);
+            	String description = cursor.getString(6);
+            	String tag = cursor.getString(7);
+            	Integer superTask = cursor.getInt(8);
+            	Boolean completed = cursor.getInt(9)==1 ? true: false;
+            	task = new RemindTask(id, name, date,dateNotice, time, repetition, description, tag, superTask, completed);
+            	subTasks.add(task);
+        	}while(cursor.moveToNext());
+        
+        }
+        this.close();
+		return subTasks;
+	}
 }
