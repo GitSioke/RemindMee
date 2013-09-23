@@ -5,8 +5,8 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:id="@+id/Day_RelativeLayout_Header"
+    <RelativeLayout
+        android:id="@+id/Today_RelativeLayout_Header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/header_background">
@@ -21,7 +21,27 @@
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>
         
-    </LinearLayout>
+         <ImageView 
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:layout_centerInParent="true"
+            android:id="@+id/Header_NewImage"
+            android:src="@drawable/header_new"
+            android:layout_toLeftOf="@+id/Header_HomeImage"
+            
+            />
+        
+         <ImageView 
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:id="@+id/Header_HomeImage"
+            android:src="@drawable/header_home"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/header_marginLeft"
+            android:layout_marginRight="@dimen/header_marginRight"
+            android:layout_centerInParent="true"/>
+        
+    </RelativeLayout>
     
     <!--TODO Texto dinamico. Editar -->
    

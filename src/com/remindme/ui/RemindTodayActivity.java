@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,20 @@ public class RemindTodayActivity extends RemindActivity {
         setContentView(R.layout.today);
         Log.d("Today", "Initialize cursor");
         
+        ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        imageNew.setOnClickListener(new View.OnClickListener() {
+			
+        	public void onClick(View v) {
+				startActivity(new Intent(RemindTodayActivity.this, RemindNewActivity.class));
+			}
+		});
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+        imageHome.setOnClickListener(new View.OnClickListener() {
+			
+        	public void onClick(View v) {
+				startActivity(new Intent(RemindTodayActivity.this, RemindMenuActivity.class));
+			}
+		});
         TextView txtHeader =(TextView)findViewById(R.id.Today_HeaderTxtView);
         String strToday = getResources().getString(R.string.today_header);
         txtHeader.setText(strToday);
