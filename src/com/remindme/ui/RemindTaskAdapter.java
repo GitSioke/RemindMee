@@ -6,8 +6,11 @@ import java.util.Locale;
 
 import com.remindme.ui.R;
 
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
 import com.remindme.db.TaskSQLite;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 
 import android.app.Activity;
@@ -51,7 +54,7 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	 * Rellena las tareas a medida que aparecen en la pantalla
 	 */
 	@Override
-    public View getView ( int position, View convertView, ViewGroup parent ) {
+    public View getView (int position, View convertView, ViewGroup parent ) {
 		
 		ViewHolder holder = null;
         final RemindTask task = getItem(position);
@@ -80,17 +83,18 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 
         		Log.d("Adapter", task.getName());
         		Log.d("ADAPTER", task.getId().toString());
-        		TaskDAO taskDB= new TaskSQLite(context);
+        		NotificationDAO notifDB= new NotificationSQLite(context);
         		boolean checked = ((CheckBox) view).isChecked();
         		if(checked){
-        			
-        			taskDB.updateTaskCompleted(task);
-        			RemindTask auxTask = taskDB.getTaskWithID(task.getId());
-        			if(auxTask.isCompleted())
-        			Log.d("ADAPTER", "Completada");
+        			notifDB.changeDone(task.getId());
+        			Event auxTask = notifDB.getNotificationWithID(task.getId());
+        			if(auxTask.isDone())
+        				Log.d("ADAPTER", "Completada");
         		}else{
-        			taskDB.updateTaskCompleted(task);
-
+        			notifDB.changeDone(task.getId());
+        			Event auxTask = notifDB.getNotificationWithID(task.getId());
+        			if(!auxTask.isDone())
+        				Log.d("ADAPTER", "Incompleta");
         		}
 
         	}

@@ -16,7 +16,7 @@
             android:id="@+id/All_HeaderTxtView"
             android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-            android:text="@string/pending_header"
+            android:text="@string/all_header"
             android:textSize="@dimen/text_header"
             android:textColor="@color/header_text"
             android:layout_marginLeft="@dimen/text_header_margin"></TextView>

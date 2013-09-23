@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,11 +28,14 @@ import com.remindme.db.TaskDAO;
 import com.remindme.db.TaskSQLite;
 import com.remindme.dialogs.RemindAlertDialog;
 import com.remindme.dialogs.RemindDeleteDialog;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
      
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;
+    	private Boolean isFatherTask;
+    	private Event notif;
         @Override
         public void onCreate(Bundle savedInstanceState) {
            super.onCreate(savedInstanceState);
@@ -59,6 +63,10 @@ import com.remindme.utils.Repetition;
            
            
            task = getIntent().getParcelableExtra("task");
+           isFatherTask = getIntent().getBooleanExtra("father", false);
+           if (!isFatherTask){
+        	   notif = getIntent().getParcelableExtra("notif");
+           }
            Log.d("TASK", task.getName());
            TextView txtName = (TextView)findViewById(R.id.Task_Name);
            txtName.setText(task.getName());
@@ -77,6 +85,10 @@ import com.remindme.utils.Repetition;
            txtTag.setText(task.getTag());
            TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);
            txtDescr.setText(task.getDescription());
+           
+          CheckBox check = (CheckBox) findViewById(R.id.Task_Checkbox);
+          check.setSelected(task.isCompleted());
+           
            
            NotificationDAO notifDAO = new NotificationSQLite(this);
            //TODO Revisar que sean subnotificaciones
@@ -153,14 +165,28 @@ import com.remindme.utils.Repetition;
         * @param view
         */ 
     	public void onCheckBoxClicked(View view){
-    		NotificationDAO notifDB = new NotificationSQLite(this);
-    		if (notifDB.hasSubNotification(task.getId())){
-    			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+    		
+    		if(isFatherTask){
+    			TaskDAO taskDB = new TaskSQLite(this);
+    			if(taskDB.hasSubtask(task.getId())){
+    				Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+    			}else{
+    				task.setCompleted(task.isCompleted()? false: true);
+    				taskDB.updateTask(task);
+    			}
+    			
     		}else{
-    			//notifDB.updateNotification(task);
-    			//TODO Tachar los textview
-    			//crossOutTaskElements();
+    			NotificationDAO notifDB = new NotificationSQLite(this);
+        		if (notifDB.hasSubNotification(task.getId())){
+        			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+        		}else{
+        			notif.setDone(notif.isDone()? false:true);
+        			notifDB.updateNotification(notif);
+        			//TODO Tachar los textview
+        			//crossOutTaskElements();
+        		}
     		}
+    		
     	}
     	
     	private void setHeaderButton(){

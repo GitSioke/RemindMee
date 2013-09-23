@@ -50,7 +50,7 @@
         <activity android:name="RemindActivity"></activity>
         <activity android:name="RemindMenuActivity"></activity>
         <activity android:name="RemindNewActivity"></activity>
-        <activity android:name="RemindPendingTaskActivity"></activity>
+        <activity android:name="com.remindme.ui.RemindAllTaskActivity"></activity>
         <activity android:name="RemindCompletedTaskActivity"></activity>
         <activity android:name="com.remindme.ui.RemindDayActivity"></activity>
         <activity android:name="RemindTagsActivity"></activity>
@@ -84,7 +84,7 @@
         
         <service 
          android:enabled="true" 
-         android:name="com.remindme.services.NotificationIntentService"></service>
+         android:name="com.remindme.services.NotificationCompleteService"></service>
         
         <service 
             android:enabled="true"

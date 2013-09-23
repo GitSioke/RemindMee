@@ -13,6 +13,8 @@ import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ import com.remindme.db.TaskDAO;
 import com.remindme.db.TaskNotifDAO;
 import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
@@ -61,7 +63,7 @@ public class RemindTodayActivity extends RemindActivity {
         String time = "no hora";
         String repetition = Repetition.DAILY.toString();
         
-        /**
+        
         RemindTask task1 = new RemindTask(null, "MACAYEAH", date, date, time, repetition, "", "Naranja", null, false);
         cal.roll(Calendar.DAY_OF_YEAR, -1);
         date = cal.getTime();
@@ -74,18 +76,18 @@ public class RemindTodayActivity extends RemindActivity {
         cal.roll(Calendar.DAY_OF_YEAR, 2);
         date = cal.getTime();
         Date dateOfRecord = date;
-        RemindNotification notif1 = new RemindNotification(null, task1.getId(), date, date, true, false);
+        Event notif1 = new Event(null, task1.getId(), date, date, true, false, null);
         cal.roll(Calendar.DAY_OF_YEAR, -1);
         date = cal.getTime();
-        RemindNotification notif2 = new RemindNotification(null, task2.getId(), date, date, true, false);
-        RemindNotification notif3 = new RemindNotification(null, task3.getId(), date, date, true, true);
+        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
+        Event notif3 = new Event(null, task3.getId(), date, date, true, true, null);
 
         dbNotif.insert(notif1);
         dbNotif.insert(notif2);
-        dbNotif.insert(notif3);*/
+        dbNotif.insert(notif3);
         
         //TODO REalizar bien las dos llamadas a base de datos para recoger los correctos valores de las tareas
-        Date dateOfRecord = cal.getTime();
+        //Date dateOfRecord = cal.getTime();
 		ArrayList<RemindTask> taskList =  dbJoin.getAllTasksWith(dateOfRecord);
 		ArrayList<RemindTask> expiredTaskList = dbJoin.getAllTasksBefore(dateOfRecord);
         if (taskList.isEmpty() && expiredTaskList.isEmpty()){
@@ -99,6 +101,24 @@ public class RemindTodayActivity extends RemindActivity {
         	TextView text = (TextView)findViewById(R.id.Today_ExpiredText);
         	text.setText("");
         }
+        
+    	/**CheckBox box = (CheckBox) findViewById(R.id.ListItemCheck_Checkbox);
+    	box.
+    	box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked){
+					
+					NotificationDAO notifDB = new NotificationSQLite(getApplicationContext());
+					if (notifDB.hasSubNotification(notif.getId())){
+						Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+					}else{
+						notif.setDone(notif.isDone()? false:true);
+						notifDB.updateNotification(notif);
+				}
+			}
+		});*/
+
         
     }
    /**
@@ -141,7 +161,4 @@ public class RemindTodayActivity extends RemindActivity {
 		listView.setOnItemClickListener(listener);		
 	}
 	
-	public void onCheckTaskItem(View view){
-		
-	}
 }

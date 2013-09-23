@@ -13,7 +13,7 @@ import com.remindme.db.TaskDAO;
 import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
-import com.remindme.services.NotificationIntentService;
+import com.remindme.services.NotificationCompleteService;
 import com.remindme.services.NotificationManagementService;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
@@ -55,7 +55,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Context ctx = getApplicationContext();
-        ctx.startService(new Intent(RemindMenuActivity.this, NotificationIntentService.class));
+        ctx.startService(new Intent(RemindMenuActivity.this, NotificationCompleteService.class));
         
         if (isMyServiceRunning())
         {
@@ -109,7 +109,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 			
         	public void onClick(View v) {
         		Log.d("MENU", "Entrando en onStartActivity");
-        		startActivity(new Intent(RemindMenuActivity.this, RemindPendingTaskActivity.class));					
+        		startActivity(new Intent(RemindMenuActivity.this, RemindAllTaskActivity.class));					
 				
 				
 			}

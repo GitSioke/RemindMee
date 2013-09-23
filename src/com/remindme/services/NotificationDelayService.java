@@ -12,7 +12,7 @@ import com.remindme.db.NotificationDAO;
 import com.remindme.db.NotificationSQLite;
 import com.remindme.utils.Notice;
 import com.remindme.utils.NoticeDelay;
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 
 /** This service is launched when an user select "Delay" option on the notification pop-up.
  * 
@@ -31,7 +31,7 @@ public class NotificationDelayService extends Service {
 		Context ctx = getApplicationContext();
 		String strDelay = intent.getStringExtra("delay");
 		
-		RemindNotification notif = intent.getParcelableExtra("notif");
+		Event notif = intent.getParcelableExtra("notif");
 		if (notif!=null){
 			
 			Log.d("Service", notif.getId().toString());

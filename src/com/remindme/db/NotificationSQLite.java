@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 
 import android.content.ContentValues;
@@ -57,7 +57,7 @@ public class NotificationSQLite implements NotificationDAO {
 	 * @return
 	 */
 	//TODO Revisar si se puede hacer un con ContentValues de parametro o crear una clase de tipo Task
-	public long insert(RemindNotification notification){
+	public long insert(Event notification){
 		this.open();
 		ContentValues notValues = new ContentValues();
 		notValues.put(KEY_ROWID, notification.getId());
@@ -67,16 +67,16 @@ public class NotificationSQLite implements NotificationDAO {
 		notValues.put(KEY_READY, notification.isReady());
 		notValues.put(KEY_DONE, notification.isDone());
 		notValues.put(KEY_UNATTENDED, this.unattendedNotifications(notification.getIdTask()));
-		notValues.put(KEY_SUPERNOTIF, notification.getSuperNotif());
+		notValues.put(KEY_SUPERNOTIF, notification.getSuperEvent());
 		long changes = db.insert(DATABASE_TABLE, null, notValues);
 		this.close();
 		return changes;
 		
 	}
 	
-	public long insertAll(ArrayList<RemindNotification> notificationList){
+	public long insertAll(ArrayList<Event> notificationList){
 		long changes = 0;
-		for(RemindNotification notification: notificationList){
+		for(Event notification: notificationList){
 			changes = insert(notification);
 		}
 		return changes;
@@ -87,10 +87,10 @@ public class NotificationSQLite implements NotificationDAO {
 	 * 
 	 * @return List of notifications that are ready to be notified and are not done
 	 */
-	public ArrayList<RemindNotification> getAllNotifications() {
+	public ArrayList<Event> getAllNotifications() {
 		this.open();
-		RemindNotification notification;
-		ArrayList<RemindNotification> notifyList = new ArrayList<RemindNotification>();
+		Event notification;
+		ArrayList<Event> notifyList = new ArrayList<Event>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, null, null, null, null, null);
 		if (cursor.moveToFirst()){
         	do {
@@ -103,7 +103,7 @@ public class NotificationSQLite implements NotificationDAO {
         		Boolean ready =  cursor.getInt(4)==1 ? true: false;
         		Boolean done =  cursor.getInt(5)==1 ? true: false;
         		Integer superNotif = cursor.getInt(6);
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
+        		notification = new Event(id, idTask, date, delay, ready, done, superNotif);
         		notifyList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -118,10 +118,10 @@ public class NotificationSQLite implements NotificationDAO {
 	 * 
 	 * @return List of notifications that are ready to be notified but not done
 	 */
-	public ArrayList<RemindNotification> getReadyNotifications(){
+	public ArrayList<Event> getReadyNotifications(){
 		this.open();
-		RemindNotification notification;
-		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
+		Event notification;
+		ArrayList<Event> notificationList = new ArrayList<Event>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=?", 
 				new String[]{Integer.toString(1), Integer.toString(0)}, null, null, null);
 		if (cursor.moveToFirst()){
@@ -135,7 +135,7 @@ public class NotificationSQLite implements NotificationDAO {
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
         		Integer superNotif = cursor.getInt(6);
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
+        		notification = new Event(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -149,10 +149,10 @@ public class NotificationSQLite implements NotificationDAO {
 	 * @param date 
 	 * @return Devuelve todas aquellas notificaciones que no esten listas, ni completas y con fecha inferior a la indicada
 	 */
-	public ArrayList<RemindNotification> getUnreadyNotifications(long dateMax){
+	public ArrayList<Event> getUnreadyNotifications(long dateMax){
 		this.open();
-		RemindNotification notification;
-		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
+		Event notification;
+		ArrayList<Event> notificationList = new ArrayList<Event>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=? AND " + KEY_DATE+"<?", 
 				new String[]{Integer.toString(0), Integer.toString(0), Long.toString(dateMax)}, null, null, null);
 		if (cursor.moveToFirst()){
@@ -166,7 +166,7 @@ public class NotificationSQLite implements NotificationDAO {
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
         		Integer superNotif = cursor.getInt(6);
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
+        		notification = new Event(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -176,7 +176,7 @@ public class NotificationSQLite implements NotificationDAO {
 		return notificationList;
 	}
 	
-	public int updateNotification(RemindNotification notif){
+	public int updateNotification(Event notif){
 		this.open();
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, notif.getId());
@@ -191,10 +191,10 @@ public class NotificationSQLite implements NotificationDAO {
 		
 	}
 	
-	public ArrayList<RemindNotification> lapsedNotifications(long dateLong){
+	public ArrayList<Event> lapsedNotifications(long dateLong){
 		this.open();
-		RemindNotification notification;
-		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
+		Event notification;
+		ArrayList<Event> notificationList = new ArrayList<Event>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_READY+"=? AND " + KEY_DONE+"=? AND " + KEY_DATE+"<?", 
 				new String[]{Integer.toString(1), Integer.toString(0), Long.toString(dateLong)}, null, null, null);
 	
@@ -209,7 +209,7 @@ public class NotificationSQLite implements NotificationDAO {
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
         		Integer superNotif = cursor.getInt(6);
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
+        		notification = new Event(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -238,10 +238,10 @@ public class NotificationSQLite implements NotificationDAO {
 		return amount;
 	}
 
-	public ArrayList<RemindNotification> allNotifIdTask(Integer idTask) {
+	public ArrayList<Event> allNotifIdTask(Integer idTask) {
 		this.open();
-		RemindNotification notification;
-		ArrayList<RemindNotification> notificationList = new ArrayList<RemindNotification>();
+		Event notification;
+		ArrayList<Event> notificationList = new ArrayList<Event>();
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_IDTASK+"=?", 
 				new String[]{Integer.toString(idTask)}, null, null, null);
 	
@@ -255,7 +255,7 @@ public class NotificationSQLite implements NotificationDAO {
         		Boolean ready = cursor.getInt(4)==1 ? true: false;
         		Boolean done = cursor.getInt(5)==1 ? true: false;
         		Integer superNotif = cursor.getInt(6);
-        		notification = new RemindNotification(id, idTask, date, delay, ready, done, superNotif);
+        		notification = new Event(id, idTask, date, delay, ready, done, superNotif);
         		notificationList.add(notification);
         		
         	}while(cursor.moveToNext());
@@ -337,4 +337,45 @@ public class NotificationSQLite implements NotificationDAO {
         this.close();
 		return subTasks;
 	}
+	
+	/**
+	 * Recibe el id de un evento desde la "tarea"
+	 */
+	public void changeDone(Integer idEvent) {
+		this.open();
+		ContentValues taskValues = new ContentValues();
+		taskValues.put(KEY_DONE, isDone(idEvent) ? 0: 1);
+		db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"=?", new String[]{Integer.toString(idEvent)});
+		this.close();
+		
+		
+		
+	}
+	
+	private Boolean isDone(Integer idEvent){
+		Cursor c = db.query(DATABASE_TABLE, new String[]{KEY_DONE}, KEY_ROWID+"=?", new String[]{Long.toString(idEvent)}, null, null, null);
+		c.moveToFirst();
+		c.getInt(0);
+		return c.getInt(0) == 1 ? true: false ; 
+	}
+
+	public Event getNotificationWithID(Integer idEvent) {
+		this.open();
+		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_ROWID+"=?", 
+				new String[]{Integer.toString(idEvent)}, null, null, null);
+		cursor.moveToFirst();
+		Integer idTask = cursor.getInt(1);
+		Long dateAsLong = cursor.getLong(2);
+		Date date = new Date(dateAsLong);
+		dateAsLong = cursor.getLong(3);
+		Date delay = new Date(dateAsLong);
+		Boolean ready = cursor.getInt(4)==1 ? true: false;
+		Boolean done = cursor.getInt(5)==1 ? true: false;
+		Boolean unattended = cursor.getInt(6)==1 ? true: false;
+		Integer superNotif = cursor.getInt(7);
+		Event notification = new Event(idEvent, idTask, date, delay, ready, done, superNotif);
+		this.close();
+		return notification;
+	}
+
 }

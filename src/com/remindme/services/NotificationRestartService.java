@@ -16,7 +16,7 @@ import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
 import com.remindme.ui.RemindSplashActivity;
 import com.remindme.ui.RemindTaskActivity;
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 
 import android.app.AlarmManager;
@@ -59,9 +59,10 @@ public class NotificationRestartService extends Service {
 		
 		Log.d("ServiceRestart", "FirstLoop");
         	
-        ArrayList<RemindNotification> lapsedNotifs = 
+        ArrayList<Event> lapsedNotifs = 
 		dbNoti.lapsedNotifications(Calendar.getInstance().getTimeInMillis());
-		for(RemindNotification notif :lapsedNotifs)
+        
+		for(Event notif :lapsedNotifs)
 		{
 			if(notif.getDate().before(Calendar.getInstance().getTime()) 
 					&& dbNoti.amountReadyNotifications(notif.getIdTask())>1)
@@ -78,11 +79,11 @@ public class NotificationRestartService extends Service {
 		//not = new RemindNotification(12346, 6789,  new Date(longas), new Date(longas), false, false);
 		//dbNoti.insertNotification(not);
 		
-		ArrayList<RemindNotification> notificationList= dbNoti.getAllNotifications();
+		ArrayList<Event> notificationList= dbNoti.getAllNotifications();
 		NotificationManager notificationManager =
 				(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		
-		for(RemindNotification notification: notificationList)
+		for(Event notification: notificationList)
 		{
 			RemindTask task= dbTask.getTaskWithID(notification.getIdTask());
 			if(task!=null)
@@ -95,14 +96,14 @@ public class NotificationRestartService extends Service {
 		return startId;
 		
 	}
-		private void createNotification(RemindTask task,RemindNotification notif){
+		private void createNotification(RemindTask task,Event notif){
         	Log.d("ServiceRestart", "Creando notification "+task.getName());
         	
         	Locale loc = new Locale("es ES");
         	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
         	String strDate = format.format(notif.getDate());
         	
-        	Intent completeIntent = new Intent(NotificationRestartService.this, NotificationIntentService.class);
+        	Intent completeIntent = new Intent(NotificationRestartService.this, NotificationCompleteService.class);
         	completeIntent.putExtra("task", task);
         	
         	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);

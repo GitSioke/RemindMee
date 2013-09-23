@@ -15,7 +15,7 @@ import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
 import com.remindme.ui.RemindMenuActivity;
 import com.remindme.ui.RemindTaskActivity;
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 
 import android.app.AlarmManager;
@@ -83,8 +83,8 @@ public class NotificationManagementService extends IntentService{
 					//Se coloca a ready todas las tareas que esten listas para ser notificadas en un periodo de 24h 
 					//todas estas tareas entran en el notification manager
 	        		Log.d("ServiceManagement", "Loop");
-	        		ArrayList<RemindNotification> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
-					for(RemindNotification notif : pendingNotifications)
+	        		ArrayList<Event> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
+					for(Event notif : pendingNotifications)
 					{
 						notif.setReady(true);
 						dbNoti.updateNotification(notif);
@@ -107,16 +107,15 @@ public class NotificationManagementService extends IntentService{
 	         * Crea notificacion en notification manager a partir de la notification pasada por parametro
 	         * @param notif
 	         */
-	        private void createNotification(RemindTask task,RemindNotification notif){
+	        private void createNotification(RemindTask task,Event notif){
 	        	Log.d("ServiceManagement", "Creando notification "+task.getName());
 	        	
 	        	Locale loc = new Locale("es ES");
 	        	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
 	        	String strDate = format.format(notif.getDate());
 	        	
-	        	Intent completeIntent = new Intent(NotificationManagementService.this, NotificationIntentService.class);
-	        	completeIntent.putExtra("task", task);
-	        	
+	        	Intent completeIntent = new Intent(NotificationManagementService.this, NotificationCompleteService.class);
+	        	completeIntent.putExtra("notif", notif);
 	        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
 	        	
 	        	Intent delayIntent = new Intent(NotificationManagementService.this, DialogDelayActivity.class);
@@ -124,18 +123,20 @@ public class NotificationManagementService extends IntentService{
 	        	
 	        	// Creates an explicit intent for an Activity in your app
     	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
-    	    	resultIntent.putExtra("task", task);
+    	    	resultIntent.putExtra("notif", notif);
     	    	
     	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
 
     	    	NotificationCompat.Builder mBuilder =
     	    	        new NotificationCompat.Builder(ctx)
+    	    			.setAutoCancel(true)
     	    	        .setSmallIcon(R.drawable.ic_notif)
     	    	        .setWhen(notif.getDate().getTime())
     	    	        .setContentTitle(task.getName().toString())
     	    	        .setContentText(strDate)
     	    	        .addAction(R.drawable.notif_check_opt, getString(R.string.notif_complete), pcIntent)
     	    	        .addAction(R.drawable.notif_clock_opt, getString(R.string.notif_delay), pdIntent);
+    	    			
     					
     	
     	    	// The stack builder object will contain an artificial back stack for the

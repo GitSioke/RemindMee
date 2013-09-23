@@ -22,7 +22,7 @@ import com.remindme.fragments.TimePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.fragments.TimePickerFragment.OnTimeSelectedListener;
 import com.remindme.utils.NoticeNew;
-import com.remindme.utils.RemindNotification;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
@@ -115,7 +115,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
         			e.printStackTrace();
         		}
         		if (correctData){
-        			startActivity(new Intent(RemindNewActivity.this, RemindPendingTaskActivity.class));		
+        			startActivity(new Intent(RemindNewActivity.this, RemindAllTaskActivity.class));		
         		}
 			}
 		});
@@ -185,7 +185,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		Date date = task.getDate();
 		Date dateNotice = task.getDateNotice();
 		
-		RemindNotification not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done, null);
+		Event not = new Event(null, task.getId(), date, dateNotice, ready, done, null);
 		dbNot.insert(not);
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
 		Log.d("NEW", "Create not1: "+not.getDate().toString());
@@ -195,7 +195,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		dateNotice = Repetition.getNextDate(dateNotice, task.getRepetition());
 		if(date !=null && dateNotice!=null)
 		{
-			not = new RemindNotification(null, task.getId(), date, dateNotice, ready, done, null);
+			not = new Event(null, task.getId(), date, dateNotice, ready, done, null);
 			dbNot.insert(not);
 		}
 			

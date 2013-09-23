@@ -4,10 +4,11 @@
     <string name="hello">Hello World, RemindMeActivity!</string>
     <string name="app_name">RemindMe</string>
     
+    
+    
+    
+    
     <!-- Menu strings -->
-    
-	
-    
     
     <string name="tags_header">Etiquetas</string>
     
@@ -17,8 +18,12 @@
     
     <string name="new_header">Nueva Tarea</string>
     
+   	<!-- Today View -->
+   	<string name="today_expired">Tareas acumuladas</string>
+   	<string name="today_noexpiredtasks">No hay tareas acumuladas</string>
+   	<string name="today_toastEmpty">No tienes tareas programadas para hoy. ¡Hora de relajarse!</string>
+   
     <!-- New View -->
-    
     <string name="new_name">Tarea</string>
     <string name="new_name_hint">Introduce el nombre de la tarea</string>
     <string name="new_description">Descripcion</string>
@@ -42,12 +47,14 @@
         <item>Anual</item>
     </string-array>
     
-    <string name="pending_header">Tareas pendientes</string>
     
     <!-- All View -->
+    <string name="all_header">Tareas pendientes</string>
+    <string name="all_taskname">Tarea</string>
+    <string name="all_taskid">ID</string>
+    <string name="all_toastEmpty">¡Relájate miarma! No tienes ninguna tarea pendiente</string>
     
-    <string name="pending_taskname">Tarea</string><string name="pending_taskid">ID</string>
-    
+    <!-- Task View -->
     <string name="task_headertxt">Tarea</string>
     <string name="task_subtask">Subtareas</string>
     <string name="task_subtaskhint">Crear subtarea</string>
@@ -64,8 +71,8 @@
    <string name="dialog_delay">Posponer el aviso:</string>
    
    <string name="menu_header">Menu</string>
-   <string name="menu_toast_deleteAll">Se ha eliminado la tarea y sus subtareas</string><string name="menu_toast_delete">La tarea ha sido eliminada</string>
-   <string name="pending_toastEmpty">¡Relájate miarma! No tienes ninguna tarea pendiente</string>
+   <string name="menu_toast_deleteAll">Se ha eliminado la tarea y sus subtareas</string>
+   <string name="menu_toast_delete">La tarea ha sido eliminada</string>
    <string name="completed_toastEmpty">No hay tareas completas, lo cual puede ser un problema...</string>
    <string name="task_toast_hasSubtask">Hay subtareas pendientes. Completalas antes</string>
    <string name="completed_header">Tareas Completadas</string>
@@ -108,9 +115,5 @@
        <item >8 horas</item>
        <item >1 dia</item>
     </string-array>
-    
-   <string name="today_expired">Tareas acumuladas</string>
-   <string name="today_noexpiredtasks">No hay tareas acumuladas</string>
-   <string name="today_toastEmpty">No tienes tareas programadas para hoy. ¡Hora de relajarse!</string>
    
 </resources>
