@@ -152,13 +152,14 @@ public class RemindTodayActivity extends RemindActivity {
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
 	private void displayListView(final ArrayList<RemindTask> taskList, Boolean expiredList){
-		ListView listView; 
+		ListView listView;
+		Boolean isEvent = true;
 		if (expiredList==true){
 			listView = (ListView) findViewById(R.id.Today_ListViewExpiredTask);
-			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList, isEvent));
 		}else{
 			listView = (ListView)findViewById(R.id.Today_ListViewTask);
-			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+			listView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList, isEvent));
 		}
 				
 		OnItemClickListener listener = new OnItemClickListener() {

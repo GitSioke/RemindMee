@@ -17,19 +17,19 @@ import android.util.Log;
 
 public class TaskSQLite implements TaskDAO{
 	
-	public static final String KEY_ROWID = "id";
-	public static final String KEY_NAME = "name";
-	public static final String KEY_DATE="date";
-	public static final String KEY_DATENOTICE="dateNotice";
-	public static final String KEY_TIME="time";
-	public static final String KEY_REPETITION="repetition";
-	public static final String KEY_DESCRIPTION = "description";
-	public static final String KEY_TAG="tag";
-	public static final String KEY_COMPLETED="completed";
-	public static final String KEY_SUPERTASK="supertask";
+	static final String KEY_ROWID = "id";
+	static final String KEY_NAME = "name";
+	static final String KEY_DATE="date";
+	static final String KEY_DATENOTICE="dateNotice";
+	static final String KEY_TIME="time";
+	static final String KEY_REPETITION="repetition";
+	static final String KEY_DESCRIPTION = "description";
+	static final String KEY_TAG="tag";
+	static final String KEY_COMPLETED="completed";
+	static final String KEY_SUPERTASK="supertask";
 		
 	
-	public static final String DATABASE_TABLE = "tasks";
+	static final String DATABASE_TABLE = "tasks";
 
 	
 	private final Context context;
@@ -196,22 +196,21 @@ public class TaskSQLite implements TaskDAO{
 		return id;
 	}
 
-	public void updateTaskCompleted(RemindTask task) {
+	public void changeCompleted(Integer idTask) {
 		this.open();
 		
 		ContentValues taskValues = new ContentValues();
-		if(task.isCompleted()){
-			task.setCompleted(false);
-		}else{
-			task.setCompleted(true);
-		}
-				
-		taskValues.put(KEY_COMPLETED, task.isCompleted());
-	
-		Integer acbd = db.update(DATABASE_TABLE, taskValues, "id=?", new String[]{Long.toString(task.getId())});
-		Log.d("UPDATE", acbd.toString());
+		taskValues.put(KEY_COMPLETED, isCompleted(idTask) ? 0: 1);
+		db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"=?", new String[]{Integer.toString(idTask)});
 		this.close();
 		
+	}
+	
+	private Boolean isCompleted(Integer idTask){
+		Cursor c = db.query(DATABASE_TABLE, new String[]{KEY_COMPLETED}, KEY_ROWID+"=?", new String[]{Long.toString(idTask)}, null, null, null);
+		c.moveToFirst();
+		c.getInt(0);
+		return c.getInt(0) == 1 ? true: false ; 
 	}
 	
 	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted){

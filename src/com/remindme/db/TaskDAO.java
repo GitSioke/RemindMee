@@ -13,7 +13,7 @@ public interface TaskDAO {
 	public ArrayList<RemindTask> getAllTasks();
 	public long insertTask(RemindTask task);
 	public int updateTask(RemindTask task);
-	public void updateTaskCompleted(RemindTask task);
+	public void changeCompleted(Integer idTask);
 	public ArrayList<RemindTask> getPendingTasks(Boolean isCompleted);
 	public RemindTask getTaskWithID(Integer idTask);
 	public List<RemindTask> getSubtasks(Integer idTask);

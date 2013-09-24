@@ -11,4 +11,5 @@ public interface TaskNotifDAO {
 		public ArrayList<RemindTask> getAllTasksBefore(Date date);
 		public List<RemindTask> getSubNotif(Integer idNotif);
 		public RemindTask getRelatedTask(Integer idTask);
+		public ArrayList<RemindTask> getTaskWithTag(String tag);
 }

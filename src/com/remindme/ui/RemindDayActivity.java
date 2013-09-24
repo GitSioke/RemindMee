@@ -67,7 +67,7 @@ public class RemindDayActivity extends RemindActivity {
 	 */
 	private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
 		ListView taskListView = (ListView)findViewById(R.id.Day_ListViewTask);
-		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList, true));
 		
 		OnItemClickListener listener = new OnItemClickListener() {
 

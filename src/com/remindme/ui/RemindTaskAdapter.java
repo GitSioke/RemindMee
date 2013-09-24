@@ -30,11 +30,12 @@ import android.widget.AdapterView.OnItemClickListener;
 public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 	
 	private Context context;
-
+	private Boolean isEvent;
 	
-	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList) {
+	public RemindTaskAdapter(Context context, int textViewResourceId, ArrayList<RemindTask> taskList, Boolean isEvent) {
 		super(context, textViewResourceId, taskList);
 		this.context = context;
+		this.isEvent = isEvent;
 		//Log.d("ADAPTER", taskList.get(0).getName().toString());
 	}
 	
@@ -70,7 +71,8 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
             holder.txtDate = (TextView) convertView.findViewById(R.id.ListItemTask_Date);
             holder.txtTime = (TextView) convertView.findViewById(R.id.ListItemTask_Time);
             holder.check = (CheckBox) convertView.findViewById(R.id.ListItemCheck_Checkbox);
-            
+            if(task.isCompleted())
+            	holder.check.setChecked(true);
             convertView.setTag(holder);
         } else{
         
@@ -83,20 +85,17 @@ public class RemindTaskAdapter extends ArrayAdapter<RemindTask>{
 
         		Log.d("Adapter", task.getName());
         		Log.d("ADAPTER", task.getId().toString());
-        		NotificationDAO notifDB= new NotificationSQLite(context);
-        		boolean checked = ((CheckBox) view).isChecked();
-        		if(checked){
-        			notifDB.changeDone(task.getId());
-        			Event auxTask = notifDB.getNotificationWithID(task.getId());
-        			if(auxTask.isDone())
-        				Log.d("ADAPTER", "Completada");
+        		if (isEvent){
+	        		//boolean checked = ((CheckBox) view).isChecked();
+	        		NotificationDAO notifDB= new NotificationSQLite(context);
+	        		notifDB.changeDone(task.getId());
+	    			Event auxTask = notifDB.getNotificationWithID(task.getId());
+	    			if(auxTask.isDone())
+	    				Log.d("ADAPTER", "Completada");
         		}else{
-        			notifDB.changeDone(task.getId());
-        			Event auxTask = notifDB.getNotificationWithID(task.getId());
-        			if(!auxTask.isDone())
-        				Log.d("ADAPTER", "Incompleta");
+        			TaskDAO taskDAO = new TaskSQLite(context);
+        			taskDAO.changeCompleted(task.getId());
         		}
-
         	}
        	};
 

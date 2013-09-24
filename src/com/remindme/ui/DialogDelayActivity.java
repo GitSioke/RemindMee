@@ -1,5 +1,7 @@
 package com.remindme.ui;
 
+import com.remindme.db.TaskSQLite;
+
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +17,7 @@ public class DialogDelayActivity extends RemindActivity{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.dialog_delay);
 	    final Spinner delaySpinner = (Spinner) findViewById(R.id.DialogDelay_Spinner);
 	    getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

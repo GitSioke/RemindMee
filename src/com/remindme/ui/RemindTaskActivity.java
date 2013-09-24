@@ -114,7 +114,7 @@ import com.remindme.utils.Repetition;
             
             private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
            		ListView taskListView = (ListView)findViewById(R.id.Task_ListSubTask);
-           		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+           		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList, !isFatherTask));
            		
            		OnItemClickListener listener = new OnItemClickListener() {
 

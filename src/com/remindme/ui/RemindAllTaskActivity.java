@@ -93,8 +93,9 @@ public class RemindAllTaskActivity extends RemindActivity {
 	 * Muestra en el TextView de all.xml las tareas almacenadas
 	 */
 	private void displayTaskWithTextView(final ArrayList<RemindTask> taskList){
+		Boolean isEvent = false;
 		taskListView = (ListView)findViewById(R.id.All_ListViewTask);
-		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList));
+		taskListView.setAdapter(new RemindTaskAdapter(this, R.layout.list_item_task, taskList, isEvent));
 		
 		OnItemClickListener listener = new OnItemClickListener() {
 

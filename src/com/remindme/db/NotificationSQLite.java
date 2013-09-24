@@ -17,16 +17,16 @@ import android.util.Log;
 
 
 public class NotificationSQLite implements NotificationDAO {
-	public static final String KEY_ROWID = "id";
-	public static final String KEY_IDTASK = "idTask";
-	public static final String KEY_DATE="date";
-	public static final String KEY_NOTIFYDATE="notifyDate";
-	public static final String KEY_READY="ready";
-	public static final String KEY_DONE="done";
-	public static final String KEY_UNATTENDED="unattended";
-	public static final String KEY_SUPERNOTIF="superNotif";
+	static final String KEY_ROWID = "id";
+	static final String KEY_IDTASK = "idTask";
+	static final String KEY_DATE="date";
+	static final String KEY_NOTIFYDATE="notifyDate";
+	static final String KEY_READY="ready";
+	static final String KEY_DONE="done";
+	static final String KEY_UNATTENDED="unattended";
+	static final String KEY_SUPERNOTIF="superNotif";
 
-	public static final String DATABASE_TABLE = "notifications";
+	static final String DATABASE_TABLE = "notifications";
 
 		
 	private final Context context;
@@ -347,8 +347,6 @@ public class NotificationSQLite implements NotificationDAO {
 		taskValues.put(KEY_DONE, isDone(idEvent) ? 0: 1);
 		db.update(DATABASE_TABLE, taskValues, KEY_ROWID+"=?", new String[]{Integer.toString(idEvent)});
 		this.close();
-		
-		
 		
 	}
 	
