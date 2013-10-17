@@ -12,13 +12,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	
-	private static final int DATABASE_VERSION = 16;
+	private static final int DATABASE_VERSION = 17;
 	
 	private static final String TAG = "DBHandler";
 	
 	private static final String DATABASE_CREATETASK = "CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY, " 
 			+"name VARCHAR not null, date LONG not null, dateNotice LONG, time VARCHAR, repetition VARCHAR, " +
-			"description VARCHAR, tag VARCHAR, supertask INTEGER, completed BOOL);" ;
+			"description VARCHAR, tag VARCHAR, supertask INTEGER, completed BOOL, dayOfRepetition INTEGER);" ;
 	
 	private static final String DATABASE_CREATENOTIF = "CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, " 
 			+"idTask INTEGER not null, date LONG not null, notifyDate LONG, ready BOOL, done BOOL, unattended INTEGER, superNotif INTEGER);" ;

@@ -25,4 +25,5 @@ public interface NotificationDAO {
 	public List<RemindTask> getSubNotification(Integer idNotif);
 	public void changeDone(Integer id);
 	public Event getNotificationWithID(Integer id);
+	public ArrayList<Event> getAllReadyNotifications();
 }

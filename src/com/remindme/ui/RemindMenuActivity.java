@@ -55,7 +55,8 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Context ctx = getApplicationContext();
-        ctx.startService(new Intent(RemindMenuActivity.this, NotificationCompleteService.class));
+        //TODO ¿Porque lanza notification complete?
+        //ctx.startService(new Intent(RemindMenuActivity.this, NotificationCompleteService.class));
         
         if (isMyServiceRunning())
         {

@@ -71,7 +71,7 @@ public enum Repetition {
 	 * @param ctx
 	 * @return
 	 */
-	public static String translateString(String enString, Context ctx){
+	public static String translateStringToLocal(String enString, Context ctx){
 		Repetition rep = Repetition.valueOf(enString);
 		
 		String[] array  = ctx.getResources().getStringArray(R.array.new_array_spinnerRepetition);
@@ -127,7 +127,26 @@ public enum Repetition {
 	public static Boolean changedToSingle(String old, String recent){
 		return !isSingle(old) && Repetition.isSingle(recent);
 	}
-
+	
+	public static Integer dayOfRepetition(Date date, String repetition) {
+		Integer day= 0;
+		switch (Repetition.valueOf(repetition)) {
+		
+		case WEEKLY:
+			day = Time.dayOfWeek(date);
+			break;
+		case MONTHLY:
+			day = Time.dayOfMonth(date);
+			break;
+		case ANNUAL:
+			day = Time.dayOfYear(date);
+			break;
+		default:
+			break;
+		}
+		
+		return day;
+	}
 }
 
 

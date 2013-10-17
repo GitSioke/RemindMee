@@ -79,7 +79,7 @@ import com.remindme.utils.Repetition;
            dateString = format.format(task.getDateNotice());
            txtDateNotice.setText(dateString);
            TextView txtRepetition = (TextView)findViewById(R.id.Task_Repetition);
-           String strTranslated = Repetition.translateString(task.getRepetition(), getApplicationContext());
+           String strTranslated = Repetition.translateStringToLocal(task.getRepetition(), getApplicationContext());
            txtRepetition.setText(strTranslated);
            TextView txtTag = (TextView) findViewById(R.id.Task_Tag);
            txtTag.setText(task.getTag());

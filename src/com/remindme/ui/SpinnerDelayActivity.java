@@ -18,7 +18,7 @@ public class SpinnerDelayActivity extends Activity implements OnItemSelectedList
 		super();
 		this.ctx = ctx;
 	}
-	
+	//TODO Esta lanzando ntificationcompleteservice y debeeria hacer otra cosa
 	public void onItemSelected(AdapterView<?> parent, View view,
 			int position, long id) {
 		Object item = parent.getItemAtPosition(position);

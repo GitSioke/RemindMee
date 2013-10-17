@@ -18,6 +18,7 @@ import com.remindme.ui.RemindSplashActivity;
 import com.remindme.ui.RemindTaskActivity;
 import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
+import com.remindme.utils.Time;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -34,7 +35,7 @@ import android.util.Log;
 public class NotificationRestartService extends Service {
 	
 	private static final long sleepTime;
-	
+	private static final long twohour;
 
 	static {
 	    Calendar cal;
@@ -44,7 +45,13 @@ public class NotificationRestartService extends Service {
 	    
 	    sleepTime = cal.getTimeInMillis();
 	}
-	
+	static{
+		Calendar cal;
+		cal = GregorianCalendar.getInstance();
+		cal.clear();
+		cal.set(Calendar.HOUR, 2);
+		twohour = cal.getTimeInMillis();
+	}
 	private Context ctx;
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -61,7 +68,8 @@ public class NotificationRestartService extends Service {
         	
         ArrayList<Event> lapsedNotifs = 
 		dbNoti.lapsedNotifications(Calendar.getInstance().getTimeInMillis());
-        
+        //Se comprueba que haya notificaciones ya pasadas, si han sido superadas por algunas de ellas se dejan como ready = false
+        // para que dejen de notificarse
 		for(Event notif :lapsedNotifs)
 		{
 			if(notif.getDate().before(Calendar.getInstance().getTime()) 
@@ -73,13 +81,16 @@ public class NotificationRestartService extends Service {
 			}
 		}
 		//TODO Iniciar como si estuviese apagad
-		//RemindNotification not = new RemindNotification(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false);
-		//dbNoti.insertNotification(not);
-		//Long longas = Calendar.getInstance().getTime().getTime() + 10000;
-		//not = new RemindNotification(12346, 6789,  new Date(longas), new Date(longas), false, false);
-		//dbNoti.insertNotification(not);
-		
-		ArrayList<Event> notificationList= dbNoti.getAllNotifications();
+		//Test prueba que solo los eventos con ready =  true salen de la base de datos
+		Event not = new Event(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false, startId);
+		dbNoti.insert(not);
+		Long longas = Calendar.getInstance().getTime().getTime() + 10000;
+		not = new Event(12346, 6789,  new Date(longas), new Date(longas), false, false, startId);
+		dbNoti.insert(not);
+		RemindTask task1 = new RemindTask(6789, "Prueba Ready", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), "", "SINGLE", "", "TAG", 0, true);
+		dbTask.insertTask(task1);
+		//Se recuperan todas las notificaciones anteriores. Ready = true
+		ArrayList<Event> notificationList= dbNoti.getAllReadyNotifications();
 		NotificationManager notificationManager =
 				(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		
@@ -90,7 +101,7 @@ public class NotificationRestartService extends Service {
 				createNotification(task, notification);
 		}
 		
-		
+		//TODO descomentar cuando funcione el completeservice
 		launchNotificationManagment();
 		this.stopSelf();
 		return startId;
@@ -98,13 +109,10 @@ public class NotificationRestartService extends Service {
 	}
 		private void createNotification(RemindTask task,Event notif){
         	Log.d("ServiceRestart", "Creando notification "+task.getName());
-        	
-        	Locale loc = new Locale("es ES");
-        	SimpleDateFormat format= new SimpleDateFormat("E dd//MM/yyyy HH:mm", loc);
-        	String strDate = format.format(notif.getDate());
+        	String strDate = Time.parseLongDate(notif.getDate());
         	
         	Intent completeIntent = new Intent(NotificationRestartService.this, NotificationCompleteService.class);
-        	completeIntent.putExtra("task", task);
+        	completeIntent.putExtra("notif", notif);
         	
         	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
         	
@@ -154,8 +162,10 @@ public class NotificationRestartService extends Service {
 			Intent intentManage = new Intent(this, NotificationManagementService.class);
 			PendingIntent pendingIntent = PendingIntent.getService(this, 0, intentManage, 0);
 		    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		    alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime, pendingIntent);
-			Log.d("ServiceManagement", "Sleep for:" + new Date(sleepTime) +" /n til: "+ new Date(Calendar.getInstance().getTimeInMillis()+sleepTime) );
+		    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime + 7200000, sleepTime, pendingIntent);
+		    //alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()+ sleepTime, pendingIntent);
+		    Log.d("ServiceRestart", "Two Hours:" + new Date(twohour));
+		    Log.d("ServiceRestart", "Sleep for:" + new Date(sleepTime) +" /n til: "+ new Date(Calendar.getInstance().getTimeInMillis()+sleepTime+7200000) );
 		}
 		
 }

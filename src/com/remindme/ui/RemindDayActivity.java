@@ -10,10 +10,17 @@ import java.util.Locale;
 
 import com.remindme.ui.R;
 
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskNotifDAO;
+import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
+import com.remindme.utils.Event;
 import com.remindme.utils.NoticeNew;
 import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
+import com.remindme.utils.Time;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -37,27 +44,61 @@ public class RemindDayActivity extends RemindActivity {
         setContentView(R.layout.day);
         setHeaderButton();
         
-        TaskDAO dbTask = new TaskSQLite(this);
         
-       	Long dateLong = (Long)getIntent().getLongExtra("date", 0);
-        Date day = new Date(dateLong);
-        SimpleDateFormat format = new SimpleDateFormat("d 'de' MMM yyyy", new Locale("es", "ES"));
-		String dateString = format.format(day);
+        TaskDAO db = new TaskSQLite(this);
+        NotificationDAO dbNotif= new NotificationSQLite(this);
+        TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
+        
+        Calendar calme = Calendar.getInstance();
+         Date date = calme.getTime();
+        String time = "no hora";
+        String repetition = Repetition.WEEKLY.toString();
+        RemindTask task1 = new RemindTask(null, "TIENE", date, date, time, repetition, "", "Naranja", null, false);
+        calme.roll(Calendar.DAY_OF_YEAR, -1);
+        date = calme.getTime();
+        RemindTask task2 = new RemindTask(null, "NO TIENE", date, date, time, repetition, "", "Sandia", null, false);
+        calme.roll(Calendar.DAY_OF_YEAR, -1);
+        date = calme.getTime();
+        RemindTask task3 = new RemindTask(null, "NO ES SEMANAL", date, date, time, Repetition.MONTHLY.toString(), "", "Melon", null, true);
+        db.insertTask(task1);
+        db.insertTask(task2);
+        db.insertTask(task3);
+        
+        calme.roll(Calendar.DAY_OF_YEAR, 3);
+        date = calme.getTime();
+        Date dateOfRecord = date;
+        Event notif1 = new Event(null, task1.getId(), date, date, true, false, null);
+        calme.roll(Calendar.DAY_OF_YEAR, -2);
+        date = calme.getTime();
+        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
+        Event notif3 = new Event(null, task3.getId(), date, date, true, true, null);
+
+        dbNotif.insert(notif1);
+        dbNotif.insert(notif2);
+        dbNotif.insert(notif3);
+        
+       	Long dateLong = getIntent().getLongExtra("date", 0);
+       	Date day = new Date(dateLong);
+       	String dateString = Time.parseDateDay(day);
+       			
+		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
+		txtHeader.setText(dateString);
+		
 		Calendar cal = Calendar.getInstance();
 		cal.roll(Calendar.DAY_OF_YEAR, 1);
 		Date endOfDay = cal.getTime();
 		
-		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
-		txtHeader.setText(dateString);
 		
-		ArrayList<RemindTask> taskList =  dbTask.getTaskBetweenDates(day, endOfDay);
+		//TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
+		ArrayList<RemindTask> taskList =  dbJoin.weeklyEventsBetweenDates(day, endOfDay, Time.dayOfWeek(day));
+		//taskList.addAll(dbJoin.monthlyEventsBetweenDates(day, endOfDay, Time.dayOfMonth(day)));
+		//taskList.addAll(dbJoin.yearlyEventsBetweenDates(day, endOfDay, Time.dayOfYear(day)));
 		if (taskList.isEmpty()){
         	Toast.makeText(this, R.string.day_toast_noTask, Toast.LENGTH_LONG).show();
         }else{
         	
         	displayTaskWithTextView(taskList);
-        	//displayCheckBoxes(taskList);
-        }
+         }
         
         
     }

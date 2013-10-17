@@ -1,13 +1,12 @@
 package com.remindme.ui;
 
-import com.remindme.db.TaskSQLite;
+
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;

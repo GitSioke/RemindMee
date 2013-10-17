@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class RemindNotificationActivity extends Activity {
-	
+	//TODO Borrar clase no se esta usando en principio
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);

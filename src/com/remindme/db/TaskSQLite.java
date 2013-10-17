@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.remindme.utils.RemindTask;
+import com.remindme.utils.Repetition;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,6 +28,7 @@ public class TaskSQLite implements TaskDAO{
 	static final String KEY_TAG="tag";
 	static final String KEY_COMPLETED="completed";
 	static final String KEY_SUPERTASK="supertask";
+	static final String KEY_REPDAY="dayOfRepetition";
 		
 	
 	static final String DATABASE_TABLE = "tasks";
@@ -62,17 +64,21 @@ public class TaskSQLite implements TaskDAO{
 	//TODO Revisar si se puede hacer un con ContentValues de parametro o crear una clase de tipo Task
 	public long insertTask(RemindTask task){
 		this.open();
+		String repetition = task.getRepetition();
+		Date date = task.getDate();
 		ContentValues taskValues = new ContentValues();
 		taskValues.put(KEY_ROWID, task.getId());
 		taskValues.put(KEY_NAME, task.getName());
-		taskValues.put(KEY_DATE, task.getDate().getTime());
+		taskValues.put(KEY_DATE, date.getTime());
 		taskValues.put(KEY_DATENOTICE, task.getDateNotice().getTime());
 		taskValues.put(KEY_TIME, task.getTime());
-		taskValues.put(KEY_REPETITION, task.getRepetition());
+		taskValues.put(KEY_REPETITION, repetition);
 		taskValues.put(KEY_DESCRIPTION, task.getDescription());
 		taskValues.put(KEY_TAG, task.getTag());
 		taskValues.put(KEY_SUPERTASK, task.getSuperTask());
 		taskValues.put(KEY_COMPLETED, task.isCompleted());
+		Integer dayOfRepetition = Repetition.dayOfRepetition(date, repetition);
+		taskValues.put(KEY_REPDAY, dayOfRepetition);
 		long changes = db.insert(DATABASE_TABLE, null, taskValues);
 		this.close();
 		return changes;

@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="lib" path="joda-time-2.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="gcm.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/pick/Descargas/adt-bundle-linux-x86_64/sdk/extras/android/support/v4/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
