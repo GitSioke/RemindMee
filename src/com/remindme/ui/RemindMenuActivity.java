@@ -99,9 +99,9 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         }
         //
         
-        ImageView imageAll = (ImageView) findViewById(R.id.Menu_ImageView_All);
-        ImageView imageTags = (ImageView) findViewById(R.id.Menu_ImageView_Tags);
-        ImageView imageToday = (ImageView) findViewById(R.id.Menu_ImageView_Today);
+        ImageView imageAll = (ImageView) findViewById(R.id.Menu_RelativeTableAll);
+        ImageView imageTags = (ImageView) findViewById(R.id.Menu_RelativeTableTags);
+        ImageView imageToday = (ImageView) findViewById(R.id.Menu_RelativeTableToday);
         ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
         ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
         ImageView imageCalendar = (ImageView) findViewById(R.id.Menu_ImageView_Calendar);

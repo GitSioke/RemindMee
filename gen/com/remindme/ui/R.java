@@ -26,6 +26,7 @@ public final class R {
         public static final int header_text=0x7f050004;
         public static final int hintText=0x7f050008;
         public static final int hintText2=0x7f050009;
+        public static final int menu_texticon=0x7f05000b;
         public static final int newedit_normalText=0x7f05000a;
         public static final int normalText=0x7f050007;
         public static final int splash_hello=0x7f050000;
@@ -33,27 +34,33 @@ public final class R {
         public static final int white=0x7f050003;
     }
     public static final class dimen {
-        public static final int app_doublepadding_left=0x7f060017;
+        public static final int app_doublepadding_left=0x7f060018;
         public static final int app_info=0x7f060003;
         public static final int app_marginTop=0x7f06001f;
         public static final int app_margin_side=0x7f060004;
         public static final int app_name=0x7f060001;
         public static final int app_padding_left=0x7f060005;
-        public static final int app_padding_right=0x7f060018;
-        public static final int dialog_answer=0x7f060013;
+        public static final int app_padding_right=0x7f060019;
+        public static final int dialog_answer=0x7f060014;
         /**  Dialog 
          */
-        public static final int dialog_question=0x7f060012;
+        public static final int dialog_question=0x7f060013;
         public static final int dim_60dp=0x7f060002;
         public static final int header_day_text=0x7f06000b;
         public static final int header_icon=0x7f06000a;
         public static final int header_marginLeft=0x7f060006;
         public static final int header_marginRight=0x7f060007;
-        public static final int listItem_padding=0x7f060014;
-        public static final int menu_icon=0x7f060022;
-        public static final int menu_marginTop_relativeL=0x7f06001d;
+        public static final int listItem_padding=0x7f060015;
+        public static final int menu_height=0x7f060026;
+        public static final int menu_icon=0x7f060024;
+        public static final int menu_marginLeftRow=0x7f060023;
+        public static final int menu_marginTop_relativeL=0x7f060022;
+        /**  Menu 
+         */
         public static final int menu_tableMargin=0x7f060020;
         public static final int menu_tableRowMargin=0x7f060021;
+        public static final int menu_texticon=0x7f060027;
+        public static final int menu_width=0x7f060025;
         public static final int new_marginLeft=0x7f06000f;
         /** New_edit secreen 
          */
@@ -61,21 +68,21 @@ public final class R {
         public static final int new_textPicked=0x7f06000e;
         public static final int new_textSpinner=0x7f06000d;
         public static final int repeat_margin=0x7f06001e;
-        public static final int separatorline_height=0x7f060016;
-        public static final int separatorline_width=0x7f060015;
-        public static final int spinner_height=0x7f06001a;
-        public static final int spinner_width=0x7f060019;
+        public static final int separatorline_height=0x7f060017;
+        public static final int separatorline_width=0x7f060016;
+        public static final int spinner_height=0x7f06001b;
+        public static final int spinner_width=0x7f06001a;
         public static final int splash_hello=0x7f060000;
-        public static final int task_icon_height=0x7f06001c;
-        public static final int task_icon_width=0x7f06001b;
-        public static final int task_marginTop=0x7f060023;
+        public static final int task_icon_height=0x7f06001d;
+        public static final int task_icon_width=0x7f06001c;
+        public static final int task_marginTop=0x7f060012;
         /**  Task text 
          */
         public static final int task_name=0x7f060010;
         public static final int task_values=0x7f060011;
         public static final int text_header=0x7f060008;
         public static final int text_header_margin=0x7f060009;
-        public static final int today_expiredSubcategory=0x7f060024;
+        public static final int today_expiredSubcategory=0x7f060028;
     }
     public static final class drawable {
         public static final int background=0x7f020000;
@@ -163,14 +170,14 @@ public final class R {
         public static final int ListItemTask_RLayout=0x7f0a0023;
         public static final int ListItemTask_Time=0x7f0a0025;
         public static final int Menu_EditTextNotification=0x7f0a0030;
-        public static final int Menu_ImageView_All=0x7f0a002f;
-        public static final int Menu_ImageView_Calendar=0x7f0a002c;
-        public static final int Menu_ImageView_Tags=0x7f0a002e;
-        public static final int Menu_ImageView_Today=0x7f0a002b;
+        public static final int Menu_ImageView_Calendar=0x7f0a002b;
         public static final int Menu_RelativeLayout01=0x7f0a0028;
-        public static final int Menu_TableLayout=0x7f0a0029;
-        public static final int Menu_TableRow01=0x7f0a002a;
-        public static final int Menu_TableRow02=0x7f0a002d;
+        public static final int Menu_RelativeTableAll=0x7f0a002e;
+        public static final int Menu_RelativeTableTags=0x7f0a002c;
+        public static final int Menu_RelativeTableToday=0x7f0a0029;
+        public static final int Menu_TextViewAll=0x7f0a002f;
+        public static final int Menu_TextViewTags=0x7f0a002d;
+        public static final int Menu_TextViewToday=0x7f0a002a;
         public static final int NewLinearLayout=0x7f0a0032;
         public static final int NewScrollView=0x7f0a0031;
         public static final int New_ButtonDate=0x7f0a0036;
@@ -256,75 +263,78 @@ public final class R {
     public static final class string {
         /**  All View 
          */
-        public static final int all_header=0x7f070015;
-        public static final int all_taskid=0x7f070017;
-        public static final int all_taskname=0x7f070016;
-        public static final int all_toastEmpty=0x7f070018;
+        public static final int all_header=0x7f070018;
+        public static final int all_taskid=0x7f07001a;
+        public static final int all_taskname=0x7f070019;
+        public static final int all_toastEmpty=0x7f07001b;
         public static final int app_name=0x7f070001;
         /**  Calendar 
          */
-        public static final int calendar_hint=0x7f07001c;
-        public static final int completed_header=0x7f070029;
-        public static final int completed_toastEmpty=0x7f070027;
-        public static final int day_toast_noTask=0x7f070034;
-        public static final int dialog_ask_delete=0x7f070022;
-        public static final int dialog_ask_edit=0x7f07001f;
-        public static final int dialog_cancel=0x7f07001e;
-        public static final int dialog_delay=0x7f070023;
-        public static final int dialog_delete=0x7f070020;
-        public static final int dialog_deleteTask=0x7f070021;
-        public static final int dialog_edit=0x7f07001d;
-        public static final int edit_editButton=0x7f070037;
-        public static final int edit_header=0x7f070014;
+        public static final int calendar_hint=0x7f07001f;
+        public static final int completed_header=0x7f07002c;
+        public static final int completed_toastEmpty=0x7f07002a;
+        public static final int day_toast_noTask=0x7f070037;
+        public static final int dialog_ask_delete=0x7f070025;
+        public static final int dialog_ask_edit=0x7f070022;
+        public static final int dialog_cancel=0x7f070021;
+        public static final int dialog_delay=0x7f070026;
+        public static final int dialog_delete=0x7f070023;
+        public static final int dialog_deleteTask=0x7f070024;
+        public static final int dialog_edit=0x7f070020;
+        public static final int edit_editButton=0x7f07003a;
+        public static final int edit_header=0x7f070017;
         public static final int hello=0x7f070000;
-        public static final int menu_bottom=0x7f070038;
-        public static final int menu_header=0x7f070024;
-        public static final int menu_toast_delete=0x7f070026;
-        public static final int menu_toast_deleteAll=0x7f070025;
-        public static final int new_addButton=0x7f07000f;
-        public static final int new_date=0x7f07000b;
-        public static final int new_dateNotice=0x7f07002b;
-        public static final int new_date_hint=0x7f07000c;
-        public static final int new_description=0x7f07000a;
-        public static final int new_header=0x7f070004;
+        public static final int menu_all=0x7f070004;
+        public static final int menu_bottom=0x7f07003b;
+        public static final int menu_header=0x7f070027;
+        public static final int menu_tag=0x7f070005;
+        public static final int menu_toast_delete=0x7f070029;
+        public static final int menu_toast_deleteAll=0x7f070028;
+        public static final int menu_today=0x7f070003;
+        public static final int new_addButton=0x7f070012;
+        public static final int new_date=0x7f07000e;
+        public static final int new_dateNotice=0x7f07002e;
+        public static final int new_date_hint=0x7f07000f;
+        public static final int new_description=0x7f07000d;
+        public static final int new_header=0x7f070007;
         /**  New View 
          */
-        public static final int new_name=0x7f070008;
-        public static final int new_name_hint=0x7f070009;
-        public static final int new_repeat=0x7f07000d;
-        public static final int new_repeat_hint=0x7f07000e;
-        public static final int new_spinnerNotice_eighthour=0x7f070030;
-        public static final int new_spinnerNotice_fourhours=0x7f07002f;
-        public static final int new_spinnerNotice_oneday=0x7f070032;
-        public static final int new_spinnerNotice_onehour=0x7f07002d;
-        public static final int new_spinnerNotice_twelvehour=0x7f070031;
-        public static final int new_spinnerNotice_twodays=0x7f070033;
-        public static final int new_spinnerNotice_twohours=0x7f07002e;
-        public static final int new_tag=0x7f070012;
-        public static final int new_tag_hint=0x7f070013;
-        public static final int new_time=0x7f070010;
-        public static final int new_time_hint=0x7f070011;
-        public static final int new_toast_dateNoSense=0x7f07002c;
-        public static final int new_toast_missingData=0x7f07002a;
-        public static final int notif_complete=0x7f070039;
-        public static final int notif_delay=0x7f07003a;
+        public static final int new_name=0x7f07000b;
+        public static final int new_name_hint=0x7f07000c;
+        public static final int new_repeat=0x7f070010;
+        public static final int new_repeat_hint=0x7f070011;
+        public static final int new_spinnerNotice_eighthour=0x7f070033;
+        public static final int new_spinnerNotice_fourhours=0x7f070032;
+        public static final int new_spinnerNotice_oneday=0x7f070035;
+        public static final int new_spinnerNotice_onehour=0x7f070030;
+        public static final int new_spinnerNotice_twelvehour=0x7f070034;
+        public static final int new_spinnerNotice_twodays=0x7f070036;
+        public static final int new_spinnerNotice_twohours=0x7f070031;
+        public static final int new_tag=0x7f070015;
+        public static final int new_tag_hint=0x7f070016;
+        public static final int new_time=0x7f070013;
+        public static final int new_time_hint=0x7f070014;
+        public static final int new_toast_dateNoSense=0x7f07002f;
+        public static final int new_toast_missingData=0x7f07002d;
+        public static final int notif_complete=0x7f07003c;
+        public static final int notif_delay=0x7f07003d;
         /**  Menu strings 
          */
         public static final int tags_header=0x7f070002;
-        public static final int task_date=0x7f070035;
-        public static final int task_dateNotice=0x7f070036;
+        public static final int task_date=0x7f070038;
+        public static final int task_dateNotice=0x7f070039;
         /**  Task View 
          */
-        public static final int task_headertxt=0x7f070019;
-        public static final int task_subtask=0x7f07001a;
-        public static final int task_subtaskhint=0x7f07001b;
-        public static final int task_toast_hasSubtask=0x7f070028;
+        public static final int task_headertxt=0x7f07001c;
+        public static final int task_subtask=0x7f07001d;
+        public static final int task_subtaskhint=0x7f07001e;
+        public static final int task_toast_hasSubtask=0x7f07002b;
         /**  Today View 
          */
-        public static final int today_expired=0x7f070005;
-        public static final int today_header=0x7f070003;
-        public static final int today_noexpiredtasks=0x7f070006;
-        public static final int today_toastEmpty=0x7f070007;
+        public static final int today_expired=0x7f070008;
+        public static final int today_header=0x7f070006;
+        public static final int today_noexpiredtasks=0x7f070009;
+        public static final int today_toastEmpty=0x7f07000a;
     }
     public static final class style {
         public static final int spinner=0x7f090000;

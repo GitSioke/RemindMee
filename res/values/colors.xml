@@ -12,4 +12,7 @@
 	<color name="hintText">#424242</color>
 	<color name="hintText2">#848484</color>
 	<color name="newedit_normalText">#585858</color>
-</resources>
+	
+	<color name="menu_texticon">#FFFFFF</color>	
+
+	</resources>

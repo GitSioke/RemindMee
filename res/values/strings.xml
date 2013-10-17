@@ -11,6 +11,11 @@
     <!-- Menu strings -->
     
     <string name="tags_header">Etiquetas</string>
+    <string name="menu_today">Hoy</string>
+    <string name="menu_all">Todas</string>
+    <string name="menu_tag">Tags</string>
+   
+    
     
     <string name="today_header">Hoy</string>
     

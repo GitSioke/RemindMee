@@ -94,8 +94,8 @@ public class NotificationManagementService extends IntentService{
 					//Se coloca a ready todas las tareas que esten listas para ser notificadas en un periodo de 24h 
 					//todas estas tareas entran en el notification manager
 	        		Log.d("ServiceManagement", "Loop");
-	        		createNotificationTest();
-	        		/*ArrayList<Event> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
+	        		
+	        		ArrayList<Event> pendingNotifications = dbNoti.getUnreadyNotifications(Calendar.getInstance().getTimeInMillis());
 					for(Event notif : pendingNotifications)
 					{
 						notif.setReady(true);
@@ -103,7 +103,7 @@ public class NotificationManagementService extends IntentService{
 						RemindTask task = dbTask.getTaskWithID(notif.getIdTask());
 						if(task!=null)
 							createNotification(task, notif);	                		
-					}*/
+					}
 					
 					Intent intentManage = new Intent(NotificationManagementService.this, NotificationManagementService.class);
 					intent.putExtra("firstLoop", false);
@@ -173,7 +173,7 @@ public class NotificationManagementService extends IntentService{
     	    	mNotificationManager.notify(notif.getId(), mBuilder.build());
     	    	
 	        }
-	        //Metodo de prueba
+	        /**Metodo de prueba
 	        private void createNotificationTest(){
 	        	Log.d("ServiceManagement", "Creando test");
 	        	
@@ -222,7 +222,7 @@ public class NotificationManagementService extends IntentService{
     	    	Random r = new Random();
     	    	mNotificationManager.notify(r.nextInt(), mBuilder.build());
     	    	
-	        }
+	        }*/
 	        
 	    }).start();
 	    

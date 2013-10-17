@@ -23,7 +23,7 @@ import android.widget.EditText;
 public class RemindMainActivity extends Activity {
 	
 	public static final String NOTIFICATION_DATA = "NOTIFICATION_DATA";
-
+	//TODO Clase para borrar
 
 	private Button createEvent;
 	private EditText notificationData;
@@ -33,7 +33,7 @@ public class RemindMainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
 		//createEvent=(Button) findViewById(R.id.menu);
-		notificationData =(EditText) findViewById(R.id.Menu_ImageView_All);
+		notificationData =(EditText) findViewById(R.id.Menu_ImageView_Calendar);
 		createEvent.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
