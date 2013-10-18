@@ -73,10 +73,21 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 				
 		CalendarView calView =(CalendarView)this.viewPicker.findViewById(R.id.DatePicker_Calendar);
+		Calendar cal = Calendar.getInstance();
 		
-        dateLong = calView.getDate();
-        Date date = new Date(dateLong);
-        this.listener.onDateSelected(date);        	
+		cal.setTime(new Date(calView.getDate()));
+		int dayN = cal.get(Calendar.DAY_OF_YEAR);
+		int monthN = cal.get(Calendar.MONTH);
+		int yearN = cal.get(Calendar.YEAR);
+		
+		cal.clear();
+		cal.set(Calendar.DAY_OF_YEAR, dayN);
+		cal.set(Calendar.MONTH, monthN);
+		cal.set(Calendar.YEAR, yearN);
+		
+		
+		
+        this.listener.onDateSelected(cal.getTime());        	
 		
 		
 		/**Old code
@@ -114,7 +125,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		this.viewPicker = inflater.inflate(R.layout.date_picker_fragment, null);
 		final Calendar c = Calendar.getInstance();
-		c.clear();
+		//c.clear();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_YEAR);

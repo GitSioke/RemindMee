@@ -37,6 +37,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,9 +100,9 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         }
         //
         
-        ImageView imageAll = (ImageView) findViewById(R.id.Menu_RelativeTableAll);
-        ImageView imageTags = (ImageView) findViewById(R.id.Menu_RelativeTableTags);
-        ImageView imageToday = (ImageView) findViewById(R.id.Menu_RelativeTableToday);
+        RelativeLayout imageAll = (RelativeLayout) findViewById(R.id.Menu_RelativeTableAll);
+        RelativeLayout imageTags = (RelativeLayout) findViewById(R.id.Menu_RelativeTableTags);
+        RelativeLayout imageToday = (RelativeLayout) findViewById(R.id.Menu_RelativeTableToday);
         ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
         ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
         ImageView imageCalendar = (ImageView) findViewById(R.id.Menu_ImageView_Calendar);

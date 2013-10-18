@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -43,7 +44,22 @@ public class RemindAllTaskActivity extends RemindActivity {
         Log.d("ALL", "Set content view");
         setContentView(R.layout.all);
         Log.d("ALL", "Initialize cursor");
-       
+        ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
+        ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);
+        imageNew.setOnClickListener(new View.OnClickListener() {
+			
+        	public void onClick(View v) {
+				startActivity(new Intent(RemindAllTaskActivity.this, RemindNewActivity.class));
+			}
+		});
+        
+        imageHome.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				startActivity(new Intent(RemindAllTaskActivity.this, RemindMenuActivity.class));
+				
+			}
+		});
         /**db.open();
         Log.d("ALL", "Initialize cursor");
         Cursor cursor =  db.getAllTasks();
