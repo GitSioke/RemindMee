@@ -53,6 +53,8 @@
 	<dimen name="menu_height">110dp</dimen>
 	<dimen name="menu_texticon">30dp</dimen>
 	
-	
+	<!-- Today -->
 	<dimen name="today_expiredSubcategory">25dp</dimen>
+	<dimen name="today_noDelayedTask">15dp</dimen>
+	
 </resources>

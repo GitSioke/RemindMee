@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "RemindMeDB";
 	
-	private static final int DATABASE_VERSION = 17;
+	private static final int DATABASE_VERSION = 18;
 	
 	private static final String TAG = "DBHandler";
 	

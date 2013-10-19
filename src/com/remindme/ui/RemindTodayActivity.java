@@ -30,6 +30,7 @@ import com.remindme.db.TaskSQLite;
 import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
+import com.remindme.utils.Time;
 
 public class RemindTodayActivity extends RemindActivity {
     
@@ -78,31 +79,28 @@ public class RemindTodayActivity extends RemindActivity {
         String time = "no hora";
         String repetition = Repetition.DAILY.toString();
         
+        /*
+        RemindTask task1 = new RemindTask(null, "HOY", date, date, time, repetition, "", "Naranja", null, false);
+        Event notif1 = new Event(null, task1.getId(), date, date, true, false, null);
+        Date dateOfRecord = date;
         
-        RemindTask task1 = new RemindTask(null, "MACAYEAH", date, date, time, repetition, "", "Naranja", null, false);
         cal.roll(Calendar.DAY_OF_YEAR, -1);
         date = cal.getTime();
-        RemindTask task2 = new RemindTask(null, "Tarea2", date, date, time, repetition, "", "Sandia", null, false);
-        RemindTask task3 = new RemindTask(null, "Tarea3", date, date, time, repetition, "", "Melon", null, true);
+        RemindTask task2 = new RemindTask(null, "AYER", date, date, time, repetition, "", "Sandia", null, false);
+        RemindTask task3 = new RemindTask(null, "AYER Completa", date, date, time, repetition, "", "Melon", null, true);
+        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
+        Event notif3 = new Event(null, task3.getId(), date, date, true, true, null);
+        
         db.insertTask(task1);
         db.insertTask(task2);
         db.insertTask(task3);
-        
-        cal.roll(Calendar.DAY_OF_YEAR, 2);
-        date = cal.getTime();
-        Date dateOfRecord = date;
-        Event notif1 = new Event(null, task1.getId(), date, date, true, false, null);
-        cal.roll(Calendar.DAY_OF_YEAR, -1);
-        date = cal.getTime();
-        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
-        Event notif3 = new Event(null, task3.getId(), date, date, true, true, null);
-
         dbNotif.insert(notif1);
         dbNotif.insert(notif2);
         dbNotif.insert(notif3);
-        
+        */
         //TODO REalizar bien las dos llamadas a base de datos para recoger los correctos valores de las tareas
-        //Date dateOfRecord = cal.getTime();
+        Date dateOfRecord = cal.getTime();
+        dateOfRecord = Time.retainMainDate(dateOfRecord);
 		ArrayList<RemindTask> taskList =  dbJoin.getAllTasksWith(dateOfRecord);
 		ArrayList<RemindTask> expiredTaskList = dbJoin.getAllTasksBefore(dateOfRecord);
         if (taskList.isEmpty() && expiredTaskList.isEmpty()){
@@ -114,7 +112,8 @@ public class RemindTodayActivity extends RemindActivity {
         
         if(expiredTaskList.isEmpty()){
         	TextView text = (TextView)findViewById(R.id.Today_ExpiredText);
-        	text.setText("");
+        	text.setText(R.string.today_noexpiredtasks);
+        	text.setTextSize(R.dimen.today_noDelayedTask);
         }
         
     	/**CheckBox box = (CheckBox) findViewById(R.id.ListItemCheck_Checkbox);

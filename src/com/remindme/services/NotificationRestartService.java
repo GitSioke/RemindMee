@@ -82,13 +82,13 @@ public class NotificationRestartService extends Service {
 		}
 		//TODO Iniciar como si estuviese apagad
 		//Test prueba que solo los eventos con ready =  true salen de la base de datos
-		Event not = new Event(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false, startId);
+		/*Event not = new Event(12345, 6789, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), true, false, startId);
 		dbNoti.insert(not);
 		Long longas = Calendar.getInstance().getTime().getTime() + 10000;
 		not = new Event(12346, 6789,  new Date(longas), new Date(longas), false, false, startId);
 		dbNoti.insert(not);
 		RemindTask task1 = new RemindTask(6789, "Prueba Ready", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), "", "SINGLE", "", "TAG", 0, true);
-		dbTask.insertTask(task1);
+		dbTask.insertTask(task1);*/
 		//Se recuperan todas las notificaciones anteriores. Ready = true
 		ArrayList<Event> notificationList= dbNoti.getAllReadyNotifications();
 		NotificationManager notificationManager =

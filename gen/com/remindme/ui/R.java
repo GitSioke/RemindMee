@@ -82,7 +82,10 @@ public final class R {
         public static final int task_values=0x7f060011;
         public static final int text_header=0x7f060008;
         public static final int text_header_margin=0x7f060009;
+        /**  Today 
+         */
         public static final int today_expiredSubcategory=0x7f060028;
+        public static final int today_noDelayedTask=0x7f060029;
     }
     public static final class drawable {
         public static final int background=0x7f020000;

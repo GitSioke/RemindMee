@@ -47,5 +47,27 @@ public abstract class Time {
 		cal.setTime(date);
 		return cal;
 	}
+	public static Date updateDate(Date dateToUpdate, Date day) {
+		Calendar cal = Calendar.getInstance();
+		Calendar calAux = Calendar.getInstance();
+		calAux.setTime(day);
+		cal.setTime(dateToUpdate);
+		
+		cal.set(Calendar.DAY_OF_YEAR, calAux.get(Calendar.DAY_OF_YEAR));
+		cal.set(Calendar.MONTH, calAux.get(Calendar.MONTH));
+		cal.set(Calendar.YEAR, calAux.get(Calendar.YEAR));
+		return cal.getTime();
+	}
+	public static Date retainMainDate(Date dateOfRecord) {
+		Calendar calAux = Calendar.getInstance();
+		calAux.setTime(dateOfRecord);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.set(Calendar.DAY_OF_YEAR, calAux.get(Calendar.DAY_OF_YEAR));
+		cal.set(Calendar.MONTH, calAux.get(Calendar.MONTH));
+		cal.set(Calendar.YEAR, calAux.get(Calendar.YEAR));
+		return cal.getTime();
+	}
 	
 }

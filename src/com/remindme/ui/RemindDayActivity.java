@@ -50,13 +50,13 @@ public class RemindDayActivity extends RemindActivity {
         TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
         
         Calendar calme = Calendar.getInstance();
-         Date date = calme.getTime();
+        Date date = calme.getTime();
         String time = "no hora";
         String repetition = Repetition.WEEKLY.toString();
         RemindTask task1 = new RemindTask(null, "TIENE", date, date, time, repetition, "", "Naranja", null, false);
-        calme.roll(Calendar.DAY_OF_YEAR, -1);
-        date = calme.getTime();
-        RemindTask task2 = new RemindTask(null, "NO TIENE", date, date, time, repetition, "", "Sandia", null, false);
+        //calme.roll(Calendar.DAY_OF_YEAR, -1);
+        //date = calme.getTime();
+        RemindTask task2 = new RemindTask(null, "CREADO", date, date, time, repetition, "", "Sandia", null, false);
         calme.roll(Calendar.DAY_OF_YEAR, -1);
         date = calme.getTime();
         RemindTask task3 = new RemindTask(null, "NO ES SEMANAL", date, date, time, Repetition.MONTHLY.toString(), "", "Melon", null, true);
@@ -68,14 +68,19 @@ public class RemindDayActivity extends RemindActivity {
         date = calme.getTime();
         Date dateOfRecord = date;
         Event notif1 = new Event(null, task1.getId(), date, date, true, false, null);
+        
         calme.roll(Calendar.DAY_OF_YEAR, -2);
         date = calme.getTime();
-        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
         Event notif3 = new Event(null, task3.getId(), date, date, true, true, null);
+        calme.roll(Calendar.DAY_OF_YEAR, -5);
+        Event notif4 = new Event(null, task1.getId(), date, date, true, true, null);
+        Event notif2 = new Event(null, task2.getId(), date, date, true, false, null);
+        
 
         dbNotif.insert(notif1);
         dbNotif.insert(notif2);
         dbNotif.insert(notif3);
+        dbNotif.insert(notif4);
         
        	Long dateLong = getIntent().getLongExtra("date", 0);
        	Date day = new Date(dateLong);
@@ -90,6 +95,7 @@ public class RemindDayActivity extends RemindActivity {
 		
 		
 		//TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
+		
 		ArrayList<RemindTask> taskList =  dbJoin.weeklyEventsBetweenDates(day, endOfDay, Time.dayOfWeek(day));
 		//taskList.addAll(dbJoin.monthlyEventsBetweenDates(day, endOfDay, Time.dayOfMonth(day)));
 		//taskList.addAll(dbJoin.yearlyEventsBetweenDates(day, endOfDay, Time.dayOfYear(day)));
