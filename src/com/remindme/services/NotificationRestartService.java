@@ -109,7 +109,7 @@ public class NotificationRestartService extends Service {
 	}
 		private void createNotification(RemindTask task,Event notif){
         	Log.d("ServiceRestart", "Creando notification "+task.getName());
-        	String strDate = Time.parseLongDate(notif.getDate());
+        	String strDate = Time.formatLongDate(notif.getDate());
         	
         	Intent completeIntent = new Intent(NotificationRestartService.this, NotificationCompleteService.class);
         	completeIntent.putExtra("notif", notif);

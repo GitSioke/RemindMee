@@ -9,12 +9,17 @@ import java.util.Date;
 
 import com.remindme.ui.R;
 
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskNotifDAO;
+import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.DatePickerFragment.OnDateSelectedListener;
 import com.remindme.services.NotificationCompleteService;
 import com.remindme.services.NotificationManagementService;
+import com.remindme.utils.Event;
 import com.remindme.utils.RemindTask;
 import com.remindme.utils.Repetition;
 
@@ -59,6 +64,31 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         //TODO ¿Porque lanza notification complete?
         //ctx.startService(new Intent(RemindMenuActivity.this, NotificationCompleteService.class));
         
+        //Test eventos
+        TaskDAO db = new TaskSQLite(this);
+        NotificationDAO dbNotif= new NotificationSQLite(this);
+        TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String time = "no hora";
+        String repetition = Repetition.DAILY.toString();
+        RemindTask task1 = new RemindTask(null, "EVENTO 1", date, date, time, repetition, "", "Naranja", null, false);
+        Event notif1 = new Event(null, task1.getId(), date, new Date(date.getTime()-3600000), true, false, null);
+        Date dateOfRecord = date;
+        
+        cal.roll(Calendar.DAY_OF_YEAR, -1);
+        date = cal.getTime();
+        RemindTask task2 = new RemindTask(null, "EVENTO 2", date, date, time, repetition, "", "Sandia", null, false);
+        RemindTask task3 = new RemindTask(null, "EVENTO 3", date, date, time, repetition, "", "Melon", null, true);
+        Event notif2 = new Event(null, task2.getId(), date, new Date(date.getTime()-7200000), true, false, null);
+        Event notif3 = new Event(null, task3.getId(), date, new Date(date.getTime()-7200000), true, true, null);
+        
+        db.insertTask(task1);
+        db.insertTask(task2);
+        db.insertTask(task3);
+        dbNotif.insert(notif1);
+        dbNotif.insert(notif2);
+        dbNotif.insert(notif3);
         if (isMyServiceRunning())
         {
         	Log.d("Menu.Service", "SI");

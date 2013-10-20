@@ -161,12 +161,22 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 			
 			if (checkDateHasSense(date, noticeDate)){
 				correctData = true;
+				Boolean notEvent = false;
 				Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
+				if (superTaskID!= -1){
+					notEvent = getIntent().getBooleanExtra("notEvent", false);
+				}
 				Log.d("NEW", Integer.toString(superTaskID));
 				RemindTask task = new RemindTask(null, name, date, noticeDate, timeString,
 						repString, description, tag, superTaskID, false);
 				TaskDAO taskDB = new TaskSQLite(this);
+				NotificationDAO notifDB = new NotificationSQLite(this);
+				
 				Log.d("NEW", "Create task: "+ task.getDate().toString());
+				if(!notEvent){
+					task.setSuperTask(-1);
+					notifDB.insert(new Event(null, task.getId(), task.getDate(), task.getDateNotice(), false, task.isCompleted(), superTaskID));
+				}
 				taskDB.insertTask(task);
 				createRemindNotification(task);
 			}else{

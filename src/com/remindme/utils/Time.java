@@ -11,18 +11,18 @@ public abstract class Time {
 	
 	private static Locale locale = new Locale("es ES");
 	
-	public static String parseTime(Date date){
+	public static String formatTime(Date date){
 		String strTime;
 		SimpleDateFormat format= new SimpleDateFormat("HH:mm", locale);
 		strTime =format.format(date);
 		return strTime;
 	}
-	public static String parseLongDate(Date date){
+	public static String formatLongDate(Date date){
 		SimpleDateFormat format= new SimpleDateFormat("E dd/MM/yyyy HH:mm", locale);
 		return format.format(date);
 	}
 	
-	public static String parseDateDay(Date date){
+	public static String formatDayDate(Date date){
 		 SimpleDateFormat format = new SimpleDateFormat("d 'de' MMM yyyy", locale);
 		 return format.format(date);
 	}

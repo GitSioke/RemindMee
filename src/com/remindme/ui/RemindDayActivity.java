@@ -84,7 +84,7 @@ public class RemindDayActivity extends RemindActivity {
         
        	Long dateLong = getIntent().getLongExtra("date", 0);
        	Date day = new Date(dateLong);
-       	String dateString = Time.parseDateDay(day);
+       	String dateString = Time.formatDayDate(day);
        			
 		TextView txtHeader =(TextView) findViewById(R.id.Day_HeaderTxtView);
 		txtHeader.setText(dateString);

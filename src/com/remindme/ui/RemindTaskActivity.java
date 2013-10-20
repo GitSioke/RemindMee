@@ -36,6 +36,9 @@ import com.remindme.utils.Repetition;
     	private RemindTask task;
     	private Boolean isFatherTask;
     	private Event notif;
+    	private TaskDAO taskDB;
+    	private NotificationDAO notifDB;
+    	private CheckBox box;
         @Override
         public void onCreate(Bundle savedInstanceState) {
            super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ import com.remindme.utils.Repetition;
            setContentView(R.layout.task);
            Log.d("TASK", "Initialize cursor");
            setHeaderButton();
-           
+           this.box = (CheckBox) findViewById(R.id.Task_Checkbox);
            //RemindTaskDAO taskDB = new  RemindTaskSQLite(this);
            //Integer id = 1088402616;
            //task = taskDB.getTaskWithID(id);
@@ -53,7 +56,6 @@ import com.remindme.utils.Repetition;
            RemindTask subTask3 =new RemindTask(null, "SubTask3", "10/05/2013", "10:00", "Diaria", "Tag2",id, false);
            RemindTaskDAO db = new HandlerSQLite(this);
            db.insertNewTask(subTask1);
-           db.insertNewTask(subTask2);
            db.insertNewTask(subTask3);
            */
            //Inserta tarea manualmente
@@ -85,14 +87,19 @@ import com.remindme.utils.Repetition;
            txtTag.setText(task.getTag());
            TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);
            txtDescr.setText(task.getDescription());
-           
-          CheckBox check = (CheckBox) findViewById(R.id.Task_Checkbox);
-          check.setSelected(task.isCompleted());
+           box.setChecked(task.isCompleted());
            
            
-           NotificationDAO notifDAO = new NotificationSQLite(this);
+           notifDB = new NotificationSQLite(this);
+           taskDB = new TaskSQLite(this);
            //TODO Revisar que sean subnotificaciones
-           ArrayList<RemindTask> subTasks = (ArrayList<RemindTask>) notifDAO.getSubNotification(task.getId());
+           ArrayList<RemindTask> subTasks;
+           if(isFatherTask){
+        	   subTasks = (ArrayList<RemindTask>) taskDB.getSubtasks(task.getId());
+           }else{
+               subTasks = (ArrayList<RemindTask>) notifDB.getSubNotification(task.getId());
+
+           }
            if (!subTasks.isEmpty()){
         		   displayTaskWithTextView(subTasks);         
            }
@@ -102,6 +109,7 @@ import com.remindme.utils.Repetition;
 			public void onClick(View v) {
 				Intent intent = new Intent(RemindTaskActivity.this, RemindNewActivity.class);
    				intent.putExtra("superTaskID", task.getId());
+   				intent.putExtra("notEvent", isFatherTask);
    				startActivity(intent);
 				
 			}
@@ -166,26 +174,30 @@ import com.remindme.utils.Repetition;
         */ 
     	public void onCheckBoxClicked(View view){
     		
-    		if(isFatherTask){
-    			TaskDAO taskDB = new TaskSQLite(this);
-    			if(taskDB.hasSubtask(task.getId())){
-    				Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
-    			}else{
-    				task.setCompleted(task.isCompleted()? false: true);
-    				taskDB.updateTask(task);
-    			}
-    			
-    		}else{
-    			NotificationDAO notifDB = new NotificationSQLite(this);
-        		if (notifDB.hasSubNotification(task.getId())){
-        			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+    		if (box.isChecked()){
+    			if( isFatherTask){
+     			
+        			if(taskDB.hasSubtaskUndone(task.getId())){
+        				Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+        				box.setChecked(false);
+        			}else{
+        				
+        				task.setCompleted(task.isCompleted()? false: true);
+        				taskDB.updateTask(task);
+        			}
+        			
         		}else{
-        			notif.setDone(notif.isDone()? false:true);
-        			notifDB.updateNotification(notif);
-        			//TODO Tachar los textview
-        			//crossOutTaskElements();
+            		if (notifDB.hasSubNotification(task.getId())){
+            			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+            		}else{
+            			notif.setDone(notif.isDone()? false:true);
+            			notifDB.updateNotification(notif);
+            			//TODO Tachar los textview
+            			//crossOutTaskElements();
+            		}
         		}
     		}
+    		
     		
     	}
     	

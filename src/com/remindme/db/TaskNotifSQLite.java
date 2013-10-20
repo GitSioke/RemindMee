@@ -65,7 +65,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         		dateAsLong = cursor.getLong(3);
         		Date dateNotify = new Date(dateAsLong);
         		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-        		String time = Time.parseTime(taskDate);
+        		String time = Time.formatTime(taskDate);
         		String repetition = cursor.getString(13);
         		String description = cursor.getString(14);
         		String tag = cursor.getString(15);
@@ -106,7 +106,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         		dateAsLong = cursor.getLong(3);
         		Date dateNotify = new Date(dateAsLong);
         		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-        		String time = Time.parseTime(taskDate);
+        		String time = Time.formatTime(taskDate);
         		String repetition = cursor.getString(13);
         		String description = cursor.getString(14);
         		String tag = cursor.getString(15);
@@ -209,7 +209,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         		dateAsLong = cursor.getLong(3);
         		Date dateNotify = new Date(dateAsLong);
         		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-        		String time = Time.parseTime(taskDate);
+        		String time = Time.formatTime(taskDate);
         		String repetition = cursor.getString(13);
         		String description = cursor.getString(14);
         		Integer superEvent = cursor.getInt(7);
@@ -291,7 +291,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         		dateAsLong = cursor.getLong(3);
         		Date dateNotify = new Date(dateAsLong);
         		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-        		String time = Time.parseTime(taskDate);
+        		String time = Time.formatTime(taskDate);
         		String repetition = cursor.getString(5);
         		String description = cursor.getString(6);
         		String tag = cursor.getString(7);
@@ -319,7 +319,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         		dateAsLong = cursor.getLong(14);
         		Date dateNotify = new Date(dateAsLong);
         		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-        		String time = Time.parseTime(taskDate);
+        		String time = Time.formatTime(taskDate);
         		String repetition = cursor.getString(5);
         		String description = cursor.getString(6);
         		String tag = cursor.getString(7);
@@ -370,7 +370,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 		        		dateAsLong = cursor.getLong(3);
 		        		Date dateNotify = new Date(dateAsLong);
 		        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-		        		String time = Time.parseTime(taskDate);
+		        		String time = Time.formatTime(taskDate);
 		        		String repetition = cursor.getString(5);
 		        		String description = cursor.getString(6);
 		        		String tag = cursor.getString(7);
@@ -398,7 +398,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 		        		dateAsLong = cursor.getLong(14);
 		        		Date dateNotify = new Date(dateAsLong);
 		        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-		        		String time = Time.parseTime(taskDate);
+		        		String time = Time.formatTime(taskDate);
 		        		String repetition = cursor.getString(5);
 		        		String description = cursor.getString(6);
 		        		String tag = cursor.getString(7);
@@ -450,7 +450,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 		        		dateAsLong = cursor.getLong(3);
 		        		Date dateNotify = new Date(dateAsLong);
 		        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-		        		String time = Time.parseTime(taskDate);
+		        		String time = Time.formatTime(taskDate);
 		        		String repetition = cursor.getString(5);
 		        		String description = cursor.getString(6);
 		        		String tag = cursor.getString(7);
@@ -478,7 +478,7 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 		        		dateAsLong = cursor.getLong(14);
 		        		Date dateNotify = new Date(dateAsLong);
 		        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
-		        		String time = Time.parseTime(taskDate);
+		        		String time = Time.formatTime(taskDate);
 		        		String repetition = cursor.getString(5);
 		        		String description = cursor.getString(6);
 		        		String tag = cursor.getString(7);

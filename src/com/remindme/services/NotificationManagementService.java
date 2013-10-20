@@ -124,7 +124,7 @@ public class NotificationManagementService extends IntentService{
 	        private void createNotification(RemindTask task,Event notif){
 	        	Log.d("ServiceManagement", "Creando notification "+task.getName());
 	        	
-	        	String strDate = Time.parseLongDate(notif.getDate());
+	        	String strDate = Time.formatLongDate(notif.getDate());
 	        	
 	        	Intent completeIntent = new Intent(NotificationManagementService.this, NotificationCompleteService.class);
 	        	completeIntent.putExtra("notif", notif);

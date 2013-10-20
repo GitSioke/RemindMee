@@ -169,6 +169,7 @@ public class RemindTodayActivity extends RemindActivity {
 				Intent intent = new Intent(RemindTodayActivity.this, RemindTaskActivity.class);
 				RemindTask task = taskList.get(position);
 				intent.putExtra("task", task);
+				
 				startActivity(intent);
 				
 			}

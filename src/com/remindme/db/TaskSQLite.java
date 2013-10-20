@@ -355,10 +355,11 @@ public class TaskSQLite implements TaskDAO{
 		return changes;
 	}
 
-	public boolean hasSubtask(Integer idTask) {
+	public boolean hasSubtaskUndone(Integer idTask) {
 		this.open();
 		Boolean hasSubtask=false;
-		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_SUPERTASK}, KEY_SUPERTASK+"=?", new String[]{Long.toString(idTask)}, null, null, null);
+		Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_SUPERTASK}, KEY_SUPERTASK+"=? AND "+ KEY_COMPLETED+"=?",
+				new String[]{Long.toString(idTask), Integer.toString(0)}, null, null, null);
 		if (cursor.getCount()>0){
 			hasSubtask=true;
 		}
