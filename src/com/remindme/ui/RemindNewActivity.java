@@ -190,29 +190,29 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 	
 	private void createRemindNotification(RemindTask task) {
 		NotificationDAO dbNot = new NotificationSQLite(this);
-		Boolean ready = false;
+		Boolean ready = true;
 		Boolean done = false;
 		Date date = task.getDate();
 		Date dateNotice = task.getDateNotice();
 		
 		Event not = new Event(null, task.getId(), date, dateNotice, ready, done, null);
 		dbNot.insert(not);
-		Log.d("NEW", "Create not1: "+not.getDate().toString());
-		Log.d("NEW", "Create not1: "+not.getDate().toString());
-		Log.d("NEW", "Create not1: "+not.getNotifyDate().toString());
+		Log.d("NEW", "Create not1-Date: "+not.getDate().toString());
+		Log.d("NEW", "Create not1-NotifDate: "+not.getNotifyDate().toString());
 		
 		date = Repetition.getNextDate(date, task.getRepetition());
 		dateNotice = Repetition.getNextDate(dateNotice, task.getRepetition());
 		if(date !=null && dateNotice!=null)
 		{
+			ready = false;
 			not = new Event(null, task.getId(), date, dateNotice, ready, done, null);
 			dbNot.insert(not);
 		}
 			
 		
 		
-		Log.d("NEW", "Create not2: "+not.getDate().toString());
-		Log.d("NEW", "Create not2: "+not.getNotifyDate().toString());
+		Log.d("NEW", "Create not2-Date: "+not.getDate().toString());
+		Log.d("NEW", "Create not2-NotifDate: "+not.getNotifyDate().toString());
 	}
 
 	/**TODO Pendiente de revision. Intentar pasar por Bundle la actividad o los datos necesarios

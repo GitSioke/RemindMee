@@ -122,56 +122,58 @@ public class NotificationManagementService extends IntentService{
 	         * @param notif
 	         */
 	        private void createNotification(RemindTask task,Event notif){
-	        	Log.d("ServiceManagement", "Creando notification "+task.getName());
-	        	
+	        	Log.d("ServiceRestart", "Creando notification "+task.getName());
 	        	String strDate = Time.formatLongDate(notif.getDate());
 	        	
 	        	Intent completeIntent = new Intent(NotificationManagementService.this, NotificationCompleteService.class);
 	        	completeIntent.putExtra("notif", notif);
+	        	
 	        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
 	        	
 	        	Intent delayIntent = new Intent(NotificationManagementService.this, DialogDelayActivity.class);
 	        	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent, 0);
 	        	
 	        	// Creates an explicit intent for an Activity in your app
-    	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
-    	    	resultIntent.putExtra("notif", notif);
-    	    	
-    	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
+		    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
+		    	task.setId(notif.getId());
+		    	resultIntent.putExtra("father", false);
+		    	resultIntent.putExtra("task", task);
+		    	
+		    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
 
-    	    	NotificationCompat.Builder mBuilder =
-    	    	        new NotificationCompat.Builder(ctx)
-    	    			.setAutoCancel(true)
-    	    	        .setSmallIcon(R.drawable.ic_notif)
-    	    	        .setWhen(notif.getDate().getTime())
-    	    	        .setContentTitle(task.getName().toString())
-    	    	        .setContentText(strDate)
-    	    	        .addAction(R.drawable.notif_check_opt, getString(R.string.notif_complete), pcIntent)
-    	    	        .addAction(R.drawable.notif_clock_opt, getString(R.string.notif_delay), pdIntent);
-    	    			
-    					
-    	
-    	    	// The stack builder object will contain an artificial back stack for the
-    	    	// started Activity.
-    	    	// This ensures that navigating backward from the Activity leads out of
-    	    	// your application to the Home screen.
-    	    	TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
-    	    	// Adds the back stack for the Intent (but not the Intent itself)
-    	    	stackBuilder.addParentStack(RemindMenuActivity.class);
-    	    	// Adds the Intent that starts the Activity to the top of the stack
-    	    	//stackBuilder.addNextIntent(resultIntent);
-    	    	//PendingIntent resultPendingIntent =
-    	    	//        stackBuilder.getPendingIntent(
-    	    //	            0,
-    	    //	            PendingIntent.FLAG_UPDATE_CURRENT
-    	    	//        );
-    	    	mBuilder.setAutoCancel(true);
-    	    	mBuilder.setContentIntent(rpIntent);
-    	    	NotificationManager mNotificationManager =
-    	    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    	    	// mId allows you to update the notification later on.
-    	    	mNotificationManager.notify(notif.getId(), mBuilder.build());
-    	    	
+		    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
+		    			.setSmallIcon(R.drawable.ic_notif)
+		    	        .setWhen(notif.getDate().getTime())
+		    	        .setContentTitle(task.getName().toString())
+		    	        .setContentText(strDate)
+		    	        .addAction(R.drawable.notif_check_opt, getString(R.string.notif_complete), pcIntent)
+		    	        .addAction(R.drawable.notif_clock_opt, getString(R.string.notif_delay), pdIntent);
+						
+		
+		    	// The stack builder object will contain an artificial back stack for the
+		    	// started Activity.
+		    	// This ensures that navigating backward from the Activity leads out of
+		    	// your application to the Home screen.
+		    	TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+		    	// Adds the back stack for the Intent (but not the Intent itself)
+		    	stackBuilder.addParentStack(RemindMenuActivity.class);
+		    	// Adds the Intent that starts the Activity to the top of the stack
+		    	//stackBuilder.addNextIntent(resultIntent);
+		    	//PendingIntent resultPendingIntent =
+		    	//        stackBuilder.getPendingIntent(
+		    //	            0,
+		    //	            PendingIntent.FLAG_UPDATE_CURRENT
+		    	//        );
+		    	mBuilder.setContentIntent(rpIntent);
+		    	mBuilder.setDeleteIntent(rpIntent);
+		    	mBuilder.setDeleteIntent(pcIntent);
+		    	mBuilder.setDeleteIntent(pdIntent);
+		    	
+		    	NotificationManager mNotificationManager =
+		    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		    	// mId allows you to update the notification later on.
+		    	mNotificationManager.notify(notif.getId(), mBuilder.build());    	
+		    	
 	        }
 	        /**Metodo de prueba
 	        private void createNotificationTest(){

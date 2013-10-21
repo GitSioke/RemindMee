@@ -21,11 +21,13 @@ import android.view.LayoutInflater;
 public class RemindAlertDialog extends DialogFragment {
 	
 	private RemindTask task;
+	private Boolean isFatherTask;
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstance){
 		
 		this.task = getArguments().getParcelable("Task");
+		this.isFatherTask = getArguments().getBoolean("notEvent");
 		Log.d("Task", task.getId().toString());
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -37,6 +39,7 @@ public class RemindAlertDialog extends DialogFragment {
 				
 				Intent intent = new Intent(getActivity(), RemindEditActivity.class);
 				intent.putExtra("Task", task);
+				intent.putExtra("notEvent", isFatherTask);
 				startActivity(intent);
 			}
 		})

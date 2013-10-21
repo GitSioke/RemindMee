@@ -103,6 +103,7 @@ import com.remindme.utils.Repetition;
            if (!subTasks.isEmpty()){
         		   displayTaskWithTextView(subTasks);         
            }
+           //SubTask
            ImageView img = (ImageView) findViewById(R.id.Task_ImgNewSubtask);
            img.setOnClickListener(new OnClickListener() {
 			
@@ -132,6 +133,7 @@ import com.remindme.utils.Repetition;
            				Intent intent = new Intent(RemindTaskActivity.this, RemindTaskActivity.class);
            				RemindTask task = taskList.get(position);
            				intent.putExtra("task", task);
+           				intent.putExtra("notEvent", isFatherTask);
            				startActivity(intent);
            				
            			}
@@ -152,6 +154,7 @@ import com.remindme.utils.Repetition;
     	   DialogFragment dialog = new RemindAlertDialog();
     	   Bundle bundle = new Bundle();
     	   bundle.putParcelable("Task", task);
+    	   bundle.putBoolean("notEvent", isFatherTask);
     	   dialog.setArguments(bundle);
     	   dialog.show(getFragmentManager(), "dialog");
        }
@@ -200,7 +203,7 @@ import com.remindme.utils.Repetition;
     		
     		
     	}
-    	
+    	//Home button
     	private void setHeaderButton(){
     		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);
             ImageView imageHome = (ImageView) findViewById(R.id.Header_HomeImage);

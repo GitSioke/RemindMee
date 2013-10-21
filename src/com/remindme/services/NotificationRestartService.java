@@ -21,6 +21,7 @@ import com.remindme.utils.RemindTask;
 import com.remindme.utils.Time;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -65,7 +66,7 @@ public class NotificationRestartService extends Service {
 		TaskDAO dbTask = new TaskSQLite(this.ctx);
 		
 		Log.d("ServiceRestart", "FirstLoop");
-        	
+        Log.d("ServiceRestart", Long.toString(Calendar.getInstance().getTimeInMillis()));	
         ArrayList<Event> lapsedNotifs = 
 		dbNoti.lapsedNotifications(Calendar.getInstance().getTimeInMillis());
         //Se comprueba que haya notificaciones ya pasadas, si han sido superadas por algunas de ellas se dejan como ready = false
@@ -121,6 +122,8 @@ public class NotificationRestartService extends Service {
         	
         	// Creates an explicit intent for an Activity in your app
 	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
+	    	task.setId(notif.getId());
+	    	resultIntent.putExtra("father", false);
 	    	resultIntent.putExtra("task", task);
 	    	
 	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
@@ -148,8 +151,12 @@ public class NotificationRestartService extends Service {
 	    //	            0,
 	    //	            PendingIntent.FLAG_UPDATE_CURRENT
 	    	//        );
-	    	mBuilder.setAutoCancel(true);
 	    	mBuilder.setContentIntent(rpIntent);
+	    	mBuilder.setAutoCancel(true);
+	    	mBuilder.setDeleteIntent(rpIntent);
+	    	mBuilder.setDeleteIntent(pcIntent);
+	    	mBuilder.setDeleteIntent(pdIntent);
+	    	
 	    	NotificationManager mNotificationManager =
 	    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	    	// mId allows you to update the notification later on.

@@ -53,6 +53,7 @@ public class RemindDayActivity extends RemindActivity {
         Date date = calme.getTime();
         String time = "no hora";
         String repetition = Repetition.WEEKLY.toString();
+        /*
         RemindTask task1 = new RemindTask(null, "TIENE", date, date, time, repetition, "", "Naranja", null, false);
         //calme.roll(Calendar.DAY_OF_YEAR, -1);
         //date = calme.getTime();
@@ -81,7 +82,7 @@ public class RemindDayActivity extends RemindActivity {
         dbNotif.insert(notif2);
         dbNotif.insert(notif3);
         dbNotif.insert(notif4);
-        
+        */
        	Long dateLong = getIntent().getLongExtra("date", 0);
        	Date day = new Date(dateLong);
        	String dateString = Time.formatDayDate(day);

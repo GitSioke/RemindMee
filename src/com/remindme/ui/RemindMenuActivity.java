@@ -63,7 +63,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         Context ctx = getApplicationContext();
         //TODO ¿Porque lanza notification complete?
         //ctx.startService(new Intent(RemindMenuActivity.this, NotificationCompleteService.class));
-        
+        /*
         //Test eventos
         TaskDAO db = new TaskSQLite(this);
         NotificationDAO dbNotif= new NotificationSQLite(this);
@@ -89,6 +89,7 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
         dbNotif.insert(notif1);
         dbNotif.insert(notif2);
         dbNotif.insert(notif3);
+        */
         if (isMyServiceRunning())
         {
         	Log.d("Menu.Service", "SI");
