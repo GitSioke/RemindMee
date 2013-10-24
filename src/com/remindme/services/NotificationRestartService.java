@@ -118,6 +118,7 @@ public class NotificationRestartService extends Service {
         	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
         	
         	Intent delayIntent = new Intent(NotificationRestartService.this, DialogDelayActivity.class);
+        	delayIntent.putExtra("notifID", notif.getId());
         	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent, 0);
         	
         	// Creates an explicit intent for an Activity in your app

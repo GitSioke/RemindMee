@@ -91,6 +91,7 @@ public enum Repetition {
 	    switch (valueOf(enRepStr)) 
 	    {
 	    case SINGLE:
+	    	calendar.clear();
 	    	break;
 		case DAILY:
 			calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -112,7 +113,6 @@ public enum Repetition {
 			
 	    }
 		
-		//uchcalendar.set(year, month, day);	
 		return calendar.getTime();
 	}
 	

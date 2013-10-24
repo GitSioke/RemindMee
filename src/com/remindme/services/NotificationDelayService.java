@@ -29,18 +29,20 @@ public class NotificationDelayService extends Service {
 		
 		Log.d("ServiceDelay", "Servicio iniciado");
 		Context ctx = getApplicationContext();
-		String strDelay = intent.getStringExtra("delay");
+		Integer posDelay = intent.getIntExtra("delay", -1);
 		
-		Event notif = intent.getParcelableExtra("notif");
-		if (notif!=null){
-			
-			Log.d("Service", notif.getId().toString());
+		Integer notifID = intent.getIntExtra("notifID", -1);
+		if (notifID !=-1){
+			NotificationDAO notifDB = new NotificationSQLite(this);
+			Event event = notifDB.getNotificationWithID(notifID);
+			Log.d("Service", notifID.toString());
 			NotificationDAO dbNotif = new NotificationSQLite(ctx);
 			
-			Date date = notif.getNotifyDate();
-			NoticeDelay not = NoticeDelay.getDelay(strDelay, ctx);
-			NoticeDelay.delayDate(date, not);
-			dbNotif.updateNotification(notif);
+			Date notifDate = event.getNotifyDate();
+			NoticeDelay not = NoticeDelay.values()[posDelay];
+			notifDate = NoticeDelay.delayDate(notifDate, not);
+			event.setnotifyDate(notifDate);
+			dbNotif.updateNotification(event);
 			
 		}
 		String str = intent.getStringExtra("extra");

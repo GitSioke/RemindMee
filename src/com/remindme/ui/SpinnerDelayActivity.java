@@ -1,6 +1,10 @@
 package com.remindme.ui;
 
+import com.remindme.db.NotificationDAO;
+import com.remindme.db.NotificationSQLite;
 import com.remindme.services.NotificationCompleteService;
+import com.remindme.services.NotificationDelayService;
+import com.remindme.utils.Event;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +26,17 @@ public class SpinnerDelayActivity extends Activity implements OnItemSelectedList
 	public void onItemSelected(AdapterView<?> parent, View view,
 			int position, long id) {
 		Object item = parent.getItemAtPosition(position);
-		Log.d("DialogDelay", item.toString());
-		Intent intent = new Intent(ctx, NotificationCompleteService.class);
-		startService(intent);
+		
+		Integer notifID = getIntent().getIntExtra("notifID", -1);
+		Log.d("SpinnerDialogDelay", "Time: " + item.toString() +", NotifID: "+ notifID);
+		if(notifID != -1)
+		{
+			Intent intent = new Intent(ctx, NotificationDelayService.class);
+			intent.putExtra("delay", position);
+			intent.putExtra("notifID", notifID);
+			startService(intent);
+		}
+		
 	}
 
 	public void onNothingSelected(AdapterView<?> parent) {

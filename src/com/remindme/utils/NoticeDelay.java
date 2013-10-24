@@ -58,19 +58,19 @@ public enum NoticeDelay implements Notice {
 		
 		switch (not) {
 		case HOUR:
-			cal.roll(Calendar.HOUR_OF_DAY, -INT_HOUR);
+			cal.add(Calendar.HOUR_OF_DAY, -INT_HOUR);
 			break;
 		case TWOHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -INT_TWOHOURS);
+			cal.add(Calendar.HOUR_OF_DAY, -INT_TWOHOURS);
 			break;
 		case FOURHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -INT_FOURHOURS);
+			cal.add(Calendar.HOUR_OF_DAY, -INT_FOURHOURS);
 			break;
 		case EIGHTHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, -INT_EIGTHHOURS);
+			cal.add(Calendar.HOUR_OF_DAY, -INT_EIGTHHOURS);
 			break;
 		case DAY:
-			cal.roll(Calendar.DAY_OF_YEAR, -INT_DAY);
+			cal.add(Calendar.DAY_OF_YEAR, -INT_DAY);
 			break;	
 		
 		default:
@@ -87,25 +87,25 @@ public enum NoticeDelay implements Notice {
 		
 		switch (not) {
 		case FIFHTEENMINUTES:
-			cal.roll(Calendar.MINUTE, INT_FIFTHTEENMINUTES);
+			cal.add(Calendar.MINUTE, INT_FIFTHTEENMINUTES);
 			break;
 		case THIRTYMINUTES:
-			cal.roll(Calendar.MINUTE, INT_THIRTYMINUTES);
+			cal.add(Calendar.MINUTE, INT_THIRTYMINUTES);
 			break;
 		case HOUR:
-			cal.roll(Calendar.HOUR_OF_DAY, INT_HOUR);
+			cal.add(Calendar.HOUR_OF_DAY, INT_HOUR);
 			break;
 		case TWOHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, INT_TWOHOURS);
+			cal.add(Calendar.HOUR_OF_DAY, INT_TWOHOURS);
 			break;
 		case FOURHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY,INT_FOURHOURS);
+			cal.add(Calendar.HOUR_OF_DAY,INT_FOURHOURS);
 			break;
 		case EIGHTHOURS:
-			cal.roll(Calendar.HOUR_OF_DAY, INT_EIGTHHOURS);
+			cal.add(Calendar.HOUR_OF_DAY, INT_EIGTHHOURS);
 			break;
 		case DAY:
-			cal.roll(Calendar.DAY_OF_YEAR, INT_DAY);
+			cal.add(Calendar.DAY_OF_YEAR, INT_DAY);
 			break;	
 		default:
 			

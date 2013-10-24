@@ -173,7 +173,10 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 				NotificationDAO notifDB = new NotificationSQLite(this);
 				
 				Log.d("NEW", "Create task: "+ task.getDate().toString());
-				if(!notEvent){
+				//TODO Porque realiza esta operacion?
+				//Comprueba que este creando una subtarea de evento, en ese caso crea un evento nuevo 
+				// y una tarea con superTaskID = -1 porque no tiene que estar relaciondo en las tareas.
+				if(superTaskID != -1 && !notEvent){
 					task.setSuperTask(-1);
 					notifDB.insert(new Event(null, task.getId(), task.getDate(), task.getDateNotice(), false, task.isCompleted(), superTaskID));
 				}
@@ -202,7 +205,7 @@ public class RemindNewActivity extends RemindActivity implements OnDateSelectedL
 		
 		date = Repetition.getNextDate(date, task.getRepetition());
 		dateNotice = Repetition.getNextDate(dateNotice, task.getRepetition());
-		if(date !=null && dateNotice!=null)
+		if(date.getTime() > -7200000 && dateNotice.getTime() > -7200000)
 		{
 			ready = false;
 			not = new Event(null, task.getId(), date, dateNotice, ready, done, null);

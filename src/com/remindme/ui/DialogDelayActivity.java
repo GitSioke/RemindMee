@@ -2,6 +2,8 @@ package com.remindme.ui;
 
 
 
+import com.remindme.services.NotificationDelayService;
+
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,9 +33,12 @@ public class DialogDelayActivity extends RemindActivity{
         	public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				Object item = parent.getItemAtPosition(position);
-				Log.d("DialogDelay", item.toString());
-				Intent intent = new Intent(DialogDelayActivity.this, RemindMenuActivity.class);
-				startActivity(intent);
+				Log.d("DialogDelayActivity", item.toString());
+				Integer notifID = getIntent().getIntExtra("notifID", -1);
+				Intent intent = new Intent(DialogDelayActivity.this, NotificationDelayService.class);
+				intent.putExtra("delay", position);
+				intent.putExtra("notifID", notifID);
+				startService(intent);
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
