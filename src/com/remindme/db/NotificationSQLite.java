@@ -359,19 +359,21 @@ public class NotificationSQLite implements NotificationDAO {
 
 	public Event getNotificationWithID(Integer idEvent) {
 		this.open();
+		Event notification = null;
 		Cursor cursor = db.query(DATABASE_TABLE, null, KEY_ROWID+"=?", 
 				new String[]{Integer.toString(idEvent)}, null, null, null);
-		cursor.moveToFirst();
-		Integer idTask = cursor.getInt(1);
-		Long dateAsLong = cursor.getLong(2);
-		Date date = new Date(dateAsLong);
-		dateAsLong = cursor.getLong(3);
-		Date delay = new Date(dateAsLong);
-		Boolean ready = cursor.getInt(4)==1 ? true: false;
-		Boolean done = cursor.getInt(5)==1 ? true: false;
-		Boolean unattended = cursor.getInt(6)==1 ? true: false;
-		Integer superNotif = cursor.getInt(7);
-		Event notification = new Event(idEvent, idTask, date, delay, ready, done, superNotif);
+		if(cursor.moveToFirst()){	
+			Integer idTask = cursor.getInt(1);
+			Long dateAsLong = cursor.getLong(2);
+			Date date = new Date(dateAsLong);
+			dateAsLong = cursor.getLong(3);
+			Date delay = new Date(dateAsLong);
+			Boolean ready = cursor.getInt(4)==1 ? true: false;
+			Boolean done = cursor.getInt(5)==1 ? true: false;
+			Boolean unattended = cursor.getInt(6)==1 ? true: false;
+			Integer superNotif = cursor.getInt(7);
+			notification = new Event(idEvent, idTask, date, delay, ready, done, superNotif);
+		}
 		this.close();
 		return notification;
 	}

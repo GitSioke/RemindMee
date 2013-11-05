@@ -58,7 +58,7 @@
     
     
     <!-- All View -->
-    <string name="all_header">Pendientes</string>
+    <string name="all_header">Todas</string>
     <string name="all_taskname">Tarea</string>
     <string name="all_taskid">ID</string>
     <string name="all_toastEmpty">¡Relájate miarma! No tienes ninguna tarea pendiente</string>

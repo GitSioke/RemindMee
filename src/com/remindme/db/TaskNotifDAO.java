@@ -11,7 +11,7 @@ public interface TaskNotifDAO {
 		public ArrayList<RemindTask> getAllTasksWith(Date date);
 		public ArrayList<RemindTask> getAllTasksBefore(Date date);
 		public List<RemindTask> getSubNotif(Integer idNotif);
-		public RemindTask getRelatedTask(Integer idTask);
+		public RemindTask getRelatedTaskFromEvent(Integer idEvent);
 		public ArrayList<RemindTask> getTaskWithTag(String tag);
 		/*public ArrayList<RemindTask> getEventsBetweenDates(Date day,
 				Date endOfDay);*/
@@ -21,4 +21,8 @@ public interface TaskNotifDAO {
 				Date day, Date endOfDay, Integer dayOfMonth);
 		public ArrayList<RemindTask> yearlyEventsBetweenDates(
 				Date day, Date endOfDay, Integer dayOfYear);
+		public Collection<? extends RemindTask> dailyEventsBetweenDates(
+				Date day, Date endOfDay);
+		public Collection<? extends RemindTask> singleEventsBetweenDates(
+				Date day, Date endOfDay);
 }

@@ -171,6 +171,7 @@ public class NotificationManagementService extends IntentService{
 		    	
 		    	NotificationManager mNotificationManager =
 		    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		    	mNotificationManager.cancelAll();
 		    	// mId allows you to update the notification later on.
 		    	mNotificationManager.notify(notif.getId(), mBuilder.build());    	
 		    	

@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.remindme.db.NotificationDAO;
 import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskNotifDAO;
+import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
 import com.remindme.dialogs.RemindAlertDialog;
 import com.remindme.dialogs.RemindDeleteDialog;
@@ -35,6 +37,7 @@ import com.remindme.utils.Repetition;
     public class RemindTaskActivity extends RemindActivity{
     	private RemindTask task;
     	private Boolean isFatherTask;
+    	private Boolean isAndroidNotification;
     	private Event notif;
     	private TaskDAO taskDB;
     	private NotificationDAO notifDB;
@@ -62,11 +65,18 @@ import com.remindme.utils.Repetition;
            //RemindTask taskDeleted = new RemindTask(null, "Tarea Para Eliminar","10/05/2013", "10:00", "Diaria", "Tag2",id, false );
            //taskDB.insertNewTask(taskDeleted);
            //task = taskDB.getTaskWithID(taskDeleted.getId());
+           isAndroidNotification = getIntent().getBooleanExtra("androidNotification", false);
+           if(isAndroidNotification){
+        	   TaskNotifDAO joinDB = new TaskNotifSQLite(this);
+        	   task = joinDB.getRelatedTaskFromEvent(getIntent().getIntExtra("notifID", -1));
+           }else{
+               task = getIntent().getParcelableExtra("task");
+           }
            
-           
-           task = getIntent().getParcelableExtra("task");
            isFatherTask = getIntent().getBooleanExtra("father", false);
+                     
            if (!isFatherTask){
+        	   //Saca la notificacion de la notificacion de Android
         	   notif = getIntent().getParcelableExtra("notif");
            }
            Log.d("TASK", task.getName());
@@ -87,10 +97,19 @@ import com.remindme.utils.Repetition;
            txtTag.setText(task.getTag());
            TextView txtDescr = (TextView)findViewById(R.id.Task_TextDescription);
            txtDescr.setText(task.getDescription());
-           box.setChecked(task.isCompleted());
+           
            
            
            notifDB = new NotificationSQLite(this);
+           if (isFatherTask){
+        	   box.setChecked(task.isCompleted());
+           }
+           else{
+        	   if(!isAndroidNotification){
+        		   	notif = notifDB.getNotificationWithID(task.getId());
+        	   		box.setChecked(notif.isDone());
+        	   }
+           }
            taskDB = new TaskSQLite(this);
            //TODO Revisar que sean subnotificaciones
            ArrayList<RemindTask> subTasks;
@@ -176,33 +195,32 @@ import com.remindme.utils.Repetition;
         * @param view
         */ 
     	public void onCheckBoxClicked(View view){
-    		
-    		if (box.isChecked()){
-    			if( isFatherTask){
-     			
-        			if(taskDB.hasSubtaskUndone(task.getId())){
-        				Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
-        				box.setChecked(false);
-        			}else{
-        				
-        				task.setCompleted(task.isCompleted()? false: true);
-        				taskDB.updateTask(task);
-        			}
-        			
+    		if( isFatherTask){
+ 			
+    			if(taskDB.hasSubtaskUndone(task.getId())){
+    				Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
+    				box.setChecked(false);
+    			}else{
+    				
+    				task.setCompleted(box.isChecked());
+    				taskDB.updateTask(task);
+    			}
+    			
+    		}else{
+        		if (notifDB.hasSubNotification(task.getId())){
+        			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
         		}else{
-            		if (notifDB.hasSubNotification(task.getId())){
-            			Toast.makeText(this, R.string.task_toast_hasSubtask, Toast.LENGTH_LONG).show();
-            		}else{
-            			notif.setDone(notif.isDone()? false:true);
-            			notifDB.updateNotification(notif);
-            			//TODO Tachar los textview
-            			//crossOutTaskElements();
-            		}
+        			notif = notifDB.getNotificationWithID(task.getId());
+        			notif.setDone(box.isChecked());
+        			notifDB.updateNotification(notif);
+        			//TODO Tachar los textview
+        			//crossOutTaskElements();
         		}
     		}
+		}
+		
+		
     		
-    		
-    	}
     	//Home button
     	private void setHeaderButton(){
     		ImageView imageNew = (ImageView) findViewById(R.id.Header_NewImage);

@@ -49,10 +49,10 @@ public class RemindDayActivity extends RemindActivity {
         NotificationDAO dbNotif= new NotificationSQLite(this);
         TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
         
-        Calendar calme = Calendar.getInstance();
-        Date date = calme.getTime();
-        String time = "no hora";
-        String repetition = Repetition.WEEKLY.toString();
+        //Calendar calme = Calendar.getInstance();
+        //Date date = calme.getTime();
+        //String time = "no hora";
+        //String repetition = Repetition.WEEKLY.toString();
         /*
         RemindTask task1 = new RemindTask(null, "TIENE", date, date, time, repetition, "", "Naranja", null, false);
         //calme.roll(Calendar.DAY_OF_YEAR, -1);
@@ -91,6 +91,7 @@ public class RemindDayActivity extends RemindActivity {
 		txtHeader.setText(dateString);
 		
 		Calendar cal = Calendar.getInstance();
+		cal.setTime(day);
 		cal.roll(Calendar.DAY_OF_YEAR, 1);
 		Date endOfDay = cal.getTime();
 		
@@ -98,8 +99,10 @@ public class RemindDayActivity extends RemindActivity {
 		//TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
 		
 		ArrayList<RemindTask> taskList =  dbJoin.weeklyEventsBetweenDates(day, endOfDay, Time.dayOfWeek(day));
-		//taskList.addAll(dbJoin.monthlyEventsBetweenDates(day, endOfDay, Time.dayOfMonth(day)));
-		//taskList.addAll(dbJoin.yearlyEventsBetweenDates(day, endOfDay, Time.dayOfYear(day)));
+		taskList.addAll(dbJoin.dailyEventsBetweenDates(day, endOfDay));
+		taskList.addAll(dbJoin.monthlyEventsBetweenDates(day, endOfDay, Time.dayOfMonth(day)));
+		taskList.addAll(dbJoin.yearlyEventsBetweenDates(day, endOfDay, Time.dayOfYear(day)));
+		taskList.addAll(dbJoin.singleEventsBetweenDates(day, endOfDay));
 		if (taskList.isEmpty()){
         	Toast.makeText(this, R.string.day_toast_noTask, Toast.LENGTH_LONG).show();
         }else{

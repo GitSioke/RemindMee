@@ -10,6 +10,8 @@ import java.util.Locale;
 import com.remindme.db.NotificationDAO;
 import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskNotifDAO;
+import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
 import com.remindme.ui.DialogDelayActivity;
 import com.remindme.ui.R;
@@ -92,9 +94,10 @@ public class NotificationRestartService extends Service {
 		dbTask.insertTask(task1);*/
 		//Se recuperan todas las notificaciones anteriores. Ready = true
 		ArrayList<Event> notificationList= dbNoti.getAllReadyNotifications();
+		//Elimina todas las notificaciones antiguas
 		NotificationManager notificationManager =
 				(NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-		
+		notificationManager.cancelAll();
 		for(Event notification: notificationList)
 		{
 			RemindTask task= dbTask.getTaskWithID(notification.getIdTask());
@@ -115,23 +118,23 @@ public class NotificationRestartService extends Service {
         	Intent completeIntent = new Intent(NotificationRestartService.this, NotificationCompleteService.class);
         	completeIntent.putExtra("notif", notif);
         	
-        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent, 0);
+        	PendingIntent pcIntent = PendingIntent.getService(ctx, 0,completeIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
         	
         	Intent delayIntent = new Intent(NotificationRestartService.this, DialogDelayActivity.class);
         	delayIntent.putExtra("notifID", notif.getId());
-        	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent, 0);
+        	PendingIntent pdIntent = PendingIntent.getActivity(ctx, 0, delayIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
         	
         	// Creates an explicit intent for an Activity in your app
-	    	Intent resultIntent = new Intent(ctx, RemindTaskActivity.class);
-	    	task.setId(notif.getId());
-	    	resultIntent.putExtra("father", false);
-	    	resultIntent.putExtra("task", task);
+	    	Intent resultIntent = new Intent(NotificationRestartService.this, RemindTaskActivity.class);
+	    	resultIntent.putExtra("notifID", notif.getId());
+	    	resultIntent.putExtra("androidNotification", true);
 	    	
-	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, 0);
+	    	
+	    	PendingIntent rpIntent = PendingIntent.getActivity(ctx, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
 	    			.setSmallIcon(R.drawable.ic_notif)
-	    	        .setWhen(notif.getDate().getTime())
+	    	        .setWhen(notif.getNotifyDate().getTime())
 	    	        .setContentTitle(task.getName().toString())
 	    	        .setContentText(strDate)
 	    	        .addAction(R.drawable.notif_check_opt, getString(R.string.notif_complete), pcIntent)
@@ -154,12 +157,10 @@ public class NotificationRestartService extends Service {
 	    	//        );
 	    	mBuilder.setContentIntent(rpIntent);
 	    	mBuilder.setAutoCancel(true);
-	    	mBuilder.setDeleteIntent(rpIntent);
-	    	mBuilder.setDeleteIntent(pcIntent);
-	    	mBuilder.setDeleteIntent(pdIntent);
-	    	
+	    		    	
 	    	NotificationManager mNotificationManager =
 	    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+	    	//mNotificationManager.cancelAll();
 	    	// mId allows you to update the notification later on.
 	    	mNotificationManager.notify(notif.getId(), mBuilder.build());    	
 	    	

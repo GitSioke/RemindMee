@@ -2,6 +2,7 @@ package com.remindme.db;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -153,33 +154,32 @@ public class TaskNotifSQLite implements TaskNotifDAO{
         this.close();
 		return subTasks;
 	}
-
-	public RemindTask getRelatedTask(Integer idTask) {
+	//Subatareas
+	public RemindTask getRelatedTaskFromEvent(Integer idEvent) {
 		RemindTask task = null;
-		List<RemindTask> subTasks= new ArrayList<RemindTask>();
 		this.open();
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 		queryBuilder.setTables(NotificationSQLite.DATABASE_TABLE + " LEFT OUTER JOIN " + TaskSQLite.DATABASE_TABLE + " ON " +
 				TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
 				+ NotificationSQLite.KEY_IDTASK);
-		queryBuilder.appendWhere(NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_IDTASK + "=" + idTask );
-        Cursor cursor =db.query(NotificationSQLite.DATABASE_TABLE, null, null, null, null, null, null);
+		queryBuilder.appendWhere(NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_ROWID + "=" + idEvent );
+        Cursor cursor = queryBuilder.query(db, null, null, null, null, null, null);
         if (cursor.moveToFirst()){
         	do{
-        		Integer id = cursor.getInt(8);
+        		Integer id = cursor.getInt(0);
             	String name = cursor.getString(9);
-            	Long dateAsLong = cursor.getLong(10);
+            	Long dateAsLong = cursor.getLong(2);
         		Date date = new Date(dateAsLong);
-        		dateAsLong = cursor.getLong(11);
+        		dateAsLong = cursor.getLong(3);
         		Date dateNotice = new Date(dateAsLong);
             	String time =cursor.getString(12);
             	String repetition = cursor.getString(13);
             	String description = cursor.getString(14);
             	String tag = cursor.getString(15);
-            	Integer superTask = cursor.getInt(16);
-            	Boolean completed = cursor.getInt(17)==1 ? true: false;
-            	task = new RemindTask(id, name, date,dateNotice, time, repetition, description, tag, superTask, completed);
-            	subTasks.add(task);
+            	Integer superEvent = cursor.getInt(7);
+            	Boolean done = cursor.getInt(5)==1 ? true: false;
+            	task = new RemindTask(id, name, date,dateNotice, time, repetition, description, tag, superEvent, done);
+            	
         	}while(cursor.moveToNext());
         
         }
@@ -346,12 +346,12 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 	public ArrayList<RemindTask> monthlyEventsBetweenDates(Date startDate,
 			Date endDate, Integer dayOfMonth) {
 				this.open();
-				String strWeekly= "WEEKLY";
+				String strMonthly= "MONTHLY";
 				SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 				queryBuilder.setTables(TaskSQLite.DATABASE_TABLE + " LEFT OUTER JOIN " + NotificationSQLite.DATABASE_TABLE + " ON " +
 						TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
 						+ NotificationSQLite.KEY_IDTASK);
-				queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strWeekly + "'");
+				queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strMonthly + "'");
 				queryBuilder.appendWhere(" AND "+TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPDAY + "=" + dayOfMonth );
 				
 				
@@ -426,12 +426,12 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 	public ArrayList<RemindTask> yearlyEventsBetweenDates(Date startDate,
 			Date endDate, Integer dayOfYear) {
 				this.open();
-				String strWeekly= "WEEKLY";
+				String strYearly= "ANNUAL";
 				SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 				queryBuilder.setTables(TaskSQLite.DATABASE_TABLE + " LEFT OUTER JOIN " + NotificationSQLite.DATABASE_TABLE + " ON " +
 						TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
 						+ NotificationSQLite.KEY_IDTASK);
-				queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strWeekly + "'");
+				queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strYearly+ "'");
 				queryBuilder.appendWhere(" AND "+TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPDAY + "=" + dayOfYear );
 				
 				
@@ -501,6 +501,130 @@ public class TaskNotifSQLite implements TaskNotifDAO{
 				
 				return taskEventList;
 			}
+
+	public Collection<? extends RemindTask> dailyEventsBetweenDates(Date startDate,
+			Date endDate) {
+		this.open();
+		String strDaily= "DAILY";
+		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+		queryBuilder.setTables(TaskSQLite.DATABASE_TABLE + " LEFT OUTER JOIN " + NotificationSQLite.DATABASE_TABLE + " ON " +
+				TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
+				+ NotificationSQLite.KEY_IDTASK);
+		queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strDaily + "'");
+				
+		
+		
+		Cursor cursor = queryBuilder.query(db, null, null, null, null, null, null);
+		RemindTask taskEvent;
+		TreeMap<Integer, RemindTask> map = new TreeMap<Integer, RemindTask>();
+		if (cursor.moveToFirst()){
+        	do {
+        		//
+        		
+        		Integer idEvent = cursor.getInt(11);
+        		String name = cursor.getString(1);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date taskDate = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotify = new Date(dateAsLong);
+        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
+        		String time = Time.formatTime(taskDate);
+        		String repetition = cursor.getString(5);
+        		String description = cursor.getString(6);
+        		String tag = cursor.getString(7);
+        		Integer superEvent = cursor.getInt(18);
+        		Boolean done = cursor.getInt(16)==1 ? true: false;
+        		Log.d("SQLITE", idEvent.toString());
+        		taskEvent = new RemindTask(idEvent, name, taskDate,dateNotify, time, repetition,description, tag, superEvent, done);
+        		
+        		map.put(cursor.getInt(0), taskEvent);
+        		
+        	}while(cursor.moveToNext());
+		}		
+		
+		queryBuilder.appendWhere(" AND "+NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DATE + ">" + startDate.getTime());
+		queryBuilder.appendWhere(" AND "+NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DATE + "<" + endDate.getTime());
+		cursor = queryBuilder.query(db, null, null, null, null, null, null);
+		ArrayList<RemindTask> taskEventList = new ArrayList<RemindTask>();
+		if (cursor.moveToFirst()){
+        	do {
+        		
+        		Integer idEvent = cursor.getInt(11);
+        		String name = cursor.getString(1);
+        		Long dateAsLong = cursor.getLong(13);
+        		Date taskDate = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(14);
+        		Date dateNotify = new Date(dateAsLong);
+        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
+        		String time = Time.formatTime(taskDate);
+        		String repetition = cursor.getString(5);
+        		String description = cursor.getString(6);
+        		String tag = cursor.getString(7);
+        		Integer superEvent = cursor.getInt(18);
+        		Boolean done = cursor.getInt(16)==1 ? true: false;
+        		Log.d("SQLITE", idEvent.toString());
+        		taskEvent = new RemindTask(idEvent, name, taskDate,dateNotify, time, repetition,description, tag, superEvent, done);
+        		taskEventList.add(taskEvent);
+        		map.remove(cursor.getInt(0));
+        		
+        	}while(cursor.moveToNext());
+		}		
+		this.close();
+		
+		for(RemindTask task:map.values()){
+			task.setDate(Time.updateDate(task.getDate(), startDate));
+			task.setDateNotice(Time.updateDate(task.getDate(), startDate));
+			taskEventList.add(task);
+		}
+		
+		return taskEventList;
+	}
+
+	public Collection<? extends RemindTask> singleEventsBetweenDates(Date startDate,
+			Date endDate) {
+		this.open();
+		String strSingle= "SINGLE";
+		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+		queryBuilder.setTables(TaskSQLite.DATABASE_TABLE + " LEFT OUTER JOIN " + NotificationSQLite.DATABASE_TABLE + " ON " +
+				TaskSQLite.DATABASE_TABLE+"." + TaskSQLite.KEY_ROWID + " = " + NotificationSQLite.DATABASE_TABLE + "."
+				+ NotificationSQLite.KEY_IDTASK);
+		queryBuilder.appendWhere(TaskSQLite.DATABASE_TABLE+"."+TaskSQLite.KEY_REPETITION + "='" +strSingle + "'");
+		queryBuilder.appendWhere(" AND "+NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DATE + ">" + startDate.getTime());
+		queryBuilder.appendWhere(" AND "+NotificationSQLite.DATABASE_TABLE+"."+NotificationSQLite.KEY_DATE + "<" + endDate.getTime());		
+		
+		
+		Cursor cursor = queryBuilder.query(db, null, null, null, null, null, null);
+		RemindTask taskEvent;
+		ArrayList<RemindTask> taskEventList = new ArrayList<RemindTask>();
+		if (cursor.moveToFirst()){
+        	do {
+        		//
+        		
+        		Integer idEvent = cursor.getInt(11);
+        		String name = cursor.getString(1);
+        		Long dateAsLong = cursor.getLong(2);
+        		Date taskDate = new Date(dateAsLong);
+        		dateAsLong = cursor.getLong(3);
+        		Date dateNotify = new Date(dateAsLong);
+        		//TODO el time de aqui estara mal en los casos en que haya repeticion de tareas. hay que recalcularlo a partir de notify date
+        		String time = Time.formatTime(taskDate);
+        		String repetition = cursor.getString(5);
+        		String description = cursor.getString(6);
+        		String tag = cursor.getString(7);
+        		Integer superEvent = cursor.getInt(18);
+        		Boolean done = cursor.getInt(16)==1 ? true: false;
+        		Log.d("SQLITE", idEvent.toString());
+        		taskEvent = new RemindTask(idEvent, name, taskDate,dateNotify, time, repetition,description, tag, superEvent, done);
+        		
+        		taskEventList.add(taskEvent);
+        		
+        	}while(cursor.moveToNext());
+		}		
+		this.close();
+		
+		
+		return taskEventList;
+	}
 
 
 }
