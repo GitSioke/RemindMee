@@ -117,17 +117,8 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
 				rep = Repetition.values()[rep.ordinal()+1];
 		}*/
 		 //Elimina las tareas
-        if (removedPendingTasks()){
-        	TaskDAO taskDB = new TaskSQLite(this);        	
-        	RemindTask task = getIntent().getParcelableExtra("Task");
-        	taskDB.deleteTask(task.getId());
-        	Toast toast = Toast.makeText(this, R.string.menu_toast_delete, Toast.LENGTH_SHORT);
-        	
-        	if (getIntent().getBooleanExtra("DeleteAll", false)){
-        		taskDB.deleteSubtask(task.getId());
-        		toast.setText(R.string.menu_toast_deleteAll);
-        	}
-        	toast.show();
+        if (hasToRemoveTask()){
+        	removeTask();
         }
         //
         
@@ -192,10 +183,37 @@ public class RemindMenuActivity extends RemindActivity implements OnDateSelected
     
 
 
+	private void removeTask() {
+		// TODO Auto-generated method stub
+		TaskDAO taskDB = new TaskSQLite(this); 
+		Event notif = null;
+    	NotificationDAO notifDB = new NotificationSQLite(this);
+    	RemindTask task = getIntent().getParcelableExtra("Task");
+    	if (taskDB.deleteTask(task.getId())<= 0){
+    		notif = notifDB.getNotificationWithID(task.getId());
+    		taskDB.deleteTask(notif.getIdTask());
+    		notifDB.deleteAllIdTask(notif.getIdTask());
+    	}
+    	notifDB.deleteAllIdTask(task.getId());
+    	
+    	Toast toast = Toast.makeText(this, R.string.menu_toast_delete, Toast.LENGTH_SHORT);
+    	
+    	if (getIntent().getBooleanExtra("DeleteAll", false)){
+    		taskDB.deleteSubtask(task.getId());
+    		if (notif != null){
+    			taskDB.deleteSubtask(notif.getIdTask());
+    		}
+    		toast.setText(R.string.menu_toast_deleteAll);
+    	}
+    	toast.show();
+	}
+
+
+
 	/**
      * Elimina las tareas que tenga que eliminar si ha recibido orden desde RemindTaskActivity
      */
-	private Boolean removedPendingTasks() {
+	private Boolean hasToRemoveTask() {
 		// TODO 
 		return getIntent().getBooleanExtra("DeleteAll", false) || getIntent().getBooleanExtra("DeleteTask", false);
 		

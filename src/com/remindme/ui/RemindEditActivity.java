@@ -201,6 +201,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			
 		}
 		
+		//Oculta los atributos para los eventos
 		private void hide() {
 			TextView txtViewName = (TextView) findViewById(R.id.Edit_TextView_Name);
 			txtViewName.setVisibility(TextView.GONE);

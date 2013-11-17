@@ -154,38 +154,47 @@ public enum NoticeNew implements Notice {
 	public static Integer getNoticeOrdinal(Date startDate, Date endDate)
 	{
 		NoticeNew result = null;
-		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
-		Period period = interval.toPeriod();
-		
-		switch (period.getHours())
-		{
-		case INT_HOUR:
-			result = HOUR;
-			break;
-		case INT_TWODAYS:
-			result = TWOHOURS;
-		case INT_FOURHOURS:
-			result = FOURHOURS;
-		case INT_EIGTHHOURS:
-			result = EIGHTHOURS;
-		case INT_TWELVEHOURS:
-			result = TWELVEHOURS;
-		
-		default:
-			switch (period.getDays())
+		Interval interval = null;
+		Period period = null;
+		if (startDate.before(endDate)){
+			interval = new Interval(startDate.getTime(), endDate.getTime());
+			period = interval.toPeriod();
+		}
+		if(period!=null){
+			switch (period.getHours())
 			{
-			case INT_DAY:
-				result = DAY;
+			case INT_HOUR:
+				result = HOUR;
 				break;
 			case INT_TWODAYS:
-				result = TWODAYS;
-			default:
+				result = TWOHOURS;
+				break;
+			case INT_FOURHOURS:
+				result = FOURHOURS;
+				break;
+			case INT_EIGTHHOURS:
+				result = EIGHTHOURS;
+				break;
+			case INT_TWELVEHOURS:
+				result = TWELVEHOURS;
 				break;
 			
-			}
-			break;
-		}
+			default:
+				switch (period.getDays())
+				{
+				case INT_DAY:
+					result = DAY;
+					break;
+				case INT_TWODAYS:
+					result = TWODAYS;
+					break;
+				default:
+					break;
 				
+				}
+				break;
+			}
+		}
 		return result.ordinal();
 	}
 
