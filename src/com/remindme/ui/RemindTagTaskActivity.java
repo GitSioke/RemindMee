@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.remindme.ui.R;
 
+import com.remindme.db.TaskDAO;
 import com.remindme.db.TaskNotifDAO;
 import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
@@ -28,8 +29,8 @@ public class RemindTagTaskActivity extends RemindActivity{
 		setContentView(R.layout.all);
 		TextView txtHeader = (TextView)findViewById(R.id.All_HeaderTxtView);
 		txtHeader.setText(tag);
-		TaskNotifDAO dbJoin = new TaskNotifSQLite(this);
-		ArrayList<RemindTask> taskList = dbJoin.getTaskWithTag(tag);
+		TaskDAO TaskDB = new TaskSQLite(this);
+		ArrayList<RemindTask> taskList = TaskDB.getTaskWithTag(tag);
 		displayTaskWithTextView(taskList);
 		
 	}
@@ -47,6 +48,7 @@ public class RemindTagTaskActivity extends RemindActivity{
 				Intent intent = new Intent(RemindTagTaskActivity.this, RemindTaskActivity.class);
 				RemindTask task = taskList.get(position);
 				intent.putExtra("task", task);
+				intent.putExtra("father", true);
 				startActivity(intent);
 				
 			}
