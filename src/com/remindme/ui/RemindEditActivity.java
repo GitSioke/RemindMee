@@ -14,6 +14,8 @@ import com.remindme.ui.R;
 import com.remindme.db.NotificationDAO;
 import com.remindme.db.NotificationSQLite;
 import com.remindme.db.TaskDAO;
+import com.remindme.db.TaskNotifDAO;
+import com.remindme.db.TaskNotifSQLite;
 import com.remindme.db.TaskSQLite;
 import com.remindme.fragments.DatePickerFragment;
 import com.remindme.fragments.TimePickerFragment;
@@ -57,6 +59,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 	private RemindTask task;
 	private Boolean notEvent;
 	private Event event;
+	private RemindTask newTask;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,8 +118,8 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 		});
 		
         
-        Button addTask = (Button)findViewById(R.id.Edit_Button_Edit);
-        addTask.setOnClickListener(new View.OnClickListener() {
+        Button editTask = (Button)findViewById(R.id.Edit_Button_Edit);
+        editTask.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Boolean correctData=false;
         		try {
@@ -138,11 +141,11 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
     					intent.putExtra("father", true);
     				}else{
     					intent.putExtra("father", false);
-    					task.setDate(event.getDate());
-    					task.setDateNotice(event.getNotifyDate());
+    					TaskNotifDAO joinDB = new TaskNotifSQLite(getApplicationContext());
+    					newTask = joinDB.getRelatedTaskFromEvent(event.getId());
     					
        				}
-    				intent.putExtra("task", task);
+    				intent.putExtra("task", newTask);
     				startActivity(intent);		
         		}
 			}
@@ -160,7 +163,7 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 			if(this.notEvent){
 				txtName.setText(task.getName());
 				//TODO Revisar date
-				String dateString = Time.formatDayDate(task.getDate());
+				String dateString = Time.formatShortDate(task.getDate());
 				dateButton.setText(dateString);
 				
 				if (task.getDateNotice()!=null){
@@ -270,12 +273,20 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 						correctData = true;
 						Integer superTaskID = getIntent().getIntExtra("superTaskID", -1);
 						Log.d("NEW", Integer.toString(superTaskID));
-						RemindTask newTask = new RemindTask(this.task.getId(), name, date, noticeDate, timeStr,
+						newTask = new RemindTask(this.task.getId(), name, date, noticeDate, timeStr,
 								repString, description, tag, superTaskID, false);
 						//Check if is an event instance or a task instance
-						taskDB.updateTask(newTask);
-						notifDB.deleteAllIdTask(task.getId());
-						changeNotifications(task, newTask);
+						if (notEvent){
+							taskDB.updateTask(newTask);
+							notifDB.deleteAllIdTask(task.getId());
+							changeNotifications(task, newTask);
+						}else{
+							//Si es un evento actualiza el evento
+							event = notifDB.getNotificationWithID(task.getId());
+							event.setDate(newTask.getDate());
+							event.setnotifyDate(newTask.getDateNotice());
+							notifDB.updateNotification(event);
+						}
 					
 					
 					}else{
@@ -386,6 +397,10 @@ public class RemindEditActivity extends RemindActivity implements OnDateSelected
 				
 			}
 		});
+		
+	}
+	
+	public void editTask(){
 		
 	}
 }

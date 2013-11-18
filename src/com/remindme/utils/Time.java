@@ -20,6 +20,11 @@ public abstract class Time {
 		strTime =format.format(date);
 		return strTime;
 	}
+	public static String formatShortDate(Date date){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", locale);
+		return format.format(date);
+	}
+	
 	public static String formatLongDate(Date date){
 		SimpleDateFormat format = new SimpleDateFormat("EEE dd/MM/yyyy - HH:mm", locale);
 		return format.format(date);
